@@ -30,10 +30,10 @@ class UserScore(models.Model):
     points = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ['-total_points']
+        ordering = ['-points']
 
     def __str__(self):
-        return f'{self.user} — {self.total_points} pts'
+        return f'{self.user} — {self.points} pts'
 
 
 
