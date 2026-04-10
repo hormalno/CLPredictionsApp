@@ -1,0 +1,53 @@
+.prediction-cta-section {
+  padding: var(--spacing-4xl) 0;
+  background-color: var(--color-surface);
+}
+
+.prediction-cta-container {
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  max-width: var(--content-max-width);
+}
+
+.cta-card {
+  color: var(--color-surface);
+  display: flex;
+  padding: var(--spacing-4xl);
+  overflow: hidden;
+  position: relative;
+  background: var(--color-on-surface);
+  align-items: center;
+  border-radius: var(--border-radius-card);
+  justify-content: space-between;
+}
+
+.cta-content {
+  gap: var(--spacing-xl);
+  flex: 1;
+  display: flex;
+  z-index: 2;
+  position: relative;
+  max-width: 600px;
+  flex-direction: column;
+}
+
+.cta-visual {
+  flex-shrink: 0;
+  margin-left: var(--spacing-4xl);
+}
+
+.cta-card .section-title {
+  color: var(--color-surface);
+}
+
+@media(max-width: 767px) {
+  .cta-card {
+    padding: var(--spacing-3xl) var(--spacing-xl);
+    text-align: center;
+    flex-direction: column;
+  }
+  .cta-visual {
+    margin-top: var(--spacing-2xl);
+    margin-left: 0;
+  }
+}

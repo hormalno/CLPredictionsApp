@@ -1,0 +1,104 @@
+.btn {
+  gap: var(--spacing-xs);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  box-shadow: var(--shadow-level-1);
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  align-items: center;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  user-select: none;
+  white-space: nowrap;
+  border-radius: var(--border-radius-control);
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-primary {
+  color: #1a1a1a;
+  border-color: #d4a574;
+  background-color: #d4a574;
+}
+
+.btn-secondary {
+  color: var(--color-on-secondary);
+  border-color: var(--color-secondary);
+  background-color: var(--color-secondary);
+}
+
+.btn-accent {
+  color: #1a1a1a;
+  border-color: #c9a86c;
+  background-color: #c9a86c;
+}
+
+.btn-outline {
+  color: #d4a574;
+  border: 1px solid #d4a574;
+  background-color: #1a1a1a;
+}
+
+.btn-link {
+  color: #d4a574;
+  box-shadow: none;
+  border-color: transparent;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+.btn-sm {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.btn-lg {
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+.btn-xl {
+  padding: var(--spacing-xl) var(--spacing-2xl);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-outline);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 0 12px rgba(212, 165, 116, 0.4);
+  border-color: #e8c9a0;
+  background-color: #e8c9a0;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: color-mix(in oklab, var(--color-secondary) 90%, var(--color-surface));
+  background-color: color-mix(in oklab, var(--color-secondary) 90%, var(--color-surface));
+}
+
+.btn-accent:hover:not(:disabled) {
+  box-shadow: 0 0 12px rgba(201, 168, 108, 0.4);
+  border-color: #e0b880;
+  background-color: #e0b880;
+}
+
+.btn-outline:hover:not(:disabled) {
+  color: #1a1a1a;
+  box-shadow: 0 0 12px rgba(212, 165, 116, 0.4);
+  border-color: #d4a574;
+  background-color: #d4a574;
+}
+
+.btn-link:hover:not(:disabled) {
+  color: #e8c9a0;
+  text-decoration: underline;
+}
