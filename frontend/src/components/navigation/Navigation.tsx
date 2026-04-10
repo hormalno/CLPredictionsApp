@@ -12,7 +12,7 @@ const Logo = () => (
         </g>
       </svg>
     </div>
-    <span className="navigation-brand-name section-title">MatchMates</span>
+    <span className="navigation-brand-name section-title">PredictMate</span>
   </div>
 )
 
