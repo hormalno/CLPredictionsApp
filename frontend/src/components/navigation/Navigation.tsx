@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './navigation.css'
+import { Button } from '../button/Button'
 
 const Logo = () => (
   <div aria-label="Predict Mate Home" className="navigation-logo-link">
@@ -58,8 +59,9 @@ const Navigation = () => {
               ))}
             </ul>
             <div className="navigation-actions">
-              <button className="btn btn-outline btn-sm">Sign In</button>
-              <button className="btn btn-sm btn-primary">Join Group</button>
+              Welcome, RandomPlayer
+              {/* <Button variant="outline" size="sm" onClick={() => alert('Sign In clicked')}>Sign In</Button> */}
+              <Button variant="outline" size="sm" onClick={() => alert('Sign In clicked')}>My Profile</Button>
             </div>
           </div>
           <button
