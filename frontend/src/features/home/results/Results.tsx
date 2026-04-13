@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Results.css';
 
 const Results = () => {
@@ -9,7 +10,7 @@ const Results = () => {
                 Compact list of latest match results and how friends scored.
             </p>
             <div className="results-rail">
-                <div className="result-card">
+                <Link className="result-card" to="#">
                 <div className="result-header">
                     <span>Premier League</span>
                 </div>
@@ -28,13 +29,8 @@ const Results = () => {
                     <span className="friend-points">+3 pts</span>
                     </div>
                 </div>
-                <a href="#">
-                    <div className="btn btn-link btn-sm">
-                    <span>Outcome Details</span>
-                    </div>
-                </a>
-                </div>
-                <div className="result-card">
+                </Link>
+                <Link className="result-card" to="#">
                 <div className="result-header">
                     <span>Champions League</span>
                 </div>
@@ -53,13 +49,8 @@ const Results = () => {
                     <span className="friend-points">0 pts</span>
                     </div>
                 </div>
-                <a href="#">
-                    <div className="btn btn-link btn-sm">
-                    <span>Outcome Details</span>
-                    </div>
-                </a>
-                </div>
-                <div className="result-card">
+                </Link>
+                <Link className="result-card" to="#">
                 <div className="result-header">
                     <span>Serie A</span>
                 </div>
@@ -78,13 +69,8 @@ const Results = () => {
                     <span className="friend-points">+5 pts</span>
                     </div>
                 </div>
-                <a href="#">
-                    <div className="btn btn-link btn-sm">
-                    <span>Outcome Details</span>
-                    </div>
-                </a>
-                </div>
-                <div className="result-card">
+                </Link>
+                <Link className="result-card" to="#">
                 <div className="result-header">
                     <span>La Liga</span>
                 </div>
@@ -103,12 +89,7 @@ const Results = () => {
                     <span className="friend-points">0 pts</span>
                     </div>
                 </div>
-                <a href="#">
-                    <div className="btn btn-link btn-sm">
-                    <span>Outcome Details</span>
-                    </div>
-                </a>
-                </div>
+                </Link>
             </div>
             </div>
         </section>

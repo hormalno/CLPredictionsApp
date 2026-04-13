@@ -1,3 +1,4 @@
+import { Button } from '../../../components/button/Button';
 import './Standings.css'
 
 const Standings = () => {
@@ -9,6 +10,9 @@ const Standings = () => {
                 <p className="section-subtitle">
                 Compact leaderboard preview showing top friends and current ranks.
                 </p>
+                <Button className="view-full-standings-btn" variant="primary" size="md">
+                    See Leaderboard
+                </Button>
             </div>
             <div className="standings-table-wrapper">
                 <table className="standings-table">
@@ -101,7 +105,7 @@ const Standings = () => {
                     </tr>
                 </tbody>
                 </table>
-            </div>
+            </div>            
             </div>
         </section>
     );

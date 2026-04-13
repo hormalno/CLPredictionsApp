@@ -9,13 +9,25 @@
   max-width: var(--content-max-width);
 }
  
+.upcoming-panel-container .section-title {
+  text-align: center;
+}
+
+.upcoming-panel-container .section-subtitle {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
 .upcoming-rail {
   gap: var(--spacing-lg);
   display: flex;
   overflow-x: auto;
+  overflow-y: visible;
+  padding-top: var(--spacing-sm);
   padding-bottom: var(--spacing-xl);
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
+  justify-content: center;
 }
  
 .upcoming-match-card {

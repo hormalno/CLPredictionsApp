@@ -4,66 +4,68 @@
   --spacing-sm: 0.5rem;
   --spacing-xl: 1.5rem;
   --spacing-xs: 0.25rem;
-  --color-scrim: color-mix(in oklab, #000000 65%, transparent);
+  --color-scrim: color-mix(in oklab, #ffffff 70%, transparent);
   --spacing-2xl: 2rem;
   --spacing-3xl: 3rem;
   --spacing-4xl: 4rem;
-  --color-accent: #ff4ec9;
-  --color-border: #3a3a5c;
-  --font-size-lg: clamp(1.05rem, 0.95rem + 0.6vw, 1.25rem);
-  --font-size-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.95rem);
-  --font-size-xl: clamp(1.25rem, 1.1rem + 0.9vw, 1.6rem);
-  --font-size-xs: clamp(0.65rem, 0.55rem + 0.2vw, 0.8rem);
-  --color-neutral: #d0d7de;
-  --color-outline: #0099ff;
-  --color-overlay: color-mix(in oklab, #000000 40%, transparent);
-  --color-primary: #d4a574;
-  --color-surface: #1a1a2e;
-  --divider-value: 2px solid var(--color-border);
-  --font-size-2xl: clamp(1.6rem, 1.4rem + 1.2vw, 2rem);
-  --font-size-3xl: clamp(2.2rem, 1.9rem + 1.8vw, 2.8rem);
-  --font-size-4xl: clamp(3rem, 2.4rem + 2.6vw, 4.2rem);
+  --color-accent: #f59e0b;
+  --color-border: #e5ddd4;
+  --font-size-lg: clamp(1.125rem, 1.03rem + 0.48vw, 1.25rem);
+  --font-size-sm: clamp(0.875rem, 0.82rem + 0.18vw, 1rem);
+  --font-size-xl: clamp(1.25rem, 1.09rem + 0.85vw, 1.5rem);
+  --font-size-xs: clamp(0.75rem, 0.68rem + 0.12vw, 0.875rem);
+  --color-neutral: #d6cec4;
+  --color-outline: #1e3a5f;
+  --color-overlay: color-mix(in oklab, #ffffff 40%, transparent);
+  --color-primary: #d97706;
+  --color-surface: #faf6f1;
+  --color-navigation: #0e072a;
+  --color-leaderboard: #d6cec4;
+  --divider-value: 1px solid var(--color-border);
+  --font-size-2xl: clamp(1.5rem, 1.35rem + 1.2vw, 1.75rem);
+  --font-size-3xl: clamp(2.25rem, 1.9rem + 2.5vw, 2.6rem);
+  --font-size-4xl: clamp(3rem, 2.4rem + 3.8vw, 4rem);
   --font-size-base: 1rem;
-  --shadow-level-1: 0 2px 8px rgba(255, 107, 107, 0.15);
-  --shadow-level-2: 0 8px 24px rgba(255, 107, 107, 0.2);
-  --shadow-level-3: 0 16px 40px rgba(255, 107, 107, 0.25);
-  --color-backplate: color-mix(in oklab, #000000 55%, transparent);
+  --shadow-level-1: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-level-2: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-level-3: 0 12px 32px rgba(0, 0, 0, 0.18);
+  --color-backplate: color-mix(in oklab, #ffffff 60%, transparent);
   --color-on-accent: #ffffff;
-  --color-secondary: #8b7355;
-  --border-radius-lg: 24px;
-  --border-radius-md: 16px;
-  --border-radius-sm: 8px;
-  --border-radius-xl: 32px;
-  --color-on-primary: #1a1a2e;
-  --color-on-surface: #f5f5f5;
-  --font-family-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  --color-secondary: #b45309;
+  --border-radius-lg: 12px;
+  --border-radius-md: 8px;
+  --border-radius-sm: 4px;
+  --border-radius-xl: 16px;
+  --color-on-primary: #ffffff;
+  --color-on-surface: #1f1a16;
+  --font-family-body: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-weight-body: 400;
   --line-height-body: 1.6;
-  --content-max-width: 72rem;
-  --border-radius-card: 24px;
+  --content-max-width: 76rem;
+  --border-radius-card: 12px;
   --border-radius-full: 9999px;
   --border-radius-none: 0px;
-  --color-on-secondary: #f5f5f5;
+  --color-on-secondary: #ffffff;
   --font-style-heading: normal;
-  --font-weight-medium: 600;
-  --font-family-heading: "Fredoka", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  --font-weight-heading: 700;
-  --letter-spacing-body: 0.25px;
+  --font-weight-medium: 500;
+  --font-family-heading: "Google Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-weight-heading: 600;
+  --letter-spacing-body: 0.02em;
   --line-height-heading: 1.25;
   --dl-layout-size-large: 144px;
   --dl-layout-size-small: 48px;
   --dl-layout-space-unit: 16px;
-  --border-radius-control: 16px;
+  --border-radius-control: 8px;
   --dl-layout-size-medium: 96px;
   --dl-layout-size-xlarge: 192px;
   --dl-layout-size-xsmall: 16px;
   --font-style-subheading: normal;
-  --color-surface-elevated: #252542;
+  --color-surface-elevated: color-mix(in oklab, #faf6f1 92%, #b45309);
   --dl-color-theme-accent1: #FFFFFF;
   --dl-color-theme-accent2: #F5D1B0;
   --dl-layout-radius-round: 50%;
   --dl-layout-size-xxlarge: 288px;
-  --letter-spacing-heading: 0.5px;
+  --letter-spacing-heading: 0.01em;
   --text-transform-heading: none;
   --dl-color-theme-primary1: #BF4408;
   --dl-color-theme-primary2: #E65103;
@@ -78,7 +80,7 @@
   --dl-color-theme-secondary2: #FBF1EB;
   --dl-layout-space-fiveunits: 80px;
   --dl-layout-space-fourunits: 64px;
-  --color-on-surface-secondary: #a8a8b3;
+  --color-on-surface-secondary: #c0d5db;
   --dl-layout-space-threeunits: 48px;
   --dl-color-theme-neutral-dark: #191818;
   --dl-layout-radius-cardradius: 8px;
@@ -89,13 +91,15 @@
   --dl-layout-space-oneandhalfunits: 24px;
 }
 
+/* ── Legacy primitives ── */
+
 .button {
   color: var(--dl-color-theme-neutral-dark);
   display: inline-block;
   padding: 0.5rem 1rem;
   border-color: var(--dl-color-theme-neutral-dark);
   border-width: 1px;
-  border-radius: 4px;
+  border-radius: 4px; 
   background-color: var(--dl-color-theme-neutral-light);
 }
 
@@ -135,4 +139,77 @@
 .teleport-show {
   display: flex !important;
   transform: none !important;
+}
+
+/* ── Typography utilities ── */
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-style: var(--font-style-heading);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  text-transform: var(--text-transform-heading);
+}
+
+.section-subtitle {
+  opacity: 0.85;
+  font-size: var(--font-size-lg);
+  font-style: var(--font-style-subheading);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+}
+
+.section-content {
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+.hero-title {
+  font-size: var(--font-size-4xl);
+  font-style: var(--font-style-heading);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  text-transform: var(--text-transform-heading);
+}
+
+.hero-subtitle {
+  opacity: 0.85;
+  font-size: var(--font-size-lg);
+  font-style: var(--font-style-subheading);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body);
+}
+
+.Headings {
+  font-size: 2em;
+  font-family: Google Sans;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.BodyFont {
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+.Content {
+  font-size: 16px;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: none;
+  text-decoration: none;
 }

@@ -1,10 +1,10 @@
 import Navigation from "../../components/navigation/Navigation"
 import Footer from "../../components/footer/Footer"
-import HowWorks from "./HowWorks";
-import Standings from "./Standings";
-import QuickHub from "./QuickHub";
-import Results from "./Results";
-import UpcomingPanel from "./UpcomingPanel";
+import HowWorks from "./howWorks/HowWorks";
+import Standings from "./standings/Standings";
+import QuickHub from "./quickHub/QuickHub";
+import Results from "./results/Results";
+import Upcoming from "./upcoming/Upcoming";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -13,7 +13,7 @@ const HomePage = () => {
             <Navigation />
             <QuickHub />
             <Results />
-            <UpcomingPanel />
+            <Upcoming />
             <Standings />
             <HowWorks />
             <Footer />

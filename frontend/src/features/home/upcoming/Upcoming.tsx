@@ -1,6 +1,6 @@
-import './UpcomingPanel.css'
+import './Upcoming.css'
 
-const UpcomingPanel = () => {
+const Upcoming = () => {
     return (
         <section className="upcoming-panel-section">
             <div className="upcoming-panel-container">
@@ -25,8 +25,8 @@ const UpcomingPanel = () => {
                     <span>MUN</span>
                     </div>
                 </div>
-                <button className="btn btn-primary btn-sm">
-                    One-Tap Predict
+                <button className="btn btn-outline btn-sm">
+                    View Match
                 </button>
                 </div>
                 <div className="upcoming-match-card">
@@ -45,7 +45,7 @@ const UpcomingPanel = () => {
                     </div>
                 </div>
                 <button className="btn btn-primary btn-sm">
-                    One-Tap Predict
+                    View Match
                 </button>
                 </div>
                 <div className="upcoming-match-card">
@@ -64,7 +64,7 @@ const UpcomingPanel = () => {
                     </div>
                 </div>
                 <button className="btn btn-primary btn-sm">
-                    One-Tap Predict
+                    View Match
                 </button>
                 </div>
                 <div className="upcoming-match-card">
@@ -83,26 +83,7 @@ const UpcomingPanel = () => {
                     </div>
                 </div>
                 <button className="btn btn-primary btn-sm">
-                    One-Tap Predict
-                </button>
-                </div>
-                <div className="upcoming-match-card">
-                <div className="match-time">
-                    <span>Sun, 17:30</span>
-                </div>
-                <div className="match-teams-row">
-                    <div className="match-team">
-                    <span>BVB</span>
-                    </div>
-                    <div className="match-vs-small">
-                    <span>vs</span>
-                    </div>
-                    <div className="match-team">
-                    <span>RBL</span>
-                    </div>
-                </div>
-                <button className="btn btn-primary btn-sm">
-                    One-Tap Predict
+                    View Match
                 </button>
                 </div>
             </div>
@@ -111,4 +92,4 @@ const UpcomingPanel = () => {
     );
 };
 
-export default UpcomingPanel;
+export default Upcoming;

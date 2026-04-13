@@ -1,0 +1,423 @@
+.predictions-list {
+  padding: var(--spacing-4xl) 0;
+  overflow: hidden;
+  background-color: var(--color-surface);
+}
+
+.predictions-list-header {
+  margin: 0 auto var(--spacing-3xl);
+  padding: 0 var(--spacing-xl);
+  max-width: var(--content-max-width);
+}
+
+.predictions-rail-container {
+  width: 100%;
+}
+
+.predictions-rail {
+  gap: var(--spacing-xl);
+  display: flex;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.prediction-card {
+  gap: var(--spacing-lg);
+  flex: 0 0 320px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  padding: var(--spacing-xl);
+  position: relative;
+  background: var(--color-surface-elevated);
+  border-radius: var(--border-radius-card);
+  flex-direction: column;
+  scroll-snap-align: start;
+}
+
+.predictions-section {
+  padding: var(--spacing-2xl) 0 var(--spacing-4xl);
+}
+
+.card-status-badge {
+  color: var(--color-primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  align-self: flex-start;
+  background: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-full);
+}
+
+.predictions-section-container {
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  max-width: var(--content-max-width);
+}
+
+.predictions-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  justify-content: space-between;
+}
+
+.teammate-attribution {
+  gap: var(--spacing-sm);
+  display: flex;
+  font-size: var(--font-size-sm);
+  border-top: 1px solid var(--color-border);
+  align-items: center;
+  padding-top: var(--spacing-md);
+}
+
+.predictions-filters {
+  gap: var(--spacing-sm);
+  display: flex;
+}
+
+.card-actions {
+  gap: var(--spacing-xs);
+  top: var(--spacing-xl);
+  right: var(--spacing-xl);
+  display: flex;
+  position: absolute;
+}
+
+.prediction-match-info {
+  flex: 2;
+}
+
+.league-tag {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.prediction-status {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.teams-grid {
+  display: flex;
+  margin-top: var(--spacing-sm);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.prediction-date {
+  gap: var(--spacing-xs);
+  color: var(--color-on-surface-secondary);
+  display: flex;
+  font-size: var(--font-size-xs);
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.pick-box {
+  border: 1px solid var(--color-border);
+  display: flex;
+  padding: var(--spacing-md);
+  background: var(--color-surface);
+  align-items: center;
+  border-radius: var(--border-radius-md);
+  flex-direction: column;
+}
+
+.prediction-teams {
+  gap: var(--spacing-md);
+  display: flex;
+  align-items: center;
+}
+
+.confidence-meter {
+  margin-top: var(--spacing-md);
+}
+
+.prediction-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.teammate-avatar {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: var(--border-radius-full);
+}
+
+.status-badge {
+  gap: var(--spacing-xs);
+  display: inline-flex;
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  align-items: center;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-full);
+}
+
+.btn-icon {
+  color: var(--color-on-surface-secondary);
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  background: transparent;
+  transition: all 0.2s ease;
+  border-radius: var(--border-radius-sm);
+}
+
+.vs {
+  color: var(--color-primary);
+  padding: 0 var(--spacing-md);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+}
+
+.my-predictions-team-name {
+  color: var(--color-on-surface);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+.box-label {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-xs);
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.meter-bar {
+  height: 6px;
+  overflow: hidden;
+  background: var(--color-border);
+  margin-top: var(--spacing-xs);
+  border-radius: var(--border-radius-full);
+}
+
+.box-value {
+  color: var(--color-on-surface);
+  font-weight: var(--font-weight-medium);
+}
+
+.team-name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+}
+
+.meter-fill {
+  height: 100%;
+  background: var(--color-primary);
+}
+
+.prediction-dialog {
+  width: 90%;
+  border: none;
+  padding: 0;
+  max-width: 600px;
+  background: transparent;
+}
+
+.prediction-card:hover {
+  background: color-mix(in srgb, var(--color-surface-elevated) 95%, white);
+}
+
+.dialog-content {
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-2xl);
+  background: var(--color-surface-elevated);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border-radius: var(--border-radius-xl);
+}
+
+.box-value.pending {
+  color: var(--color-primary);
+  font-style: italic;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  justify-content: space-between;
+}
+
+.status-badge.pending {
+  color: var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+.prediction-form {
+  gap: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.status-badge.correct {
+  color: #2ecc71;
+  border: 1px solid color-mix(in srgb, #2ecc71 20%, transparent);
+  background: color-mix(in srgb, #2ecc71 10%, transparent);
+}
+
+.close-modal {
+  color: var(--color-on-surface-secondary);
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.status-badge.wrong {
+  color: #e74c3c;
+  border: 1px solid color-mix(in srgb, #e74c3c 20%, transparent);
+  background: color-mix(in srgb, #e74c3c 10%, transparent);
+}
+
+.form-grid {
+  gap: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.pagination-btn {
+  gap: var(--spacing-xs);
+  display: inline-flex;
+  padding: var(--spacing-sm) var(--spacing-md);
+  align-items: center;
+}
+
+.form-actions {
+  gap: var(--spacing-md);
+  display: flex;
+  margin-top: var(--spacing-lg);
+  justify-content: flex-end;
+}
+
+.pagination-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.form-group {
+  gap: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+}
+
+.pagination-number {
+  color: var(--color-on-surface);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  height: 36px;
+  display: flex;
+  padding: 0;
+  min-width: 36px;
+  background: transparent;
+  transition: all 0.2s ease;
+  align-items: center;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-sm);
+  justify-content: center;
+}
+
+.form-row {
+  gap: var(--spacing-md);
+  display: flex;
+}
+
+.pagination-number:hover {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-primary);
+}
+
+.form-label {
+  color: var(--color-on-surface);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.pagination-number.active {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.opponent-selector {
+  gap: var(--spacing-sm);
+  display: flex;
+}
+
+.form-input {
+  color: var(--color-on-surface);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-md);
+  background: var(--color-surface);
+  font-family: var(--font-family-body);
+  border-radius: var(--border-radius-control);
+}
+
+.form-range {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.range-labels {
+  color: var(--color-on-surface-secondary);
+  display: flex;
+  font-size: var(--font-size-xs);
+  justify-content: space-between;
+}
+
+.predictions-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.card-status-badge.success {
+  color: #2ecc71;
+  background: color-mix(in srgb, #2ecc71 20%, transparent);
+}
+
+.card-status-badge.neutral {
+  color: var(--color-on-surface-secondary);
+  background: var(--color-border);
+}
+
+.pick-box .label {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-xs);
+}
+
+.pick-box .value {
+  color: var(--color-on-surface);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-heading);
+}
+
+.pick-box .value.win {
+  color: #2ecc71;
+}
+
+.btn-icon:hover {
+  color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+.btn-icon.danger:hover {
+  color: #e74c3c;
+}
+
+.prediction-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.opponent-selector .form-input {
+  flex: 1;
+}
+
+.form-row .form-group {
+  flex: 1;
+}

@@ -2,6 +2,9 @@ import React from 'react'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import HomePage from '../features/home/HomePage'
 import PageNotFound from '../features/pageNotFound/PageNotFound'
+import LeaguePage from '../features/league/LeaguePage'
+import PredictionPage from '../features/predictions/PredictionPage'
+import LeaderboardPage from '../features/leaderboard/LeaderboardPage'
 
 // Uncomment as you build each feature
 // import LoginPage from './features/auth/LoginPage'
@@ -18,9 +21,10 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login"    element={<div>Login Page</div>} />        
-        <Route path="/leaderboard" element={<PrivateRoute><div>Laederboard</div></PrivateRoute>} />
-        <Route path="/predictions" element={<PrivateRoute><div>My Predictions</div></PrivateRoute>} />
+        <Route path="/login"    element={<PrivateRoute><div>Login Page</div></PrivateRoute>} />        
+        <Route path="/predictions" element={<PredictionPage />} />
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
+        <Route path="/league" element={<LeaguePage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
