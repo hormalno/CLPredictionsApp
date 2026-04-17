@@ -182,6 +182,10 @@
   width: 100%;
 }
  
+.navigation-brand-name {
+  font-size: 34px;
+}
+
 .navigation-logo-link:hover {
   opacity: 0.8;
 }

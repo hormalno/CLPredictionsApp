@@ -34,10 +34,10 @@
   gap: var(--spacing-md);
   flex: 0 0 240px;
   color: #f5f0e6;
-  border: 2px solid #c9a86c;
+  border: 2px solid var(--color-primary);
   display: flex;
   padding: var(--spacing-lg);
-  background: #1a1a1a;
+  background: var(--color-card-background);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   text-align: center;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;

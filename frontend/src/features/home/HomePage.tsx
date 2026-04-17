@@ -1,8 +1,8 @@
 import Navigation from "../../components/navigation/Navigation"
 import Footer from "../../components/footer/Footer"
-import HowWorks from "./howWorks/HowWorks";
+import HowWorks from "./how-works/HowWorks";
 import Standings from "./standings/Standings";
-import QuickHub from "./quickHub/QuickHub";
+import QuickHub from "./quick-hub/QuickHub";
 import Results from "./results/Results";
 import Upcoming from "./upcoming/Upcoming";
 import "./HomePage.css";

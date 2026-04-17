@@ -17,3 +17,92 @@
 .league-tabs-container5 {
   display: contents;
 }
+
+.league-tabs-section {
+  color: var(--color-on-surface);
+  padding: var(--spacing-4xl) 0;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--color-surface);
+}
+ 
+.league-tabs-container {
+  gap: var(--spacing-3xl);
+  margin: 0 auto;
+  display: flex;
+  padding: 0;
+  max-width: 100%;
+  flex-direction: column;
+}
+ 
+.league-tabs-header {
+  gap: var(--spacing-md);
+  margin: 0 auto;
+  display: flex;
+  max-width: 600px;
+  text-align: center;
+  flex-direction: column;
+}
+ 
+.league-tabs-nav-wrapper {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+ 
+.league-tabs-content {
+  position: relative;
+  min-height: 400px;
+}
+ 
+.league-tabs-nav {
+  gap: var(--spacing-xs);
+  border: 1px solid var(--color-border);
+  display: flex;
+  padding: var(--spacing-xs);
+  position: relative;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-card-background);
+}
+ 
+.league-tabs-panel {
+  display: none;
+  animation: league-tabs-fade 0.4s ease forwards;
+}
+
+.league-tabs-panel.active {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+}
+ 
+.league-tabs-btn {
+  color: var(--color-on-surface-secondary);
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-md) var(--spacing-2xl);
+  z-index: 1;
+  position: relative;
+  background: transparent;
+  transition: all 0.3s ease;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-full);
+}
+
+.league-tabs-btn:hover {
+  color: #ffffff;;
+}
+ 
+.league-tabs-btn.active {
+  color: var(--color-on-primary);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary) 30%, transparent);
+  background-color: var(--color-primary);
+}
+ 
+.league-tabs-grid {
+  gap: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+}

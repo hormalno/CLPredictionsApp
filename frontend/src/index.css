@@ -19,8 +19,11 @@
   --color-overlay: color-mix(in oklab, #ffffff 40%, transparent);
   --color-primary: #d97706;
   --color-surface: #faf6f1;
-  --color-navigation: #0e072a;
+  --color-navigation: #1b2239;
   --color-leaderboard: #d6cec4;
+  --color-card-background: #1e293b;
+  --color-group-background: #1a1a2e;
+  --color-fixture-background: #1e293b;
   --divider-value: 1px solid var(--color-border);
   --font-size-2xl: clamp(1.5rem, 1.35rem + 1.2vw, 1.75rem);
   --font-size-3xl: clamp(2.25rem, 1.9rem + 2.5vw, 2.6rem);

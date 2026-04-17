@@ -30,10 +30,10 @@
   flex: 0 0 300px;
   color: #f5f0e6;
   text-decoration: none;
-  border: 2px solid #c88c1e;
+  border: 2px solid var(--color-primary);
   display: flex;
   padding: var(--spacing-md);
-  background: #1a1a1a;
+  background: var(--color-card-background);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   border-radius: var(--border-radius-card);
   flex-direction: column;
