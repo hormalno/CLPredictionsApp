@@ -1,26 +1,79 @@
-.match-item {
+.match-prediction-item {
   gap: var(--spacing-sm);
   border: 1px solid var(--color-border);
   display: flex;
   padding: var(--spacing-lg) var(--spacing-xl);
   transition: transform 0.2s ease, border-color 0.2s ease;
   border-radius: var(--border-radius-lg);
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   background-color: var(--color-surface-elevated);
 }
 
-.match-info {
+.match-prediction-info {
   color: var(--color-on-surface-secondary);
-  font-size: var(--font-size-xs);
+  font-size: 11px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  flex: 0 0 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: center;
+}
+
+.match-prediction-info-date-row {
+  display: flex;
+  align-items: center;
+}
+
+.match-prediction-info-date {
+  margin-right: var(--spacing-xs);
+}
+
+.match-prediction-round-dot {
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  padding: var(--spacing-md);
+}
+
+.match-prediction-round {
+  color: var(--color-on-surface-secondary);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: absolute;
+  top: calc(-1 * var(--spacing-xl));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.match-prediction-scoreline-wrapper {
+  flex: 0 0 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-top: var(--spacing-lg);
+}
+
+.match-prediction-actions {
+  flex: 0 0 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
 }
  
-.match-scoreline {
+.match-prediction-scoreline {
   gap: var(--spacing-md);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
 }
 
 .prediction-inputs {
@@ -63,7 +116,7 @@
   color: var(--color-on-surface-secondary);
 }
  
-.score-separator {
+.match-prediction-score-separator {
   color: var(--color-on-surface-secondary);
   padding: 0 var(--spacing-xs);
   font-size: var(--font-size-lg);
@@ -71,80 +124,29 @@
   font-weight: var(--font-weight-heading);
 }
 
-.team-home {
+.match-prediction-team-home {
   flex: 1;
   font-size: var(--font-size-lg);
   text-align: right;
   font-weight: var(--font-weight-medium);
 }
- 
-.team-away {
+
+.match-prediction-team-away {
   flex: 1;
   font-size: var(--font-size-lg);
   text-align: left;
   font-weight: var(--font-weight-medium);
 }
 
-.outcome-buttons {
+.prediction-outcome {
   gap: var(--spacing-xs);
   display: flex;
-  margin-top: var(--spacing-sm);
-  justify-content: center;
-}
- 
-.outcome-btn {
-  color: var(--color-on-surface-secondary);
-  border: 2px solid var(--color-border);
-  cursor: pointer;
-  padding: var(--spacing-xs) var(--spacing-md);
-  font-size: var(--font-size-xs);
-  transition: all 0.2s ease;
-  font-family: var(--font-family-heading);
-  font-weight: var(--font-weight-medium);
-  border-radius: var(--border-radius-sm);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  background-color: transparent;
-}
- 
-.outcome-btn:hover {
-  color: var(--color-on-surface);
-  border-color: var(--color-accent);
-}
- 
-.outcome-btn[data-selected="true"] {
-  color: var(--color-on-accent);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 30%, transparent);
-  border-color: var(--color-accent);
-  background-color: var(--color-accent);
-}
- 
-.save-prediction-btn {
-  color: var(--color-on-primary);
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
-  padding: var(--spacing-md) var(--spacing-xl);
-  font-size: var(--font-size-base);
-  align-self: center;
-  box-shadow: var(--shadow-level-1);
   margin-top: var(--spacing-lg);
-  transition: all 0.2s ease;
-  align-items: center;
-  font-family: var(--font-family-heading);
-  font-weight: var(--font-weight-medium);
-  border-radius: var(--border-radius-control);
   justify-content: center;
-  background-color: var(--color-primary);
 }
  
-.save-prediction-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-level-2);
-  background-color: color-mix(in srgb, var(--color-primary) 85%, white);
-}
- 
-.save-prediction-btn:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-level-1);
+.prediction-outcome text {
+  color: var(--color-on-surface-secondary);
+  font-size: 11px;
+  letter-spacing: 0.5px;
 }

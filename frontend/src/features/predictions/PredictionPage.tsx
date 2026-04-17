@@ -1,6 +1,6 @@
 import Navigation from "../../components/navigation/Navigation";
 import Footer from "../../components/footer/Footer";
-import MatchFixture from "../matches/match-fixture/MatchFixture";
+import MatchFixture from "../matches/match-fixture/MatchFixture2";
 import MatchPrediction from "../matches/match-prediction/MatchPrediction";
 import './PredictionPage.css';
 

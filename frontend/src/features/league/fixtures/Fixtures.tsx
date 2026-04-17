@@ -1,4 +1,6 @@
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
+import MatchFixture2 from "../../matches/match-fixture/MatchFixture2";
+import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
 import './Fixtures.css';
 
 const Fixtures = () => {
@@ -22,10 +24,8 @@ const Fixtures = () => {
                 <div className="predictions-list">
                     <MatchFixture />
                     <MatchFixture />
-                    <MatchFixture />
-                    <MatchFixture />
-                    <MatchFixture />
-                    <MatchFixture />
+                    <MatchPrediction />
+                    <MatchPrediction />
                 </div>
             </div>
         </section>

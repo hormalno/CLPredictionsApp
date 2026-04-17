@@ -63,15 +63,7 @@
   justify-content: space-between;
   padding: 0 var(--spacing-sm);
 }
- 
-.friend-scores {
-  gap: var(--spacing-xs);
-  display: flex;
-  border-top: 1px solid #c9a86c;
-  padding: var(--spacing-sm) var(--spacing-sm) 0;
-  flex-direction: column;
-}
- 
+
 .score-number {
   color: #1a1a1a;
   padding: var(--spacing-xs) var(--spacing-md);
@@ -79,6 +71,14 @@
   background: var(--color-primary);
   font-weight: var(--font-weight-heading);
   border-radius: var(--border-radius-sm);
+}
+ 
+.friend-scores {
+  gap: var(--spacing-xs);
+  display: flex;
+  border-top: 1px solid #c9a86c;
+  padding: var(--spacing-sm) var(--spacing-sm) 0;
+  flex-direction: column;
 }
  
 .friend-score-item {
