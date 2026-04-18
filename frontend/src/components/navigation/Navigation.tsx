@@ -68,10 +68,10 @@ const Navigation = () => {
                   <span className="navigation-link">EN</span>
                   <ChevronDownIcon size={16} />
                 </div>
-                <Link to="/profile-settings">
+                <Link to="/login">
                   <Button variant="secondary" size="sm">
                     <UserIcon size={18} />
-                    <span>My Profile</span>
+                    <span>Log In</span>
                   </Button>
                 </Link>
               </div>

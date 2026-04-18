@@ -5,7 +5,9 @@ import PageNotFound from '../features/page-not-found/PageNotFound'
 import LeaguePage from '../features/league/LeaguePage'
 import PredictionPage from '../features/predictions/PredictionPage'
 import LeaderboardPage from '../features/leaderboard/LeaderboardPage'
-import MatchDetails from '../features/matches/match-details/MatchDetails'
+import LoginPage from '../features/auth/LoginPage'
+import RegisterPage from '../features/auth/RegisterPage'
+import MatchDetailsPage from '../features/matches/MatchDetailsPage'
 
 // Uncomment as you build each feature
 // import LoginPage from './features/auth/LoginPage'
@@ -22,11 +24,14 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login"    element={<PrivateRoute><div>Login Page</div></PrivateRoute>} />        
+        <Route path="/profile"    element={<PrivateRoute><div>My profile</div></PrivateRoute>} />     
+        <Route path="/login"    element={<LoginPage />} />
+        <Route path="/register"    element={<RegisterPage />} />
         <Route path="/predictions" element={<PredictionPage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/league" element={<LeaguePage />} />
-        <Route path="*" element={<MatchDetails />} />
+        <Route path="/1" element={<MatchDetailsPage />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   )

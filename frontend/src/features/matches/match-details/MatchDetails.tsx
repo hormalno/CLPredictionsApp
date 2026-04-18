@@ -1,12 +1,9 @@
-import Navigation from "../../../components/navigation/Navigation";
 import { ArrowLeftIcon, SoccerBallIcon, UserIcon, CheckCircleIcon, XCircleIcon } from '../../../components/icons/Icons';
-import Footer from "../../../components/footer/Footer";
 import "./MatchDetails.css";
 
 const MatchDetails = () => {
     return (
         <>
-        <Navigation />
         <header className="header-match-result">
           <div className="header-match-result__overlay"></div>
           <div className="header-match-result__container">
@@ -232,7 +229,6 @@ const MatchDetails = () => {
             </div>
           </div>
         </section>
-        <Footer />
         </>
     );
 };

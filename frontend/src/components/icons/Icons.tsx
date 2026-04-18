@@ -188,6 +188,13 @@ export const LineChartIcon = ({ size = 32, color = 'currentColor', className }: 
     </svg>
 );
 
+export const LockIcon = ({ size = 18, color = 'currentColor', className }: IconProps) => (
+    <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" stroke={color} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cls('icon-lock', className)}>
+        <rect x="3" y="11" rx="2" ry="2" width="18" height="11" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+);
+
 export const SaveIcon = ({ size = 16, color = 'currentColor', className }: IconProps) => (
     <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" stroke={color} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cls('icon-save', className)}>
         <path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
