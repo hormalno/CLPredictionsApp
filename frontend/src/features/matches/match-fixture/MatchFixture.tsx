@@ -8,6 +8,8 @@ type props = {
 
 const MatchFixture = ({ my_predict }: props) => {
     const navigate = useNavigate();
+    const result = ["Correct result", "Wrong result"];
+    const score = ["Perfect score", "One team correct", "Incorrect score"];    
 
     return (        
         <div>
@@ -40,21 +42,20 @@ const MatchFixture = ({ my_predict }: props) => {
                     {my_predict ? (
                     <div className="match-friends-scores">
                         <div className="match-status">
-                            <span className="wrong status-badge">
+                            <span className="correct status-badge">
                                 <CircleCheckIcon size={16} />
-                                <span><text>Correct result</text></span>
+                                <span><text>{result[0]}</text></span>
                             </span>
                         </div>
                         <div className="match-status">
-                            <span className="pending status-badge">
+                            <span className="wrong status-badge">
                                 <ClockIcon size={16} />
-                                <span><text>Corect score</text></span>
+                                <span><text>{score[2]}</text></span>
                             </span>
                         </div>
-                        <div className="your-score-item">
-                                <span className="friend-name">Points gained:</span>
-                                <span className="friend-points">+3 pts</span>
-                            </div>
+                        <div className="points-gained">
+                            <text>Points gained: +3 pts</text>
+                        </div>
                     </div>) :  (                
                     <div className="match-friends-scores">
                         <div className="friend-scores">

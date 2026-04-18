@@ -88,6 +88,13 @@
   border-color: color-mix(in oklab, var(--color-accent) 90%, var(--color-surface));
   background-color: color-mix(in oklab, var(--color-accent) 90%, var(--color-surface));
 }
+
+.btn-outline:disabled {
+  color: var(--color-on-primary);
+  box-shadow: 0 0 12px color-mix(in oklab, var(--color-primary) 40%, transparent);
+  border-color: var(--color-primary);
+  background-color: green !important;
+}
  
 .btn-outline:hover:not(:disabled) {
   color: var(--color-on-primary);
