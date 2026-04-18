@@ -130,7 +130,7 @@
 .match-actions {
   flex: 0 0 15%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   font-size: 11px;
 }
@@ -165,4 +165,38 @@
 
 .friend-points {
   color: #c9a86c;
+}
+
+.match-status {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.match-status .status-badge {
+  gap: var(--spacing-xs);
+  display: inline-flex;
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  align-items: center;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-full);
+}
+
+.status-badge.pending {
+  color: var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+ 
+.status-badge.correct {
+  color: #2ecc71;
+  border: 1px solid color-mix(in srgb, #2ecc71 20%, transparent);
+  background: color-mix(in srgb, #2ecc71 10%, transparent);
+}
+ 
+.status-badge.wrong {
+  color: #e74c3c;
+  border: 1px solid color-mix(in srgb, #e74c3c 20%, transparent);
+  background: color-mix(in srgb, #e74c3c 10%, transparent);
 }

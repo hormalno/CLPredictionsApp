@@ -1,3 +1,4 @@
+import { CalendarIcon } from '../../../components/icons/Icons';
 import './MatchPrediction.css';
 
 const MatchPrediction = () => {
@@ -7,29 +8,7 @@ const MatchPrediction = () => {
                 <div className="match-prediction-info">
                     <div className="match-prediction-info-date-row">
                         <span className='match-prediction-info-date'>
-                            <svg
-                                fill="none"
-                                width="20"
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="20"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                >
-                                <rect
-                                    x="3"
-                                    y="4"
-                                    rx="2"
-                                    ry="2"
-                                    width="18"
-                                    height="18"
-                                ></rect>
-                                <line x1="16" x2="16" y1="2" y2="6"></line>
-                                <line x1="8" x2="8" y1="2" y2="6"></line>
-                                <line x1="3" x2="21" y1="10" y2="10"></line>
-                            </svg>
+                            <CalendarIcon size={20} />
                         </span>
                         <span><text>Oct 24, 2026</text></span>
                     </div>
@@ -67,9 +46,7 @@ const MatchPrediction = () => {
                         <text>Your prediction: Liverpool Win</text>
                     </div>
                 </div>
-                <div className="match-prediction-actions">
-                    asd
-                </div>
+                
             </div>
         </div>
     );

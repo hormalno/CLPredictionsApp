@@ -1,3 +1,4 @@
+import { TrendUpIcon, TrendNeutralIcon, TrendDownIcon } from '../../components/icons/Icons';
 import './Leaderboard.css';
 
 const Leaderboard: React.FC = () => {
@@ -40,19 +41,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="up trend-indicator">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendUpIcon size={16} />
                         <span>+2</span>
                       </div>
                     </td>
@@ -74,21 +63,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="neutral trend-indicator">
-                        <svg
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="24"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M5 12h14"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          ></path>
-                        </svg>
+                        <TrendNeutralIcon size={24} />
                         <span>0</span>
                       </div>
                     </td>
@@ -110,19 +85,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="trend-indicator down">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 4.22a.75.75 0 0 0 0 1.06l5.22 5.22H5.75a.75.75 0 0 0 0 1.5h5.5a.75.75 0 0 0 .75-.75v-5.5a.75.75 0 0 0-1.5 0v3.69L5.28 4.22a.75.75 0 0 0-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendDownIcon size={16} />
                         <span>-1</span>
                       </div>
                     </td>
@@ -144,19 +107,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="up trend-indicator">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendUpIcon size={16} />
                         <span>+5</span>
                       </div>
                     </td>
@@ -178,19 +129,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="up trend-indicator">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendUpIcon size={16} />
                         <span>+5</span>
                       </div>
                     </td>
@@ -212,19 +151,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="up trend-indicator">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendUpIcon size={16} />
                         <span>+5</span>
                       </div>
                     </td>
@@ -246,19 +173,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="up trend-indicator">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendUpIcon size={16} />
                         <span>+5</span>
                       </div>
                     </td>
@@ -280,19 +195,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="up trend-indicator">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendUpIcon size={16} />
                         <span>+5</span>
                       </div>
                     </td>
@@ -314,19 +217,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="up trend-indicator">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendUpIcon size={16} />
                         <span>+5</span>
                       </div>
                     </td>
@@ -348,19 +239,7 @@ const Leaderboard: React.FC = () => {
                     </td>
                     <td className="trend-cell">
                       <div className="up trend-indicator">
-                        <svg
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0"
-                            fill="currentColor"
-                            clipRule="evenodd"
-                            fillRule="evenodd"
-                          ></path>
-                        </svg>
+                        <TrendUpIcon size={16} />
                         <span>+5</span>
                       </div>
                     </td>

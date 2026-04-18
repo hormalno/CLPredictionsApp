@@ -1,4 +1,5 @@
 import Navigation from "../../../components/navigation/Navigation";
+import { ArrowLeftIcon, SoccerBallIcon, UserIcon, CheckCircleIcon, XCircleIcon } from '../../../components/icons/Icons';
 import Footer from "../../../components/footer/Footer";
 import "./MatchDetails.css";
 
@@ -15,19 +16,7 @@ const MatchDetails = () => {
                   aria-label="Go back to previous page"
                   className="header-match-result__back-btn btn-outline btn"
                 >
-                  <svg
-                    fill="none"
-                    width="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="m12 19l-7-7l7-7m7 7H5"></path>
-                  </svg>
+                  <ArrowLeftIcon size={24} />
                   <span><text>Back</text></span>
                 </div>
               </a>
@@ -81,20 +70,7 @@ const MatchDetails = () => {
                 <ul className="goal-scorers__list">
                   <li className="goal-scorers__item">
                     <div className="goal-scorers__icon-box">
-                      <svg
-                        fill="none"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <circle r="10" cx="12" cy="12"></circle>
-                        <circle r="1" cx="12" cy="12"></circle>
-                      </svg>
+                      <SoccerBallIcon size={24} />
                     </div>
                     <div className="goal-scorers__info">
                       <span className="goal-scorers__name">
@@ -107,20 +83,7 @@ const MatchDetails = () => {
                   </li>
                   <li className="goal-scorers__item">
                     <div className="goal-scorers__icon-box">
-                      <svg
-                        fill="none"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <circle r="10" cx="12" cy="12"></circle>
-                        <circle r="1" cx="12" cy="12"></circle>
-                      </svg>
+                      <SoccerBallIcon size={24} />
                     </div>
                     <div className="goal-scorers__info">
                       <span className="goal-scorers__name">
@@ -143,20 +106,7 @@ const MatchDetails = () => {
                 <ul className="goal-scorers__list">
                   <li className="goal-scorers__item">
                     <div className="goal-scorers__icon-box">
-                      <svg
-                        fill="none"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <circle r="10" cx="12" cy="12"></circle>
-                        <circle r="1" cx="12" cy="12"></circle>
-                      </svg>
+                      <SoccerBallIcon size={24} />
                     </div>
                     <div className="goal-scorers__info">
                       <span className="goal-scorers__name">
@@ -184,30 +134,7 @@ const MatchDetails = () => {
               >
                 <div className="user-predictions__user-info">
                   <div className="user-predictions__avatar">
-                    <svg
-                      fill="none"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <g
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path
-                          d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                        ></path>
-                        <circle r="4" cx="12" cy="7"></circle>
-                      </g>
-                    </svg>
+                    <UserIcon size={24} />
                   </div>
                   <div className="user-predictions__meta">
                     <h3 className="user-predictions__username">
@@ -218,20 +145,7 @@ const MatchDetails = () => {
                     </span>
                   </div>
                   <div className="user-predictions__badge">
-                    <svg
-                      fill="none"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      stroke="#2ecc71"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                      <path d="m9 11l3 3L22 4"></path>
-                    </svg>
+                    <CheckCircleIcon size={24} color="#2ecc71" />
                   </div>
                 </div>
                 <div className="user-predictions__score-box">
@@ -245,30 +159,7 @@ const MatchDetails = () => {
               >
                 <div className="user-predictions__user-info">
                   <div className="user-predictions__avatar">
-                    <svg
-                      fill="none"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <g
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path
-                          d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                        ></path>
-                        <circle r="4" cx="12" cy="7"></circle>
-                      </g>
-                    </svg>
+                    <UserIcon size={24} />
                   </div>
                   <div className="user-predictions__meta">
                     <h3 className="user-predictions__username">
@@ -279,20 +170,7 @@ const MatchDetails = () => {
                     </span>
                   </div>
                   <div className="user-predictions__badge">
-                    <svg
-                      fill="none"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      stroke="#e74c3c"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <circle r="10" cx="12" cy="12"></circle>
-                      <path d="m15 9l-6 6m0-6l6 6"></path>
-                    </svg>
+                    <XCircleIcon size={24} color="#e74c3c" />
                   </div>
                 </div>
                 <div className="user-predictions__score-box">
@@ -306,30 +184,7 @@ const MatchDetails = () => {
               >
                 <div className="user-predictions__user-info">
                   <div className="user-predictions__avatar">
-                    <svg
-                      fill="none"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <g
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path
-                          d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                        ></path>
-                        <circle r="4" cx="12" cy="7"></circle>
-                      </g>
-                    </svg>
+                    <UserIcon size={24} />
                   </div>
                   <div className="user-predictions__meta">
                     <h3 className="user-predictions__username">
@@ -340,20 +195,7 @@ const MatchDetails = () => {
                     </span>
                   </div>
                   <div className="user-predictions__badge">
-                    <svg
-                      fill="none"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      stroke="#e74c3c"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <circle r="10" cx="12" cy="12"></circle>
-                      <path d="m15 9l-6 6m0-6l6 6"></path>
-                    </svg>
+                    <XCircleIcon size={24} color="#e74c3c" />
                   </div>
                 </div>
                 <div className="user-predictions__score-box">
@@ -367,30 +209,7 @@ const MatchDetails = () => {
               >
                 <div className="user-predictions__user-info">
                   <div className="user-predictions__avatar">
-                    <svg
-                      fill="none"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <g
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path
-                          d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                        ></path>
-                        <circle r="4" cx="12" cy="7"></circle>
-                      </g>
-                    </svg>
+                    <UserIcon size={24} />
                   </div>
                   <div className="user-predictions__meta">
                     <h3 className="user-predictions__username">
@@ -401,20 +220,7 @@ const MatchDetails = () => {
                     </span>
                   </div>
                   <div className="user-predictions__badge">
-                    <svg
-                      fill="none"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      stroke="#2ecc71"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                      <path d="m9 11l3 3L22 4"></path>
-                    </svg>
+                    <CheckCircleIcon size={24} color="#2ecc71" />
                   </div>
                 </div>
                 <div className="user-predictions__score-box">

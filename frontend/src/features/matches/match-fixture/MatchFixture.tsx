@@ -1,7 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { CalendarIcon, ClockIcon, CircleCheckIcon } from '../../../components/icons/Icons';
 import './MatchFixture.css';
 
-const MatchFixture = () => {
+type props = {
+    my_predict: boolean;
+};
+
+const MatchFixture = ({ my_predict }: props) => {
     const navigate = useNavigate();
 
     return (        
@@ -10,29 +15,7 @@ const MatchFixture = () => {
                 <div className="match-info">
                     <div className="match-info-date-row">
                         <span className='match-info-date'>
-                            <svg
-                                fill="none"
-                                width="20"
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="20"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                >
-                                <rect
-                                    x="3"
-                                    y="4"
-                                    rx="2"
-                                    ry="2"
-                                    width="18"
-                                    height="18"
-                                ></rect>
-                                <line x1="16" x2="16" y1="2" y2="6"></line>
-                                <line x1="8" x2="8" y1="2" y2="6"></line>
-                                <line x1="3" x2="21" y1="10" y2="10"></line>
-                            </svg>
+                            <CalendarIcon size={20} />
                         </span>
                         <span><text>Oct 24, 2026</text></span>
                     </div>
@@ -53,7 +36,26 @@ const MatchFixture = () => {
                         <span className="team-away"><text>Manchester United</text></span>
                     </div>                 
                 </div>
-                <div className="match-actions">
+                <div className="match-actions">                    
+                    {my_predict ? (
+                    <div className="match-friends-scores">
+                        <div className="match-status">
+                            <span className="wrong status-badge">
+                                <CircleCheckIcon size={16} />
+                                <span><text>Correct result</text></span>
+                            </span>
+                        </div>
+                        <div className="match-status">
+                            <span className="pending status-badge">
+                                <ClockIcon size={16} />
+                                <span><text>Corect score</text></span>
+                            </span>
+                        </div>
+                        <div className="your-score-item">
+                                <span className="friend-name">Points gained:</span>
+                                <span className="friend-points">+3 pts</span>
+                            </div>
+                    </div>) :  (                
                     <div className="match-friends-scores">
                         <div className="friend-scores">
                             <div className="friend-score-item">
@@ -69,7 +71,7 @@ const MatchFixture = () => {
                                 <span className="friend-points">+3 pts</span>
                             </div>
                         </div>
-                    </div>
+                    </div>)}
                 </div>
             </div>
         </div>
