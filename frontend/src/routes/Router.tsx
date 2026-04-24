@@ -7,7 +7,7 @@ import PredictionPage from '../features/predictions/PredictionPage'
 import LeaderboardPage from '../features/leaderboard/LeaderboardPage'
 import LoginPage from '../features/auth/LoginPage'
 import RegisterPage from '../features/auth/RegisterPage'
-import MatchDetailsPage from '../features/matches/MatchDetailsPage'
+import MatchDetailsPage from '../features/matches/match-details/MatchDetailsPage'
 
 // Uncomment as you build each feature
 // import LoginPage from './features/auth/LoginPage'

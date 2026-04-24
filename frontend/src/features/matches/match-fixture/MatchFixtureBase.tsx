@@ -32,9 +32,9 @@ const MatchFixture = ({ match, children }: Props) => {
                     <div className="match-scoreline">
                         <span className="team-home"><text>{match.homeTeam}</text></span>
                         <div className="score-result" onClick={() => navigate('/fixtures')}>
-                            <button className="score-button">{match.homeScore}</button>
+                            <span className="score-box">{match.homeScore}</span>
                             <span className="score-separator"><text>:</text></span>
-                            <button className="score-button">{match.awayScore}</button>
+                            <span className="score-box">{match.awayScore}</span>
                         </div>
                         <span className="team-away"><text>{match.awayTeam}</text></span>
                     </div>

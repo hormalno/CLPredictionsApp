@@ -182,6 +182,12 @@
   width: 100%;
 }
  
+.navigation-logo-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
 .navigation-brand-name {
   font-size: 34px;
 }

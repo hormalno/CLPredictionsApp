@@ -1,5 +1,6 @@
 import type { Match } from '../../../types';
 import MatchFixtureBase from './MatchFixtureBase';
+import './MatchFixture.css'
 
 type Props = {
     match: Match;

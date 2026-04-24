@@ -1,0 +1,42 @@
+.match-status {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.match-status .status-badge {
+  gap: 4px;
+  display: inline-flex;
+  padding: 2px 8px;
+  font-size: var(--font-size-xs);
+  align-items: center;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-full);
+}
+
+.status-badge.pending {
+  color: var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+ 
+.status-badge.correct {
+  color: #2ecc71;
+  border: 1px solid color-mix(in srgb, #2ecc71 20%, transparent);
+  background: color-mix(in srgb, #2ecc71 10%, transparent);
+}
+ 
+.status-badge.wrong {
+  color: #e74c3c;
+  border: 1px solid color-mix(in srgb, #e74c3c 20%, transparent);
+  background: color-mix(in srgb, #e74c3c 10%, transparent);
+}
+
+.points-gained {
+  color: var(--color-surface);
+  display: flex;
+  border-top: 1px solid #c9a86c;
+  justify-content: space-between;
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-xs);
+}
