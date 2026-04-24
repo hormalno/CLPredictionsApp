@@ -1,5 +1,5 @@
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
-import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
+import { mockMatches } from "../../../mocks";
 import './Fixtures.css';
 
 const Fixtures = () => {
@@ -21,10 +21,9 @@ const Fixtures = () => {
                 </div>
                 </div>
                 <div className="predictions-list">
-                    <MatchFixture my_predict={true} />
-                    <MatchFixture my_predict={false} />
-                    <MatchPrediction />
-                    <MatchPrediction />
+                    {mockMatches.map((match) => (
+                        <MatchFixture key={match.id} match={match}  />
+                    ))}
                 </div>
             </div>
         </section>

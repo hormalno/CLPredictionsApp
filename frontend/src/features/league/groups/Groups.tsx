@@ -1,12 +1,12 @@
+import { mockGroups } from '../../../mocks';
 import Group from '../../group/Group';
 
 const Groups = () => {
   return (
     <>
-        <Group />
-        <Group />
-        <Group />
-        <Group />
+        {mockGroups.map((group) => (
+            <Group key={group.name} group={group} />
+        ))}
     </>
     );
 };

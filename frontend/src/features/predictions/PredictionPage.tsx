@@ -1,8 +1,9 @@
 import Navigation from "../../components/navigation/Navigation";
-import { BarChartIcon, TrophyIcon, ChevronLeftIcon, ChevronRightIcon } from '../../components/icons/Icons';
 import Footer from "../../components/footer/Footer";
-import MatchFixture from "../matches/match-fixture/MatchFixture2";
 import MatchPrediction from "../matches/match-prediction/MatchPrediction";
+import MyPredictionFixture from "../matches/match-fixture/MyPredictionFixture";
+import { mockMatches } from "../../mocks";
+import { BarChartIcon, TrophyIcon, ChevronLeftIcon, ChevronRightIcon } from '../../components/icons/Icons';
 import './PredictionPage.css';
 
 const PredictionPage = () => {
@@ -75,9 +76,7 @@ const PredictionPage = () => {
                         </div>
                     </div>
                      <div className="predictions-list">
-                        <MatchFixture />
-                        <MatchFixture />
-                        <MatchPrediction />
+                        {mockMatches.map((match) => (<MyPredictionFixture key={match.id} match={match} />))}
                      </div>
                 </div>
             </section> 

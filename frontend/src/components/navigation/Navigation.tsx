@@ -45,6 +45,11 @@ const Navigation = () => {
               </div>
               <div className="navigation-links-desktop">
                 <div className="navigation-link">
+                  <Link to="/">
+                    <span>Home</span>
+                  </Link>
+                </div>        
+                <div className="navigation-link">
                   <Link to="/predictions">
                     <span>My Predictions</span>
                   </Link>
