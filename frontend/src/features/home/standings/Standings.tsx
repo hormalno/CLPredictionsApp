@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../components/button/Button';
 import Leaderboard from '../../leaderboard/Leaderboard';
 import './Standings.css'
 
 const Standings = () => {
+    const navigate = useNavigate();
+
     return (
         <section className="standings-preview-section">
             <div className="standings-preview-container">
@@ -11,7 +14,7 @@ const Standings = () => {
                     <p className="section-subtitle">
                         Compact leaderboard preview showing top friends and current ranks.
                     </p>
-                    <Button variant="primary" size="lg" className="view-full-standings-btn">
+                    <Button variant="outline" size="lg" className="view-full-standings-btn" onClick={() => navigate('/leaderboard')}>
                         See Leaderboard
                     </Button>
                 </div>

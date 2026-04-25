@@ -17,7 +17,7 @@ const MatchDetails = ({match} : Props) => {
             <div className="header-match-result__top-actions">
               <button
                 aria-label="Go back to previous page"
-                className="header-match-result__back-btn btn-outline btn"
+                className="header-match-result__back-btn btn-primary btn"
                 onClick={() => navigate(-1)}
               >
                 <ArrowLeftIcon size={24} />
