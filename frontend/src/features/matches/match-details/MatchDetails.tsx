@@ -1,22 +1,28 @@
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, SoccerBallIcon, UserIcon, CheckCircleIcon, XCircleIcon } from '../../../components/icons/Icons';
+import type { Match } from '../../../types';
 import "./MatchDetails.css";
 
-const MatchDetails = () => {
+type Props = {
+    match: Match;
+};
+
+const MatchDetails = ({match} : Props) => {
+    const navigate = useNavigate();
+
     return (
         <>
         <header className="header-match-result">
-          <div className="header-match-result__overlay"></div>
           <div className="header-match-result__container">
             <div className="header-match-result__top-actions">
-              <a href="#">
-                <div
-                  aria-label="Go back to previous page"
-                  className="header-match-result__back-btn btn-outline btn"
-                >
-                  <ArrowLeftIcon size={24} />
-                  <span><text>Back</text></span>
-                </div>
-              </a>
+              <button
+                aria-label="Go back to previous page"
+                className="header-match-result__back-btn btn-outline btn"
+                onClick={() => navigate(-1)}
+              >
+                <ArrowLeftIcon size={24} />
+                <span>Back</span>
+              </button>
             </div>
             <div className="header-match-result__content">
               <div className="header-match-result__status">
@@ -29,7 +35,7 @@ const MatchDetails = () => {
                   <div className="header-match-result__team-icon">
                     <span><text>A</text></span>
                   </div>
-                  <h1 className="hero-title"><text>Team A</text></h1>
+                  <h1 className="hero-title"><text>{match.homeTeam}</text></h1>
                 </div>
                 <div className="header-match-result__score-display">
                   <span className="header-match-result__score"><text>3</text></span>
@@ -44,7 +50,7 @@ const MatchDetails = () => {
                   <div className="header-match-result__team-icon">
                     <span><text>B</text></span>
                   </div>
-                  <h1 className="hero-title"><text>Team B</text></h1>
+                  <h1 className="hero-title"><text>{match.awayTeam}</text></h1>
                 </div>
               </div>
               <p className="hero-subtitle">

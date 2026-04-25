@@ -1,5 +1,6 @@
 import { Button } from '../../../components/button/Button';
-import { CalendarIcon } from '../../../components/icons/Icons';
+import NextMatchCard from '../../matches/next-match-card/NextMatchCard';
+import { mockMatches } from '../../../mocks/matches';
 import './QuickHub.css';
 
 const QuickHub = () => {
@@ -36,35 +37,7 @@ const QuickHub = () => {
                             </div>
                         </div>
                         <div className="quick-hub-card-wrapper">
-                            <div className="next-match-card">
-                                <span className="next-match-label">Next Upcoming Match</span>
-                                <div className="next-match-teams">
-                                <div className="team">
-                                    <div className="team-logo">
-                                    <span>FCB</span>
-                                    </div>
-                                    <span className="team-name">Barcelona</span>
-                                </div>
-                                <div className="match-vs">
-                                    <span>VS</span>
-                                </div>
-                                <div className="team">
-                                    <div className="team-logo">
-                                    <span>RMA</span>
-                                    </div>
-                                    <span className="team-name">Real Madrid</span>
-                                </div>
-                                </div>
-                                <div className="next-match-info">
-                                <div className="match-meta">
-                                    <CalendarIcon size={20} />
-                                    <span>Tonight, 21:00</span>
-                                </div>
-                                </div>
-                                <Button variant="secondary" size="xl">
-                                    View Match Details
-                                </Button>
-                            </div>
+                            <NextMatchCard match={mockMatches[4]} />
                         </div>
                     </div>
                 </div>

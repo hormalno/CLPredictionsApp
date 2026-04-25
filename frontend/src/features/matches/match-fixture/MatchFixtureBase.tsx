@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { CalendarIcon } from '../../../components/icons/Icons';
+import { formatMatchDate } from '../../../utils/formatMatchDate';
 import type { Match } from '../../../types';
 import './MatchFixtureBase.css';
 
@@ -10,7 +11,6 @@ type Props = {
 
 const MatchFixture = ({ match, children }: Props) => {
     const navigate = useNavigate();
-    const date = new Date(match.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
     return (
         <div>
@@ -18,9 +18,9 @@ const MatchFixture = ({ match, children }: Props) => {
                 <div className="match-info">
                     <div className="match-info-date-row">
                         <span className='match-info-date'>
-                            <CalendarIcon size={20} />
+                            <CalendarIcon size={16} />
                         </span>
-                        <span><text>{date}</text></span>
+                        <span><text>{formatMatchDate(match.date)}</text></span>
                     </div>
                     <div><text>{match.stadium}</text></div>
                     <div><text>{match.location}</text></div>
@@ -31,7 +31,7 @@ const MatchFixture = ({ match, children }: Props) => {
                     </div>
                     <div className="match-scoreline">
                         <span className="team-home"><text>{match.homeTeam}</text></span>
-                        <div className="score-result" onClick={() => navigate('/fixtures')}>
+                        <div className="score-result" onClick={() => navigate(`/match/${match.id}`)}>
                             <span className="score-box">{match.homeScore}</span>
                             <span className="score-separator"><text>:</text></span>
                             <span className="score-box">{match.awayScore}</span>
