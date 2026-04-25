@@ -1,6 +1,6 @@
 export type Team = {
     id: number;
     name: string;
-    shortName: string;
+    short_name: string;
     logo: string;
 };

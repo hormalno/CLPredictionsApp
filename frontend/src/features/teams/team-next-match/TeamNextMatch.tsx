@@ -10,8 +10,8 @@ const TeamNextMatch = ({team} : Props) => {
         <div className="next-match-team ">
             <div className="next-match-team-logo">
                 {team.logo
-                    ? <img src={team.logo} alt={team.shortName} />
-                    : <span>{team.shortName}</span>
+                    ? <img src={team.logo} alt={team.short_name} />
+                    : <span>{team.short_name}</span>
                 }
             </div>
             <span className="next-match-team-name">{team.name}</span>

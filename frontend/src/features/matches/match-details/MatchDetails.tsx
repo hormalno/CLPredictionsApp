@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, SoccerBallIcon, UserIcon, CheckCircleIcon, XCircleIcon } from '../../../components/icons/Icons';
 import type { Match } from '../../../types';
-import { mockTeams } from '../../../mocks';
 import "./MatchDetails.css";
 
 type Props = {
@@ -10,10 +9,6 @@ type Props = {
 
 const MatchDetails = ({match} : Props) => {
     const navigate = useNavigate();
-    const homeTeam = mockTeams.find(t => t.id === match.homeTeam);
-    const awayTeam = mockTeams.find(t => t.id === match.awayTeam);
-
-    if (!homeTeam || !awayTeam) return null;
 
     return (
         <>
@@ -31,35 +26,35 @@ const MatchDetails = ({match} : Props) => {
             </div>
             <div className="header-match-result__content">
               <div className="header-match-result__status">
-                <span><text>Full Time</text></span>
+                <span>{match.is_finished ? 'Full Time' : 'Upcoming'}</span>
               </div>
               <div className="header-match-result__score-board">
-                <div
-                  className="header-match-result__team header-match-result__team--a"
-                >
+                <div className="header-match-result__team header-match-result__team--a">
                   <div className="header-match-result__team-icon">
-                    <span><text>A</text></span>
+                    {match.home_team.logo
+                      ? <img src={match.home_team.logo} alt={match.home_team.short_name} />
+                      : <span>{match.home_team.short_name}</span>
+                    }
                   </div>
-                  <h1 className="hero-title"><text>{match.homeTeam}</text></h1>
+                  <h1 className="hero-title">{match.home_team.name}</h1>
                 </div>
                 <div className="header-match-result__score-display">
-                  <span className="header-match-result__score"><text>3</text></span>
-                  <span className="header-match-result__divider">
-                    <text>-</text>
-                  </span>
-                  <span className="header-match-result__score"><text>1</text></span>
+                  <span className="header-match-result__score">{match.score_home_team}</span>
+                  <span className="header-match-result__divider">-</span>
+                  <span className="header-match-result__score">{match.score_away_team}</span>
                 </div>
-                <div
-                  className="header-match-result__team--b header-match-result__team"
-                >
+                <div className="header-match-result__team--b header-match-result__team">
                   <div className="header-match-result__team-icon">
-                    <span><text>B</text></span>
+                    {match.away_team.logo
+                      ? <img src={match.away_team.logo} alt={match.away_team.short_name} />
+                      : <span>{match.away_team.short_name}</span>
+                    }
                   </div>
-                  <h1 className="hero-title"><text>{match.awayTeam}</text></h1>
+                  <h1 className="hero-title">{match.away_team.name}</h1>
                 </div>
               </div>
               <p className="hero-subtitle">
-                <text>MatchMates Friends League • Dec 15, 2026</text>
+                MatchMates Friends League • {match.date}
               </p>
             </div>
           </div>

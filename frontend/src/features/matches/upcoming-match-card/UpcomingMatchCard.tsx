@@ -3,7 +3,6 @@ import type { Match } from '../../../types';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
 import { Button } from '../../../components/button/Button';
 import './UpcomingMatchCard.css';
-import { mockTeams } from '../../../mocks';
 
 type Props = {
     match: Match;
@@ -11,10 +10,6 @@ type Props = {
 
 const UpcomingMatchCard = ({match} : Props) => {
     const navigate = useNavigate();
-    const homeTeam = mockTeams.find(t => t.id === match.homeTeam);
-    const awayTeam = mockTeams.find(t => t.id === match.awayTeam);
-    
-    if (!homeTeam || !awayTeam) return null;
 
     return (
         <div className="upcoming-match-card">
@@ -23,20 +18,20 @@ const UpcomingMatchCard = ({match} : Props) => {
             </div>
             <div className="match-teams-row">
                 <div className="match-team">
-                <span>{homeTeam.shortName}</span>
+                    <span>{match.home_team.short_name}</span>
                 </div>
                 <div className="match-vs-small">
-                <span>vs</span>
+                    <span>vs</span>
                 </div>
                 <div className="match-team">
-                <span>{awayTeam.shortName}</span>
+                    <span>{match.away_team.short_name}</span>
                 </div>
             </div>
-            <Button variant="primary" size="sm"  onClick={() => navigate(`/match/${match.id}`)}>
+            <Button variant="primary" size="sm" onClick={() => navigate(`/match/${match.id}`)}>
                 View Match
             </Button>
         </div>
-    )
+    );
 };
 
 export default UpcomingMatchCard;

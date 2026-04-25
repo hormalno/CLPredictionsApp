@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import type { Match } from '../../../types';
-import { mockTeams } from '../../../mocks';
 import './MatchResultCard.css';
 
 type Props = {
@@ -8,20 +7,15 @@ type Props = {
 };
 
 const MatchResultCard = ({match} : Props) => {
-    const homeTeam = mockTeams.find(t => t.id === match.homeTeam);
-    const awayTeam = mockTeams.find(t => t.id === match.awayTeam);
-    
-    if (!homeTeam || !awayTeam) return null;
-    
     return (
         <Link className="result-card" to={`/match/${match.id}`}>
             <div className="result-header">
                 <span>{match.group ? `Group ${match.group}` : `Round ${match.round}`}</span>
             </div>
             <div className="result-score">
-                <span>{homeTeam.shortName}</span>
-                <span className="score-number">{match.homeScore} - {match.awayScore}</span>
-                <span>{awayTeam.shortName}</span>
+                <span>{match.home_team.short_name}</span>
+                <span className="score-number">{match.score_home_team} - {match.score_away_team}</span>
+                <span>{match.away_team.short_name}</span>
             </div>
             <div className="friend-scores">
                 <div className="friend-score-item">
@@ -33,7 +27,7 @@ const MatchResultCard = ({match} : Props) => {
                     <span className="friend-points">+3 pts</span>
                 </div>
             </div>
-        </Link> 
+        </Link>
     );
 };
 

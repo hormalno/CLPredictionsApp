@@ -10,8 +10,8 @@ const AwayTeam = ({team} : Props) => {
         <span className="fixture-team-away">
             <span className="team-logo">
                 {team.logo
-                    ? <img src={team.logo} alt={team.shortName} />
-                    : team.shortName
+                    ? <img src={team.logo} alt={team.short_name} />
+                    : team.short_name
                 }
             </span>
             <span>{team.name}</span>
