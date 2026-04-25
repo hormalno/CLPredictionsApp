@@ -1,0 +1,7 @@
+.fixture-team-home {
+  color: var(--color-on-surface-secondary);
+  flex: 1;
+  font-size: var(--font-size-lg);
+  text-align: right;
+  font-weight: var(--font-weight-medium);
+}

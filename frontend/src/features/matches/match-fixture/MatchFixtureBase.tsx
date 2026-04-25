@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { CalendarIcon } from '../../../components/icons/Icons';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
+import { mockTeams } from '../../../mocks';
+import HomeTeam from '../../teams/home-team/HomeTeam';
+import AwayTeam from '../../teams/away-team/AwayTeam';
 import type { Match } from '../../../types';
 import './MatchFixtureBase.css';
 
@@ -11,6 +14,10 @@ type Props = {
 
 const MatchFixture = ({ match, children }: Props) => {
     const navigate = useNavigate();
+    const homeTeam = mockTeams.find(t => t.id === match.homeTeam);
+    const awayTeam = mockTeams.find(t => t.id === match.awayTeam);
+
+    if (!homeTeam || !awayTeam) return null;
 
     return (
         <div>
@@ -20,23 +27,23 @@ const MatchFixture = ({ match, children }: Props) => {
                         <span className='match-info-date'>
                             <CalendarIcon size={16} />
                         </span>
-                        <span><text>{formatMatchDate(match.date)}</text></span>
+                        <span>{formatMatchDate(match.date)}</span>
                     </div>
-                    <div><text>{match.stadium}</text></div>
-                    <div><text>{match.location}</text></div>
+                    <div>{match.stadium}</div>
+                    <div>{match.location}</div>
                 </div>
                 <div className="match-scoreline-wrapper">
                     <div className='match-round'>
-                        ROUND {match.round} <span className="match-round-dot">·</span> GROUP {match.group}
+                        {match.round} {match.group && <><span className="match-round-dot">·</span> GROUP {match.group}</>}
                     </div>
                     <div className="match-scoreline">
-                        <span className="team-home"><text>{match.homeTeam}</text></span>
+                        <HomeTeam team={homeTeam} />
                         <div className="score-result" onClick={() => navigate(`/match/${match.id}`)}>
                             <span className="score-box">{match.homeScore}</span>
-                            <span className="score-separator"><text>:</text></span>
+                            <span className="score-separator">:</span>
                             <span className="score-box">{match.awayScore}</span>
                         </div>
-                        <span className="team-away"><text>{match.awayTeam}</text></span>
+                        <AwayTeam team={awayTeam} />
                     </div>
                 </div>
                 <div className="match-actions">

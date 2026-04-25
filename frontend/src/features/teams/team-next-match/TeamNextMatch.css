@@ -1,0 +1,32 @@
+.next-match-team {
+  gap: var(--spacing-sm);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.next-match-team-logo {
+  color: var(--color-primary);
+  width: 64px;
+  border: 2px solid var(--color-border);
+  height: 64px;
+  display: flex;
+  background: var(--color-surface-elevated);
+  align-items: center;
+  font-weight: var(--font-weight-heading);
+  border-radius: var(--border-radius-full);
+  justify-content: center;
+  overflow: hidden;
+}
+
+.next-match-team-logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+ 
+.next-match-team-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}

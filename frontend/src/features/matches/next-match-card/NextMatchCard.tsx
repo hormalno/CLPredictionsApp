@@ -4,6 +4,8 @@ import { CalendarIcon } from '../../../components/icons/Icons';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
 import type { Match } from '../../../types';
 import './NextMatchCard.css';
+import { mockTeams } from '../../../mocks';
+import TeamNextMatch from '../../teams/team-next-match/TeamNextMatch';
 
 type Props = {
     match: Match;
@@ -11,26 +13,20 @@ type Props = {
 
 const NextMatchCard = ({match} : Props) => {
     const navigate = useNavigate();
+    const homeTeam = mockTeams.find(t => t.id === match.homeTeam);
+    const awayTeam = mockTeams.find(t => t.id === match.awayTeam);
+
+    if (!homeTeam || !awayTeam) return null;
 
     return (
         <div className="next-match-card">
             <span className="next-match-label">Next Upcoming Match</span>
             <div className="next-match-teams">
-                <div className="team">
-                    <div className="team-logo">
-                    <span>FCB</span>
-                    </div>
-                    <span className="team-name">{match.homeTeam}</span>
-                </div>
+                <TeamNextMatch team={homeTeam} />
                 <div className="match-vs">
                     <span>VS</span>
                 </div>
-                <div className="team">
-                    <div className="team-logo">
-                    <span>RMA</span>
-                    </div>
-                    <span className="team-name">{match.awayTeam}</span>
-                </div>
+                <TeamNextMatch team={awayTeam} />
             </div>
             <div className="next-match-info">
             <div className="match-meta">

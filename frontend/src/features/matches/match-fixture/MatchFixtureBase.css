@@ -112,22 +112,6 @@
   color: black;
 }
 
-.team-home {
-  color: var(--color-on-surface-secondary);
-  flex: 1;
-  font-size: var(--font-size-lg);
-  text-align: right;
-  font-weight: var(--font-weight-medium);
-}
- 
-.team-away {
-  color: var(--color-on-surface-secondary);
-  flex: 1;
-  font-size: var(--font-size-lg);
-  text-align: left;
-  font-weight: var(--font-weight-medium);
-}
-
 .match-actions {
   flex: 0 0 15%;
   display: flex;

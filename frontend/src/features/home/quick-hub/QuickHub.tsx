@@ -37,7 +37,7 @@ const QuickHub = () => {
                             </div>
                         </div>
                         <div className="quick-hub-card-wrapper">
-                            <NextMatchCard match={mockMatches[4]} />
+                            <NextMatchCard match={mockMatches[3]} />
                         </div>
                     </div>
                 </div>
