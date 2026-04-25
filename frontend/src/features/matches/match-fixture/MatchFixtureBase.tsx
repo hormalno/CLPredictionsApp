@@ -29,14 +29,24 @@ const MatchFixture = ({ match, children }: Props) => {
                 </div>
                 <div className="match-scoreline-wrapper">
                     <div className='match-round'>
-                        {match.round} {match.group && <><span className="match-round-dot">·</span> GROUP {match.group}</>}
+                        {match.round_display} {match.group && <><span className="match-round-dot">·</span> GROUP {match.group}</>}
                     </div>
                     <div className="match-scoreline">
                         <HomeTeam team={match.home_team} />
                         <div className="score-result" onClick={() => navigate(`/match/${match.id}`)}>
-                            <span className="score-box">{match.score_home_team}</span>
-                            <span className="score-separator">-</span>
-                            <span className="score-box">{match.score_away_team}</span>
+                            {match.is_finished 
+                                ? (<>
+                                    <span className="score-box">{match.score_home_team}</span>
+                                    <span className="score-separator">-</span>
+                                    <span className="score-box">{match.score_away_team}</span>
+                                    </>)
+                                : (<>
+                                    <span className="score-box">-</span>
+                                    <span className="score-separator">:</span>
+                                    <span className="score-box">-</span>
+                                    </>)  
+                            }
+                            
                         </div>
                         <AwayTeam team={match.away_team} />
                     </div>

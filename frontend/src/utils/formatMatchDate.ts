@@ -6,7 +6,7 @@ export function formatMatchDate(dateStr: string): string {
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const diffDays = Math.round((matchDay.getTime() - today.getTime()) / 86400000);
 
-    const time = match.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    const time = match.toLocaleTimeString('bg-BG', { hour: '2-digit', minute: '2-digit' });
 
     if (diffDays === 0) return `Tonight, ${time}`;
     if (diffDays === 1) return `Tomorrow, ${time}`;

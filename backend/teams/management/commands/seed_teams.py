@@ -11,15 +11,10 @@ FIXTURES_LOGOS_DIR = os.path.join(
 
 TEAMS = [
     # Group A
-    {'name': 'Real Madrid',     'short_name': 'RMA', 'country_code': 'ES', 'group': 'A', 'logo': 'real_madrid.png'},
-    {'name': 'Bayern Munich',   'short_name': 'BAY', 'country_code': 'DE', 'group': 'A', 'logo': 'bayern_munich.png'},
-    {'name': 'PSG',             'short_name': 'PSG', 'country_code': 'FR', 'group': 'A', 'logo': 'psg.png'},
-    {'name': 'Benfica',         'short_name': 'BEN', 'country_code': 'PT', 'group': 'A', 'logo': 'benfica.png'},
-    # Group B
-    {'name': 'Manchester City', 'short_name': 'MCI', 'country_code': 'GB', 'group': 'B', 'logo': 'manchester_city.png'},
-    {'name': 'Inter Milan',     'short_name': 'INT', 'country_code': 'IT', 'group': 'B', 'logo': 'inter_milan.png'},
-    {'name': 'Galatasaray',     'short_name': 'GAL', 'country_code': 'TR', 'group': 'B', 'logo': 'galatasaray.png'},
-    {'name': 'Ajax',            'short_name': 'AJX', 'country_code': 'NL', 'group': 'B', 'logo': 'ajax.png'},
+    {'name': 'Mexico', 'short_name': 'MEX', 'country_code': 'MX', 'group': 'A', 'logo': 'mx.svg'},
+    {'name': 'South Africa', 'short_name': 'ZAF', 'country_code': 'ZA', 'group': 'A', 'logo': 'za.svg'},
+    {'name': 'Korea Republic', 'short_name': 'KOR', 'country_code': 'KR', 'group': 'A', 'logo': 'kr.svg'},
+    {'name': 'Czechia', 'short_name': 'CZE', 'country_code': 'CZ', 'group': 'A', 'logo': 'cz.svg'},
 ]
 
 
