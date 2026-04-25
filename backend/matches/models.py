@@ -14,14 +14,24 @@ class Match(models.Model):
         QF = ('QF', 'Quarter Final')
         SF = ('SF', 'Semi Final')
         F = ('F', 'Final')
+    
+    class GroupChoices(models.TextChoices):
+        A = ('A', 'A')
+        B = ('B', 'B')
+        C = ('C', 'C')
+        D = ('D', 'D')
 
 
     home_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_matches')
     away_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_matches')
     round = models.CharField(choices=RoundChoices.choices, max_length=10)
+    group = models.CharField(choices=GroupChoices.choices, max_length=1, null=True, blank=True)
     score_home_team = models.PositiveSmallIntegerField(default=0)
     score_away_team = models.PositiveSmallIntegerField(default=0)
     leg = models.IntegerField(choices=[(1, '1st Leg'), (2, '2nd Leg')], null=True, blank=True)
+    stadium = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    date = models.DateTimeField()
 
     class Meta:
         verbose_name_plural = 'matches'

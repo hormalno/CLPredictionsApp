@@ -7,6 +7,7 @@ from teams.mixins import CountryMixin
 class Team(CountryMixin):
     name = models.CharField(max_length=100, unique=True)
     short_name = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
+    logo = models.URLField(max_length=500, blank=True, default='')
 
     class Meta:
         constraints = [

@@ -1,9 +1,7 @@
 export type Match = {
     id: number;
-    homeTeam: string;
-    awayTeam: string;
-    homeTeamShort: string;
-    awayTeamShort: string;
+    homeTeam: number;
+    awayTeam: number;
     homeScore: number;
     awayScore: number;
     date: string;
