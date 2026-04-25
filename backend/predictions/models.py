@@ -25,6 +25,7 @@ class ScorePrediction(Prediction):
 
 class TopScorerPrediction(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    player_correct = models.BooleanField(null=True, blank=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 

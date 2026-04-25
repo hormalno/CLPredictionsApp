@@ -1,5 +1,6 @@
 from django.contrib import admin
-from matches.models import Match, Goal
+from matches.models import Match
+from goals.models import Goal
 
 # Register your models here.
 class GoalInline(admin.TabularInline):

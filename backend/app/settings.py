@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'teams',
+    'groups',
     'players',
+    'goals',
     'matches',
     'predictions',
     'accounts',
@@ -88,7 +90,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',   # or 'postgresql_psycopg2'
-        'NAME': 'cl_predictions_db',
+        'NAME': 'predict_mate_db',
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': 'localhost',        # or your DB host
