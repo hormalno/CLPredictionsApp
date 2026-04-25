@@ -15,10 +15,13 @@ class Prediction(models.Model):
 
 class MatchPrediction(Prediction):
     outcome = models.CharField(max_length=1, choices=(('1', '1'), ('X', 'X'), ('2', '2')))
+    correct_outcome = models.BooleanField(null=True, blank=True)
 
 class ScorePrediction(Prediction):
     home_team_score = models.PositiveIntegerField()
     away_team_score = models.PositiveIntegerField()
+    correct_home_team_score = models.BooleanField(null=True, blank=True)
+    correct_away_team_score = models.BooleanField(null=True, blank=True)
 
 class TopScorerPrediction(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
