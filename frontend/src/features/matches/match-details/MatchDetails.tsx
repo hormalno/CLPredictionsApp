@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, SoccerBallIcon, UserIcon, CheckCircleIcon, XCircleIcon } from '../../../components/icons/Icons';
 import type { Match } from '../../../types';
+import { mockTeams } from '../../../mocks';
 import "./MatchDetails.css";
 
 type Props = {
@@ -9,6 +10,10 @@ type Props = {
 
 const MatchDetails = ({match} : Props) => {
     const navigate = useNavigate();
+    const homeTeam = mockTeams.find(t => t.id === match.homeTeam);
+    const awayTeam = mockTeams.find(t => t.id === match.awayTeam);
+
+    if (!homeTeam || !awayTeam) return null;
 
     return (
         <>

@@ -1,4 +1,5 @@
 import type { Team } from '../../../types/index';
+import './HomeTeam.css';
 
 type Props = {
     team: Team;
@@ -7,11 +8,13 @@ type Props = {
 const HomeTeam = ({team} : Props) => {
     return (
         <span className="fixture-team-home">
-            <text>{team.name}</text>
-            {team.logo
-                ? <span><img src={team.logo} alt={team.shortName} /></span>
-                : <span>{team.shortName}</span>
-            }
+            <span>{team.name}</span>
+            <span className="team-logo">
+                {team.logo
+                    ? <img src={team.logo} alt={team.shortName} />
+                    : team.shortName
+                }
+            </span>
         </span>
     );
 };

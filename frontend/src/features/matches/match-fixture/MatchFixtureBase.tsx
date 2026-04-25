@@ -40,7 +40,7 @@ const MatchFixture = ({ match, children }: Props) => {
                         <HomeTeam team={homeTeam} />
                         <div className="score-result" onClick={() => navigate(`/match/${match.id}`)}>
                             <span className="score-box">{match.homeScore}</span>
-                            <span className="score-separator">:</span>
+                            <span className="score-separator">-</span>
                             <span className="score-box">{match.awayScore}</span>
                         </div>
                         <AwayTeam team={awayTeam} />

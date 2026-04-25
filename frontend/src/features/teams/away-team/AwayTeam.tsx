@@ -8,11 +8,13 @@ type Props = {
 const AwayTeam = ({team} : Props) => {
     return (
         <span className="fixture-team-away">
-            {team.logo
-                 ? <span><img src={team.logo} alt={team.shortName} /></span>
-                 : <span>{team.shortName}</span>
-            }
-            <text>{team.name}</text>
+            <span className="team-logo">
+                {team.logo
+                    ? <img src={team.logo} alt={team.shortName} />
+                    : team.shortName
+                }
+            </span>
+            <span>{team.name}</span>
         </span>
     );
 };

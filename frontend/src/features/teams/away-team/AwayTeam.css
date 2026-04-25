@@ -1,7 +1,30 @@
 .fixture-team-away {
   color: var(--color-on-surface-secondary);
   flex: 1;
-  font-size: var(--font-size-lg);
-  text-align: left;
+  gap: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 26px;
+  line-height: 1;
   font-weight: var(--font-weight-medium);
+}
+
+.fixture-team-away .team-logo {
+  width: 46px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-surface-elevated);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.fixture-team-away .team-logo img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
 }
