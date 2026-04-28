@@ -1,10 +1,36 @@
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Navigation from '../../components/navigation/Navigation'
 import Footer from '../../components/footer/Footer'
-import './LoginPage.css'
-import { Link } from 'react-router-dom'
 import { UserIcon, LockIcon } from '../../components/icons/Icons'
+import client from '../../api/client'
+import './LoginPage.css'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const [form, setForm] = useState({ username: '', password: '' })
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError(null)
+    setLoading(true)
+    try {
+      const res = await client.post('/auth/token/', form)
+      localStorage.setItem('access', res.data.access)
+      localStorage.setItem('refresh', res.data.refresh)
+      navigate('/')
+    } catch {
+      setError('Invalid username or password.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="login-container1">
       <Navigation />
@@ -12,7 +38,7 @@ const Login = () => {
         <div className="login-background">
           <img
             alt="Stadium Atmosphere"
-            src="https://images.pexels.com/photos/7545413/pexels-photo-7545413.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1500"
+            src="https://images.pexels.com/photos/7545413/pexels-photo-7545413.jpeg?auto=compress&cs=tinysrgb&w=1500"
             className="login-bg-image"
           />
           <div className="login-overlay"></div>
@@ -23,18 +49,11 @@ const Login = () => {
               <h2 className="section-title">Sign In</h2>
               <p className="section-content">Welcome back, Predict Mate!</p>
             </div>
-            <form
-              action="/login"
-              method="POST"
-              data-form-id="805b42e2-6979-422d-9b1e-699b5d6b9ca1"
-              className="login-form"
-            >
+            <form className="login-form" onSubmit={handleSubmit}>
+              {error && <p className="form-error">{error}</p>}
               <div className="form-group login-form-group">
-                <label
-                  htmlFor="username"
-                  className="form-label login-form-label"
-                >
-                  Email or Username
+                <label htmlFor="username" className="form-label login-form-label">
+                  Username
                 </label>
                 <div className="login-input-wrapper">
                   <UserIcon size={18} />
@@ -42,26 +61,19 @@ const Login = () => {
                     type="text"
                     id="username"
                     name="username"
-                    required={true}
-                    placeholder="Enter your email"
-                    data-form-field-id="username"
+                    required
+                    placeholder="Enter your username"
                     className="login-form-input"
+                    value={form.username}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
               <div className="form-group login-form-group">
                 <div className="label-row">
-                  <label
-                    htmlFor="password"
-                    className="form-label login-form-label"
-                  >
+                  <label htmlFor="password" className="form-label login-form-label">
                     Password
                   </label>
-                  <a href="#">
-                    <div className="btn-sm btn-link">
-                      <span>Forgot?</span>
-                    </div>
-                  </a>
                 </div>
                 <div className="login-input-wrapper">
                   <LockIcon size={18} />
@@ -69,29 +81,20 @@ const Login = () => {
                     type="password"
                     id="password"
                     name="password"
-                    required={true}
+                    required
                     placeholder="••••••••"
-                    data-form-field-id="password"
                     className="login-form-input"
+                    value={form.password}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
-              <div className="form-options">
-                <label className="checkbox-container">
-                  <input
-                    type="checkbox"
-                    name="remember"
-                  />
-                  <span className="login-checkmark"></span>
-                  <span className="section-content">Remember me</span>
-                </label>
-              </div>
               <button
-                name="button"
                 type="submit"
+                disabled={loading}
                 className="btn-primary login-submit-btn btn-lg btn"
               >
-                Sign In
+                {loading ? 'Signing in...' : 'Sign In'}
               </button>
             </form>
             <div className="login-footer">
@@ -105,7 +108,7 @@ const Login = () => {
           </div>
         </div>
       </section>
-      <Footer></Footer>
+      <Footer />
     </div>
   )
 }

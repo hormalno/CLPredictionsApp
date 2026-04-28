@@ -1,6 +1,8 @@
 export type GroupTeam = {
     id: number;
     name: string;
+    short_name: string;
+    logo: string;
     wins: number;
     draws: number;
     losses: number;

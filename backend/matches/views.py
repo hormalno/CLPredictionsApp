@@ -32,12 +32,12 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, url_path='upcoming')
     def upcoming(self, request):
-        queryset = self.get_queryset().filter(is_finished=False)
+        queryset = self.get_queryset().filter(is_finished=False)[:4]
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
     @action(detail=False, url_path='results')
     def results(self, request):
-        queryset = self.get_queryset().filter(is_finished=True)
+        queryset = self.get_queryset().filter(is_finished=True)[:4]
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)

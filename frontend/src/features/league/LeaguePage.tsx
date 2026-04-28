@@ -11,6 +11,12 @@ type Tab = 'fixtures' | 'group' | 'knockout';
 
 const LeaguePage = () => {
     const [activeTab, setActiveTab] = useState<Tab>('fixtures');
+    const [refreshKeys, setRefreshKeys] = useState<Record<Tab, number>>({ fixtures: 0, group: 0, knockout: 0 });
+
+    const handleTabClick = (tab: Tab) => {
+        setActiveTab(tab);
+        setRefreshKeys(prev => ({ ...prev, [tab]: prev[tab] + 1 }));
+    };
 
     return (
         <>
@@ -32,7 +38,7 @@ const LeaguePage = () => {
                     aria-controls="panel-fixtures"
                     aria-selected={activeTab === 'fixtures'}
                     className={`league-tabs-btn${activeTab === 'fixtures' ? ' active' : ''}`}
-                    onClick={() => setActiveTab('fixtures')}
+                    onClick={() => handleTabClick('fixtures')}
                   >
                     Fixtures &amp; Results
                   </button>
@@ -42,7 +48,7 @@ const LeaguePage = () => {
                     aria-controls="panel-group"
                     aria-selected={activeTab === 'group'}
                     className={`league-tabs-btn${activeTab === 'group' ? ' active' : ''}`}
-                    onClick={() => setActiveTab('group')}
+                    onClick={() => handleTabClick('group')}
                   >
                     Group Standings
                   </button>
@@ -52,7 +58,7 @@ const LeaguePage = () => {
                     aria-controls="panel-knockout"
                     aria-selected={activeTab === 'knockout'}
                     className={`league-tabs-btn${activeTab === 'knockout' ? ' active' : ''}`}
-                    onClick={() => setActiveTab('knockout')}
+                    onClick={() => handleTabClick('knockout')}
                   >
                     Knockout Phase
                   </button>
@@ -69,7 +75,7 @@ const LeaguePage = () => {
                   hidden={activeTab !== 'fixtures'}
                 >
                   <div className="league-tabs-grid">
-                    <Fixtures />
+                    <Fixtures key={refreshKeys.fixtures} />
                   </div>
                 </div>
                 <div
@@ -80,7 +86,7 @@ const LeaguePage = () => {
                   hidden={activeTab !== 'group'}
                 >
                   <div className="league-tabs-grid">
-                    <Groups />
+                    <Groups key={refreshKeys.group} />
                   </div>
                 </div>
                 <div
@@ -91,7 +97,7 @@ const LeaguePage = () => {
                   hidden={activeTab !== 'knockout'}
                 >
                   <div className="league-tabs-grid">
-                    <Knockout />
+                    <Knockout key={refreshKeys.knockout} />
                   </div>
                 </div>
               </div>

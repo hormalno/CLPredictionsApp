@@ -1,0 +1,30 @@
+.group-team {
+  color: #000000;
+  flex: 1;
+  gap: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 26px;
+  line-height: 1;
+  font-weight: var(--font-weight-medium);
+}
+
+.group-team .team-logo {
+  width: 46px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.group-team .team-logo img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}

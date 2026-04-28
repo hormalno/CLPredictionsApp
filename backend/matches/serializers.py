@@ -7,6 +7,7 @@ class MatchSerializer(serializers.ModelSerializer):
     home_team = TeamSerializer()
     away_team = TeamSerializer()
     round_display = serializers.CharField(source='get_round_display', read_only=True)
+    group_display = serializers.CharField(source='group.name', read_only=True, allow_null=True)
 
     class Meta:
         model = Match
@@ -17,6 +18,7 @@ class MatchSerializer(serializers.ModelSerializer):
             'round',
             'round_display',
             'group',
+            'group_display',
             'score_home_team',
             'score_away_team',
             'stadium',

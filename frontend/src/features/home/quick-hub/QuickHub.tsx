@@ -1,9 +1,23 @@
+import { useEffect, useState } from "react";
+import { getUpcomingMatches } from '../../../api/matches';
 import { Button } from '../../../components/button/Button';
 import NextMatchCard from '../../matches/next-match-card/NextMatchCard';
-import { mockMatches } from '../../../mocks/matches';
+import type { Match } from '../../../types';
 import './QuickHub.css';
 
+
 const QuickHub = () => {
+    const [matches, setUpcomingMatches] = useState<Match[] | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        getUpcomingMatches()
+        .then(setUpcomingMatches)
+        .catch(() => setError('No upcoming match found'))
+        .finally(() => setLoading(false));
+    }, []);
+
     return (
             <section className="quick-hub-section">
                 <div className="quick-hub-bg">
@@ -37,7 +51,9 @@ const QuickHub = () => {
                             </div>
                         </div>
                         <div className="quick-hub-card-wrapper">
-                            <NextMatchCard match={mockMatches[3]} />
+                            {loading && <p>Loading...</p>}
+                            {error && <p>{error}</p>}
+                            {matches && <NextMatchCard match={matches[0]} />}
                         </div>
                     </div>
                 </div>

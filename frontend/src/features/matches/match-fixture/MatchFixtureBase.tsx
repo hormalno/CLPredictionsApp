@@ -44,16 +44,21 @@ const MatchFixture = ({ match, children }: Props) => {
                         <HomeTeam team={match.home_team} />
                         <div className="score-result" onClick={() => navigate(`/match/${match.id}`)}>
                             {match.is_finished 
-                                ? (<>
-                                    
-                                    </>)
-                                : (<>
-                                    <span className="score-box">{hour}</span>
-                                    <span className="score-separator">:</span>
-                                    <span className="score-box">{minutes}</span>
-                                    </>)  
-                            }
-                            
+                                ? (
+                                    <>
+                                        <span className="score-box">{match.score_home_team}</span>
+                                        <span className="score-separator">-</span>
+                                        <span className="score-box">{match.score_away_team}</span>
+                                    </>
+                                )
+                                : (
+                                    <>
+                                        <span className="score-box">{hour}</span>
+                                        <span className="score-separator">:</span>
+                                        <span className="score-box">{minutes}</span>
+                                    </>
+                                )  
+                            }                            
                         </div>
                         <AwayTeam team={match.away_team} />
                     </div>
