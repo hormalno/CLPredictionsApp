@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import useAuth from '../../features/auth/useAuth'
 import { TrophyIcon, TrophyFilledIcon, GlobeIcon, ChevronDownIcon, UserIcon, MenuIcon, FootballCloseIcon } from '../icons/Icons'
-import { Link } from 'react-router-dom'
 import { Button } from '../button/Button'
 import './Navigation.css'
 
@@ -14,7 +15,14 @@ const Logo = () => (
 )
 
 const Navigation = () => {
+  const { isAuthenticated, username, logout } = useAuth()
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   const openMenu = () => {
     setMenuOpen(true)
@@ -73,12 +81,21 @@ const Navigation = () => {
                   <span className="navigation-link">EN</span>
                   <ChevronDownIcon size={16} />
                 </div>
-                <Link to="/login">
-                  <Button variant="secondary" size="sm">
-                    <UserIcon size={18} />
-                    <span>Log In</span>
-                  </Button>
-                </Link>
+                {isAuthenticated
+                  ? (
+                  <><span>Welcome, {username}</span>
+                    <button onClick={handleLogout} className="btn btn-secondary btn-sm">
+                      <UserIcon size={18} />
+                      <span>Log Out</span>
+                    </button>
+                  </>)
+                  : (<Link to="/login">
+                      <Button variant="secondary" size="sm">
+                        <UserIcon size={18} />
+                        <span>Log In</span>
+                      </Button>
+                    </Link>)
+                }
               </div>
               <button
                 id="navToggle"
