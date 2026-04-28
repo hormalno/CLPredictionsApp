@@ -18,7 +18,7 @@
   display: contents;
 }
 .league-tabs-section-header {
-  padding: var(--spacing-4xl) 0 var(--spacing-2xl);
+  padding: var(--spacing-xl) 0 var(--spacing-xl);
   background: radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent) 15%, transparent), transparent 40%),radial-gradient(circle at bottom left, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 40%);
 }
 
@@ -108,4 +108,5 @@
   gap: var(--spacing-xs);
   display: flex;
   flex-direction: column;
+  margin-top: var(--spacing-sm);
 }

@@ -62,7 +62,7 @@ TEAMS = [
     {'name': 'Jordan', 'short_name': 'JOR', 'country_code': 'JO', 'group': 'J', 'logo': 'jo.svg'},
     # Group K
     {'name': 'Portugal', 'short_name': 'POR', 'country_code': 'PT', 'group': 'K', 'logo': 'pt.svg'},
-    {'name': 'DR Congo', 'short_name': 'CGO', 'country_code': 'CG', 'group': 'K', 'logo': 'cg.svg'},
+    {'name': 'DR Congo', 'short_name': 'DRC', 'country_code': 'CG', 'group': 'K', 'logo': 'cd.svg'},
     {'name': 'Uzbekistan', 'short_name': 'UZB', 'country_code': 'UZ', 'group': 'K', 'logo': 'uz.svg'},
     {'name': 'Colombia', 'short_name': 'COL', 'country_code': 'CO', 'group': 'K', 'logo': 'co.svg'},
     # Group L

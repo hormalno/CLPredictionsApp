@@ -6,13 +6,17 @@
   margin: 0 auto;
   padding: 0 var(--spacing-xl);
   max-width: var(--content-max-width);
+  margin-top: var(--spacing-sm);
 }
  
 .predictions-header {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-xl);
+  margin: 0 var(--spacing-xs) var(--spacing-xs);
   justify-content: space-between;
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  padding-top: var(--spacing-md);
+  padding-bottom: 0;
 }
  
 .predictions-list {
@@ -24,4 +28,13 @@
 .predictions-filters {
   gap: var(--spacing-sm);
   display: flex;
+}
+
+.predictions-section-title {
+  font-size: var(--font-size-2xl);
+  font-style: var(--font-style-heading);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
 }

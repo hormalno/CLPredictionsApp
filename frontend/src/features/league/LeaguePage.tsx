@@ -15,7 +15,7 @@ const LeaguePage = () => {
     return (
         <>
           <Navigation />            
-          <div className="league-tabs-container">
+          <div className="">
             <section className="league-tabs-section-header">
               <div className="league-tabs-header">
                 <h2 className="section-title">Tournament Progress</h2>

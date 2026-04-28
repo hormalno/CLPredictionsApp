@@ -11,8 +11,17 @@ type Props = {
     children?: React.ReactNode;
 };
 
+const getTime = (dateStr: string) => {
+    const d = new Date(dateStr);
+    return {
+        hour: d.toLocaleTimeString('en-GB', { hour: '2-digit', timeZone: 'Europe/Sofia' }),
+        minutes: d.toLocaleTimeString('en-GB', { minute: '2-digit', timeZone: 'Europe/Sofia' }),
+    };
+};
+
 const MatchFixture = ({ match, children }: Props) => {
     const navigate = useNavigate();
+    const { hour, minutes } = getTime(match.date);
 
     return (
         <div>
@@ -36,14 +45,12 @@ const MatchFixture = ({ match, children }: Props) => {
                         <div className="score-result" onClick={() => navigate(`/match/${match.id}`)}>
                             {match.is_finished 
                                 ? (<>
-                                    <span className="score-box">{match.score_home_team}</span>
-                                    <span className="score-separator">-</span>
-                                    <span className="score-box">{match.score_away_team}</span>
+                                    
                                     </>)
                                 : (<>
-                                    <span className="score-box">-</span>
+                                    <span className="score-box">{hour}</span>
                                     <span className="score-separator">:</span>
-                                    <span className="score-box">-</span>
+                                    <span className="score-box">{minutes}</span>
                                     </>)  
                             }
                             

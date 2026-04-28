@@ -8,6 +8,7 @@ class Team(CountryMixin):
     name = models.CharField(max_length=100, unique=True)
     short_name = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
     logo = models.FileField(upload_to='logos/', blank=True, default='')
+    country = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
         constraints = [
