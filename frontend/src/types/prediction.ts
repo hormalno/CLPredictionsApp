@@ -9,3 +9,9 @@ export type MatchPrediction = {
     correct_home_team_score: boolean | null;
     correct_away_team_score: boolean | null;
 };
+
+export type MatchUserScore = {
+    match: number;
+    username: string;
+    points: number;
+}

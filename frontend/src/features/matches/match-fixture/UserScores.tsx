@@ -1,23 +1,42 @@
+import type { MatchUserScore } from '../../../types';
+import useAuth from '../../auth/useAuth';
 import './UserScores.css'
 
+type Props = {
+    scores: MatchUserScore[];
+}
 
-const UserScores = () => (
-    <div className="match-user-scores">
-        <div className="user-scores">
-            <div className="user-score-item">
-                <span className="user-name">Alex</span>
-                <span className="user-points">+10 pts</span>
-            </div>
-            <div className="user-score-item">
-                <span className="user-name">Jordan</span>
-                <span className="user-points">+3 pts</span>
-            </div>
-            <div className="your-score-item">
-                <span className="user-name">You</span>
-                <span className="user-points">+3 pts</span>
+const UserScores = ({ scores }: Props) => {
+    const { username } = useAuth();
+
+    if (scores.length === 0) return null;
+
+    const topScores = username
+        ? scores.slice(0, 2)
+        : scores.slice(0, 3);
+
+    const userScore = username
+        ? scores.find(s => s.username === username)
+        : undefined;
+
+    return (
+        <div className="match-user-scores">
+            <div className="user-scores">
+                {topScores.map((score) => (
+                    <div key={score.username} className="user-score-item">
+                        <span className="user-name">{score.username}</span>
+                        <span className="user-points">+{score.points} pts</span>
+                    </div>
+                ))}
+                {userScore && (
+                    <div className="your-score-item">
+                        <span className="user-name">You</span>
+                        <span className="user-points">+{userScore.points} pts</span>
+                    </div>
+                )}
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default UserScores;

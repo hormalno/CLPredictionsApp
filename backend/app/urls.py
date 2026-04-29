@@ -22,7 +22,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from matches.views import MatchViewSet
 from groups.views import GroupViewSet
-from predictions.views import UserPredictionsView, SubmitPredictionView
+from predictions.views import UserPredictionsView, SubmitPredictionView, MatchUserScoresView
 
 router = DefaultRouter()
 router.register(r'matches', MatchViewSet, basename='match')
@@ -36,5 +36,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/predictions/submit/', SubmitPredictionView.as_view(), name='submit_prediction'),
     path('api/predictions/me/', UserPredictionsView.as_view(), name='user_predictions'),
+    path('api/match-scores/', MatchUserScoresView.as_view(), name='match_scores'),
     # path('api/predictions/<int:match_id>/predictions/', MatchPredictionListView.as_view(), name='match_predictions'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

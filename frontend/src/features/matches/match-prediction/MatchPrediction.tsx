@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CalendarIcon, SaveIcon } from '../../../components/icons/Icons';
-import type { Match, ScorePrediction } from '../../../types';
+import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
 import { submitPrediction } from '../../../api/predictions';
 import './MatchPrediction.css';
@@ -8,12 +8,16 @@ import HomeTeam from '../../teams/home-team/HomeTeam';
 import AwayTeam from '../../teams/away-team/AwayTeam';
 import { Button } from '../../../components/button/Button';
 
-type Props = { match: Match; existingScore?: ScorePrediction; onSaved?: () => void };
+type Props = { 
+    match: Match; 
+    prediction: MatchPredictionType | undefined;
+    onSaved?: () => void 
+};
 
-const MatchPrediction = ({ match, existingScore, onSaved }: Props) => {
-    const [homeScore, setHomeScore] = useState<string>(existingScore ? String(existingScore.home_team_score) : '');
-    const [awayScore, setAwayScore] = useState<string>(existingScore ? String(existingScore.away_team_score) : '');
-    const [hasPrediction, setHasPrediction] = useState(!!existingScore);
+const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
+    const [homeScore, setHomeScore] = useState<string>(prediction ? String(prediction.home_team_score) : '');
+    const [awayScore, setAwayScore] = useState<string>(prediction ? String(prediction.away_team_score) : '');
+    const [hasPrediction, setHasPrediction] = useState(!!prediction);
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);

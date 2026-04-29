@@ -3,15 +3,16 @@ import { CalendarIcon } from '../../../components/icons/Icons';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
 import HomeTeam from '../../teams/home-team/HomeTeam';
 import AwayTeam from '../../teams/away-team/AwayTeam';
-import type { Match } from '../../../types';
+import type { Match, MatchPrediction } from '../../../types';
 import './MatchFixture.css';
 
 type Props = {
     match: Match;
+    prediction: MatchPrediction | undefined;
     children: React.ReactNode;
 };
 
-const MatchFixture = ({ match, children }: Props) => {
+const MatchFixture = ({ match, prediction, children }: Props) => {
     const navigate = useNavigate();
 
     return (
@@ -29,7 +30,7 @@ const MatchFixture = ({ match, children }: Props) => {
                 </div>
                 <div className="match-scoreline-wrapper">
                     <div className='match-round'>
-                        {match.round_display} {match.group && <><span className="match-round-dot">·</span> GROUP {match.group}</>}
+                        {match.round_display} {match.group && <><span className="match-round-dot">·</span> GROUP {match.group_display}</>}
                     </div>
                     <div className="match-scoreline">
                         <HomeTeam team={match.home_team} />
@@ -39,6 +40,9 @@ const MatchFixture = ({ match, children }: Props) => {
                             <span className="score-box">{match.score_away_team}</span>                            
                         </div>
                         <AwayTeam team={match.away_team} />
+                    </div>
+                    <div className='match-scoreline-bottom'>
+                        {prediction && `Your prediction: ${prediction.home_team_score} - ${prediction.away_team_score}`}
                     </div>
                 </div>
                 <div className="match-actions">

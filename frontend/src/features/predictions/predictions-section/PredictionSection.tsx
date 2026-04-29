@@ -1,13 +1,15 @@
-import { type Dispatch, type SetStateAction, useEffect, useMemo, useState } from "react";
+import { type Dispatch, type SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
 import { getUserPredictions } from '../../../api/predictions';
 import { getMatches } from "../../../api/matches";
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
-import type { Match, MatchPrediction } from '../../../types'
 import MyPrediction from "../../matches/match-fixture/MyPrediction";
+import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
+import type { Match, MatchPrediction as MatchPredictionType } from '../../../types'
+
 
 type Props = {
-    predictions: MatchPrediction[];
-    setPredictions: Dispatch<SetStateAction<MatchPrediction[]>>;
+    predictions: MatchPredictionType[];
+    setPredictions: Dispatch<SetStateAction<MatchPredictionType[]>>;
 };
 
 const PredictionSection = ({ predictions, setPredictions }: Props) => {
@@ -15,11 +17,11 @@ const PredictionSection = ({ predictions, setPredictions }: Props) => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const refreshPredictions = () => {
+    const refreshPredictions = useCallback(() => {
         getUserPredictions()
         .then(setPredictions)
         .catch(() => {});
-    }
+    }, [setPredictions]);
 
     useEffect(() => {
         const fetchMatches = getMatches()
@@ -27,7 +29,7 @@ const PredictionSection = ({ predictions, setPredictions }: Props) => {
             .catch(() => setError('Failed to load matches.'));
 
         Promise.all([fetchMatches, refreshPredictions()]).finally(() => setLoading(false));
-    }, []);
+    }, [refreshPredictions]);
 
     const predictionByMatch = useMemo(() =>
         new Map(predictions.map(p => [p.match, p])),
@@ -51,15 +53,14 @@ const PredictionSection = ({ predictions, setPredictions }: Props) => {
                     {!loading && !error && matches.map(match => {
                         const prediction = predictionByMatch.get(match.id);
 
-                        // if (match.is_closed) {
+                        if (match.is_closed) {
 
-                            return (<MatchFixture key={match.id} match={match}>
-                                        <MyPrediction is_pending={!match.is_finished} prediction={prediction} />
+                            return (<MatchFixture key={match.id} match={match} prediction={prediction}>
+                                        {prediction && <MyPrediction is_pending={!match.is_finished} prediction={prediction} />}
                                     </MatchFixture>)
-                        // }
-
-                        // const score = scoreByMatch.get(match.id)
-                        // return <MatchPrediction key={match.id} match={match} existingScore={score} onSaved={refreshPredictions} />
+                        }
+                        
+                        return <MatchPrediction key={match.id} match={match} prediction={prediction} onSaved={refreshPredictions} />
                     })}
                 </div>
             </div>

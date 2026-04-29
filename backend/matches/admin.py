@@ -9,14 +9,14 @@ class GoalInline(admin.TabularInline):
     fields = ['team_scored', 'goalscorer', 'assist_player', 'minute', 'is_penalty']
 
 def close_match_predictions(modeladmin, request, queryset):
-    mp = Match.objects.filter(match__in=queryset, is_closed=False).update(is_closed=True)
+    mp = queryset.filter(is_closed=False).update(is_closed=True)
     modeladmin.message_user(request, f'Closed {mp} match for prediction.', messages.SUCCESS)
 
 close_match_predictions.short_description = 'Close predictions for selected matches'
 
 
 def open_match_predictions(modeladmin, request, queryset):
-    mp = Match.objects.objects.filter(match__in=queryset, is_closed=True).update(is_closed=False)
+    mp = queryset.filter(is_closed=True).update(is_closed=False)
     modeladmin.message_user(request, f'Opened {mp} match for prediction.', messages.SUCCESS)
 
 open_match_predictions.short_description = 'Open predictions for selected matches'

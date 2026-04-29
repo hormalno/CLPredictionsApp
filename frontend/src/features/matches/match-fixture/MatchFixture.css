@@ -56,10 +56,13 @@
   text-transform: uppercase;
   position: absolute;
   top: calc(-1.2 * var(--spacing-2xl));
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: row;
   align-items: center;
   text-align: center;
+  white-space: nowrap;
 }
  
 .match-scoreline {
@@ -113,6 +116,22 @@
   border-radius: var(--border-radius-sm);
   background-color: transparent;
   cursor: pointer;
+}
+
+.match-scoreline-bottom {
+  color: #fefefe;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: calc(-1.2 * var(--spacing-xl));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .match-actions {

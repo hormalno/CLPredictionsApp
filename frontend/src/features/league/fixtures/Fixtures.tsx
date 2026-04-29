@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
 import UserScores from "../../matches/match-fixture/UserScores";
 import { getMatches } from "../../../api/matches";
-import type { Match } from "../../../types";
+import { getMatchUserScores } from "../../../api/predictions";
+import type { Match, MatchUserScore } from "../../../types";
 import './Fixtures.css';
+
 
 const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -21,17 +23,29 @@ const groupByDate = (matches: Match[], timeZone = 'Europe/Sofia') =>
 
 const Fixtures = () => {
     const [matches, setMatches] = useState<Match[] | null>(null);
+    const [userScores, setUserScores] = useState<MatchUserScore[]>([])
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        getMatches()
-        .then(setMatches)
+        Promise.all([getMatches(),  getMatchUserScores()])
+        .then(([matchesData, userScoreData]) => {
+            setMatches(matchesData);
+            setUserScores(userScoreData)
+        })
         .catch(() => setError('No matches found'))
         .finally(() => setLoading(false));
     }, []);
 
     const grouped = matches ? groupByDate(matches) : {};
+
+    const scoresByMatch = useMemo(() =>
+        userScores.reduce<Map<number, MatchUserScore[]>>((acc, s) => {
+            const existing = acc.get(s.match) ?? [];
+            acc.set(s.match, [...existing, s]);
+            return acc;
+        }, new Map()),[userScores]
+    );
 
     return (
         <section className="predictions-section">
@@ -45,8 +59,8 @@ const Fixtures = () => {
                         </div>
                         <div className="predictions-list">
                             {dayMatches.map((match) => (
-                                <MatchFixture key={match.id} match={match}>
-                                    <UserScores />
+                                <MatchFixture key={match.id} match={match} prediction={undefined}>
+                                    {match.is_finished && <UserScores scores={scoresByMatch.get(match.id) ?? []} />}
                                 </MatchFixture>
                             ))}
                         </div>

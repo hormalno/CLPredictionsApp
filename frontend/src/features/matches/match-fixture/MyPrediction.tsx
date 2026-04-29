@@ -4,11 +4,11 @@ import './MyPrediction.css'
 
 type Props = {
     is_pending: boolean;
-    prediction: MatchPrediction | undefined;
+    prediction: MatchPrediction;
 };
 
 const MyPrediction = ({is_pending, prediction }: Props) => {
-    const outcomeClass = is_pending ? 'pending' : prediction?.correct_outcome ? 'correct' : 'wrong';
+    const outcomeClass = is_pending ? 'pending' : prediction.correct_outcome ? 'correct' : 'wrong';
     
     const getScoreStatus = () => {
         if (is_pending) {
@@ -18,10 +18,10 @@ const MyPrediction = ({is_pending, prediction }: Props) => {
                     </span>)
         }
 
-        if (!prediction || (!prediction.correct_away_team_score && !prediction.correct_away_team_score)) {
+        if (!prediction.correct_away_team_score && !prediction.correct_away_team_score) {
             return (<span className="wrong status-badge">
                         <XSquareIcon size={16} />
-                        <span><text>Wrong result</text></span>
+                        <span><text>Total miss</text></span>
                     </span>)
         }
 
@@ -47,14 +47,14 @@ const MyPrediction = ({is_pending, prediction }: Props) => {
                     : prediction?.correct_outcome
                         ? <CircleCheckIcon size={16} />
                         : <XSquareIcon size={16} />}
-                    <span><text>{is_pending ? 'Pending' : prediction?.correct_outcome ? 'Correct result' : 'Wrong result'}</text></span>
+                    <span><text>{is_pending ? 'Pending' : prediction.correct_outcome ? 'Correct result' : 'Wrong result'}</text></span>
                 </span>
             </div>
             <div className="match-status">
                 {getScoreStatus()}
             </div>
             <div className="points-gained">
-                <text>Points gained: +{prediction ? prediction.points : 0} pts</text>
+                <text>Points gained: +{prediction.points} pts</text>
             </div>
         </div>
     );

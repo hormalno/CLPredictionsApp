@@ -13,3 +13,12 @@ class SubmitPredictionSerializer(serializers.Serializer):
     match = serializers.PrimaryKeyRelatedField(queryset=Match.objects.filter(is_finished=False))
     home_team_score = serializers.IntegerField(min_value=0, max_value=99)
     away_team_score = serializers.IntegerField(min_value=0, max_value=99)
+
+class MatchUserScoreSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+
+    class Meta:
+        model = MatchPrediction
+        fields = ['match', 'username', 'points']
+
+    
