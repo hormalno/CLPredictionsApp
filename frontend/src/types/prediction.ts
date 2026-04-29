@@ -1,8 +1,11 @@
-export type Prediction = {
+export type MatchPrediction = {
     id: number;
-    match_id: number;
-    correct_outcome: boolean;
-    correct_home_score: boolean;
-    correct_away_score: boolean;
+    match: number;
+    outcome: string;
+    home_team_score: number;
+    away_team_score: number;
     points: number;
+    correct_outcome: boolean | null;
+    correct_home_team_score: boolean | null;
+    correct_away_team_score: boolean | null;
 };

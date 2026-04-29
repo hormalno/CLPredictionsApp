@@ -29,6 +29,7 @@ class Match(models.Model):
     location = models.CharField(max_length=50)
     date = models.DateTimeField()
     is_finished = models.BooleanField(default=False)
+    is_closed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = 'matches'

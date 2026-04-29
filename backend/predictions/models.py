@@ -4,25 +4,27 @@ from matches.models import Match
 from players.models import Player
 
 # Create your models here.
-class Prediction(models.Model):
+class MatchPrediction(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    points = models.PositiveIntegerField(default=0)
-    is_closed = models.BooleanField(default=False)
-
-    class Meta:
-        abstract = True
-        unique_together = ('match', 'user')
-
-class MatchPrediction(Prediction):
-    outcome = models.CharField(max_length=1, choices=(('1', '1'), ('X', 'X'), ('2', '2')))
-    correct_outcome = models.BooleanField(null=True, blank=True)
-
-class ScorePrediction(Prediction):
     home_team_score = models.PositiveIntegerField()
     away_team_score = models.PositiveIntegerField()
-    correct_home_team_score = models.BooleanField(null=True, blank=True)
-    correct_away_team_score = models.BooleanField(null=True, blank=True)
+    correct_outcome = models.BooleanField(null=True, blank=True)
+    correct_home_score = models.BooleanField(null=True, blank=True)
+    correct_away_score = models.BooleanField(null=True, blank=True)
+    points = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('match', 'user', 'points')
+
+    @property
+    def outcome(self):
+        if self.home_team_score > self.away_team_score:
+            return '1'
+        elif self.home_team_score == self.away_team_score:
+            return 'X'
+        return '2'
+
 
 class TopScorerPrediction(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)

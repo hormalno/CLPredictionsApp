@@ -1,15 +1,38 @@
 import { useState } from 'react';
 import { CalendarIcon, SaveIcon } from '../../../components/icons/Icons';
+import type { Match, ScorePrediction } from '../../../types';
+import { formatMatchDate } from '../../../utils/formatMatchDate';
+import { submitPrediction } from '../../../api/predictions';
 import './MatchPrediction.css';
+import HomeTeam from '../../teams/home-team/HomeTeam';
+import AwayTeam from '../../teams/away-team/AwayTeam';
+import { Button } from '../../../components/button/Button';
 
-const MatchPrediction = () => {
-    const [homeScore, setHomeScore] = useState<string>('');
-    const [awayScore, setAwayScore] = useState<string>('');
+type Props = { match: Match; existingScore?: ScorePrediction; onSaved?: () => void };
+
+const MatchPrediction = ({ match, existingScore, onSaved }: Props) => {
+    const [homeScore, setHomeScore] = useState<string>(existingScore ? String(existingScore.home_team_score) : '');
+    const [awayScore, setAwayScore] = useState<string>(existingScore ? String(existingScore.away_team_score) : '');
+    const [hasPrediction, setHasPrediction] = useState(!!existingScore);
     const [saved, setSaved] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
-    const handleSave = () => {
-        setSaved(true);
-        console.log('Prediction saved:', { home: homeScore, away: awayScore });
+    const handleSave = async () => {
+        if (homeScore === '' || awayScore === '') return;
+        setLoading(true);
+        setError(null);
+        try {
+            await submitPrediction(match.id, Number(homeScore), Number(awayScore));
+            if (!hasPrediction) onSaved?.();
+            setHasPrediction(true);
+            setSaved(true);
+            setTimeout(() => setSaved(false), 1500);
+        } catch {
+            setError('Failed to save prediction.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -20,17 +43,17 @@ const MatchPrediction = () => {
                         <span className='match-prediction-info-date'>
                             <CalendarIcon size={20} />
                         </span>
-                        <span><text>Oct 24, 2026</text></span>
+                        <span>{formatMatchDate(match.date)}</span>
                     </div>
-                    <div><text>Mexico City Stadium</text></div>
-                    <div><text>Mexico City</text></div>
+                    <div>{match.stadium}</div>
+                    <div>{match.location}</div>
                 </div>
                 <div className="match-prediction-scoreline-wrapper">
                     <div className='match-prediction-round'>
-                        Round 1 <span className="match-prediction-round-dot">·</span> Group A
+                        {match.round_display} {match.group_display && <><span className="match-prediction-round-dot">·</span> {match.group_display}</>}
                     </div>
                     <div className="match-prediction-scoreline">
-                        <span className="match-prediction-team-home"><text>Liverpool</text></span>
+                        <HomeTeam team={match.home_team} />
                         <div className="prediction-inputs">
                             <input
                                 type="number"
@@ -42,7 +65,7 @@ const MatchPrediction = () => {
                                 value={homeScore}
                                 onChange={e => setHomeScore(e.target.value)}
                             />
-                            <span className="match-prediction-score-separator"><text>:</text></span>
+                            <span className="match-prediction-score-separator">:</span>
                             <input
                                 type="number"
                                 max="99"
@@ -54,17 +77,19 @@ const MatchPrediction = () => {
                                 onChange={e => setAwayScore(e.target.value)}
                             />
                         </div>
-                        <span className="match-prediction-team-away"><text>Everton</text></span>
-                    </div>
-                    <div className='prediction-outcome'>
-                        <text>Your prediction: Liverpool Win</text>
+                        <AwayTeam team={match.away_team} />
                     </div>
                 </div>
-                <div className="match-prediction-save">
-                    <div className="save-button">
-                        <button className="btn btn-outline btn-sm" onClick={handleSave} disabled={saved}><SaveIcon size={16} />{saved ? 'Saved Prediction' : 'Save Prediction'}</button>
+                <div className='match-prediction-actions'>
+                    <div className="match-prediction-save">
+                        <div className="save-button">
+                            <Button variant='outline' size='sm' onClick={handleSave} disabled={saved || loading}>
+                                <SaveIcon size={16} />{loading ? 'Saving...' : saved ? 'Saved!' : hasPrediction ? 'Edit Prediction' : 'Save Prediction'}
+                            </Button>
+                        </div>
+                        {error && <p className="prediction-error">{error}</p>}
                     </div>
-                </div>             
+                </div>
             </div>
         </div>
     );

@@ -41,3 +41,4 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
         queryset = self.get_queryset().filter(is_finished=True)[:4]
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+

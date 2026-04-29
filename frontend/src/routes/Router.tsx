@@ -9,6 +9,8 @@ import LeaderboardPage from '../features/leaderboard/LeaderboardPage'
 import LoginPage from '../features/auth/LoginPage'
 import RegisterPage from '../features/auth/RegisterPage'
 import MatchDetailsPage from '../features/matches/match-details/MatchDetailsPage'
+import AdminPage from '../features/admin/AdminPage'
+import ProfilePage from '../features/auth/ProfilePage'
 
 const Router = () => {
   return (
@@ -24,9 +26,11 @@ const Router = () => {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/predictions" element={<PredictionPage />} />
-          <Route path="/profile" element={<div>My profile</div>} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
-
+        <Route element={<ProtectedRoute requireSuperuser />}>
+          <Route path="/admin" element={<AdminPage />} />
+        </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

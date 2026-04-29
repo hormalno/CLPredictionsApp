@@ -92,7 +92,7 @@ const RegisterPage = () => {
                     id="password"
                     name="password"
                     required
-                    minLength={8}
+                    minLength={2}
                     placeholder="••••••••"
                     className="register-form-input"
                     value={form.password}
@@ -108,7 +108,7 @@ const RegisterPage = () => {
                     id="password2"
                     name="password2"
                     required
-                    minLength={8}
+                    minLength={2}
                     placeholder="••••••••"
                     className="register-form-input"
                     value={form.password2}

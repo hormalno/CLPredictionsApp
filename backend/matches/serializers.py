@@ -25,4 +25,5 @@ class MatchSerializer(serializers.ModelSerializer):
             'location',
             'date',
             'is_finished',
+            'is_closed'
         ]

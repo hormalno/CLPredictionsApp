@@ -1,19 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import client from '../../api/client'
 import useAuth from '../../features/auth/useAuth'
-import { TrophyIcon, TrophyFilledIcon, GlobeIcon, ChevronDownIcon, UserIcon, MenuIcon, FootballCloseIcon } from '../icons/Icons'
+import { TrophyIcon, TrophyFilledIcon, GlobeIcon, ChevronDownIcon, UserIcon, MenuIcon, FootballCloseIcon, LogInIcon, LogOutIcon } from '../icons/Icons'
 import { Button } from '../button/Button'
 import './Navigation.css'
 
-const Logo = () => (
-  <div aria-label="Predict Mate Home" className="navigation-logo-link">
-    <div className="navigation-logo-icon">
-      <TrophyIcon size={30} />
-      <span className="navigation-brand-name section-title">PredictMate</span>
-    </div>    
-  </div>
-)
 
 const Navigation = () => {
   const { isAuthenticated, username, isSuperuser, logout } = useAuth()
@@ -23,16 +14,6 @@ const Navigation = () => {
   const handleLogout = () => {
     logout()
     navigate('/login')
-  }
-
-  const handleClosePredictions = async () => {
-    if (!confirm('Close all predictions? This cannot be undone.')) return
-    try {
-      await client.post('/predictions/close/')
-      alert('All predictions have been closed.')
-    } catch {
-      alert('Failed to close predictions.')
-    }
   }
 
   const openMenu = () => {
@@ -59,7 +40,12 @@ const Navigation = () => {
             <div className="navigation-bar">
               <div className="navigation-brand">
                 <Link to="/">
-                  <Logo />
+                  <div aria-label="Predict Mate Home" className="navigation-logo-link">
+                    <div className="navigation-logo-icon">
+                      <TrophyIcon size={30} />
+                      <span className="navigation-brand-name section-title">PredictMate</span>
+                    </div>    
+                  </div>
                 </Link>
               </div>
               <div className="navigation-links-desktop">
@@ -72,7 +58,7 @@ const Navigation = () => {
                   <Link to="/predictions">
                     <span>My Predictions</span>
                   </Link>
-                </div>        
+                </div>
                 <div className="navigation-link">      
                   <Link to="/league">                  
                     <span>League</span>
@@ -83,8 +69,36 @@ const Navigation = () => {
                     <span>Leaderboard</span>
                   </Link>
                 </div>
+                {isSuperuser && (
+                  <div className="navigation-link">
+                    <Link to="/admin">
+                      <span>Admin</span>
+                    </Link>
+                  </div>
+                )}
               </div>
-              <div className="navigation-actions-desktop">
+              <div className="navigation-actions-desktop">                
+                {isAuthenticated
+                  ? (
+                  <>
+                    <Link to="/profile">
+                      {/* <Button variant="secondary" size="sm"> */}
+                        
+                        <span className="navigation-link"><UserIcon size={18} /> Welcome, {username}!</span>
+                      {/* </Button> */}
+                    </Link>
+                    <Button onClick={handleLogout} variant="secondary" size="sm">
+                      <LogOutIcon size={18} />
+                      <span>Log Out</span>
+                    </Button>
+                  </>)
+                  : (<Link to="/login">
+                      <Button variant="secondary" size="sm">
+                        <LogInIcon size={18} />
+                        <span>Log In</span>
+                      </Button>
+                    </Link>)
+                }
                 <div className="navigation-language-picker">
                   <div className="navigation-action-icon">
                     <GlobeIcon size={20} />
@@ -92,27 +106,6 @@ const Navigation = () => {
                   <span className="navigation-link">EN</span>
                   <ChevronDownIcon size={16} />
                 </div>
-                {isAuthenticated
-                  ? (
-                  <>
-                    <span>Welcome, {username}</span>
-                    {isSuperuser && (
-                      <button onClick={handleClosePredictions} className="btn btn-secondary btn-sm">
-                        <span>Close Predictions</span>
-                      </button>
-                    )}
-                    <button onClick={handleLogout} className="btn btn-secondary btn-sm">
-                      <UserIcon size={18} />
-                      <span>Log Out</span>
-                    </button>
-                  </>)
-                  : (<Link to="/login">
-                      <Button variant="secondary" size="sm">
-                        <UserIcon size={18} />
-                        <span>Log In</span>
-                      </Button>
-                    </Link>)
-                }
               </div>
               <button
                 id="navToggle"

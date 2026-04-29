@@ -8,4 +8,28 @@ client.interceptors.request.use((config) => {
   return config
 })
 
-export default client;
+client.interceptors.response.use(
+  res => res,
+  async error => {
+    const original = error.config
+    if (error.response?.status === 401 && !original._retry) {
+      original._retry = true
+      const refresh = localStorage.getItem('refresh')
+      if (refresh) {
+        try {
+          const { data } = await axios.post('http://localhost:8000/api/auth/token/refresh/', { refresh })
+          localStorage.setItem('access', data.access)
+          original.headers.Authorization = `Bearer ${data.access}`
+          return client(original)
+        } catch {
+          localStorage.removeItem('access')
+          localStorage.removeItem('refresh')
+          window.location.href = '/login'
+        }
+      }
+    }
+    return Promise.reject(error)
+  }
+)
+
+export default client

@@ -14,4 +14,5 @@ export type Match = {
     group: string;
     group_display: string;
     is_finished: boolean;
+    is_closed: boolean;
 };

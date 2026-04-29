@@ -1,4 +1,4 @@
 export type { Match } from './match';
 export type { Group, GroupTeam } from './group';
-export type { Prediction } from './prediction';
+export type { Prediction, MatchPrediction, ScorePrediction } from './prediction';
 export type { Team } from './team';

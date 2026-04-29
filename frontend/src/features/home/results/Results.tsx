@@ -55,7 +55,7 @@ const Results = () => {
                 {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 {results && results.map((match) => (<MatchResultCard match={match} />))}
-                {!loading && !error && !results?.length && <p>No upcoming matches yet!</p>}
+                {!loading && !error && !results?.length && <p>No finished matches yet!</p>}
             </div>
             </div>
         </section>

@@ -1,11 +1,11 @@
 import { CircleCheckIcon, ClockIcon, XSquareIcon } from '../../../components/icons/Icons';
-import type { Match, Prediction } from '../../../types';
+import type { Match, MatchPrediction } from '../../../types';
 import MatchFixtureBase from './MatchFixtureBase';
 import './MyPredictionFixture.css'
 
 type Props = {
     match: Match;
-    predictedOutcome: Prediction;
+    predictedOutcome: MatchPrediction;
 };
 
 const MyPredictionFixture = ({ match, predictedOutcome }: Props) => {

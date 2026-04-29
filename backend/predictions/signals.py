@@ -49,33 +49,27 @@ def update_prediction_points(sender, instance, **kwargs):
     if not scores_changed and not just_finished:
         return
 
-    
-
     actual_outcome = get_outcome(instance.score_home_team, instance.score_away_team)
     affected_users = set()
 
     for mp in MatchPrediction.objects.filter(match=instance):
         mp.correct_outcome = mp.outcome == actual_outcome
-        mp.points = 1 if mp.correct_outcome else 0
-        mp.save(update_fields=['correct_outcome', 'points'])
-        affected_users.add(mp.user_id)
+        mp.correct_home_team_score = mp.home_team_score == instance.score_home_team
+        mp.correct_away_team_score = mp.away_team_score == instance.score_away_team
 
-    for sp in ScorePrediction.objects.filter(match=instance):
-        sp.correct_home_team_score = sp.home_team_score == instance.score_home_team
-        sp.correct_away_team_score = sp.away_team_score == instance.score_away_team
-        if sp.correct_home_team_score and sp.correct_away_team_score:
-            sp.points = 3
-        elif sp.correct_home_team_score or sp.correct_away_team_score:
-            sp.points = 1
-        else:
-            sp.points = 0
-        sp.save(update_fields=['correct_home_team_score', 'correct_away_team_score', 'points'])
-        affected_users.add(sp.user_id)
+        points = 1 if mp.correct_outcome else 0
+        if mp.correct_home_team_score and mp.correct_away_team_score:
+            points += 3
+        elif mp.correct_home_team_score or mp.correct_away_team_score:
+            points += 1
+        mp.points = points
+
+        mp.save(update_fields=['correct_outcome', 'correct_home_team_score', 'correct_away_team_score', 'points'])
+        affected_users.add(mp.user_id)
 
     for user_id in affected_users:
         mp_pts = MatchPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0
-        sp_pts = ScorePrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0
         UserScore.objects.update_or_create(
             user_id=user_id,
-            defaults={'points': mp_pts + sp_pts},
+            defaults={'points': mp_pts},
         )
