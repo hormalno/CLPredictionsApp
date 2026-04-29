@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import client from '../../api/client'
 import useAuth from '../../features/auth/useAuth'
 import { TrophyIcon, TrophyFilledIcon, GlobeIcon, ChevronDownIcon, UserIcon, MenuIcon, FootballCloseIcon } from '../icons/Icons'
 import { Button } from '../button/Button'
@@ -15,13 +16,23 @@ const Logo = () => (
 )
 
 const Navigation = () => {
-  const { isAuthenticated, username, logout } = useAuth()
+  const { isAuthenticated, username, isSuperuser, logout } = useAuth()
   const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleLogout = () => {
     logout()
     navigate('/login')
+  }
+
+  const handleClosePredictions = async () => {
+    if (!confirm('Close all predictions? This cannot be undone.')) return
+    try {
+      await client.post('/predictions/close/')
+      alert('All predictions have been closed.')
+    } catch {
+      alert('Failed to close predictions.')
+    }
   }
 
   const openMenu = () => {
@@ -83,7 +94,13 @@ const Navigation = () => {
                 </div>
                 {isAuthenticated
                   ? (
-                  <><span>Welcome, {username}</span>
+                  <>
+                    <span>Welcome, {username}</span>
+                    {isSuperuser && (
+                      <button onClick={handleClosePredictions} className="btn btn-secondary btn-sm">
+                        <span>Close Predictions</span>
+                      </button>
+                    )}
                     <button onClick={handleLogout} className="btn btn-secondary btn-sm">
                       <UserIcon size={18} />
                       <span>Log Out</span>

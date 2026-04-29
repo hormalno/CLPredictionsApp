@@ -22,6 +22,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from matches.views import MatchViewSet
 from groups.views import GroupViewSet
+from predictions.views import ClosePredictionsView
 
 router = DefaultRouter()
 router.register(r'matches', MatchViewSet, basename='match')
@@ -33,4 +34,5 @@ urlpatterns = [
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/auth/', include('accounts.urls')),
     path('api/', include(router.urls)),
+    path('api/predictions/close/', ClosePredictionsView.as_view(), name='close_predictions'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

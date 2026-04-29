@@ -8,6 +8,7 @@ class Prediction(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     points = models.PositiveIntegerField(default=0)
+    is_closed = models.BooleanField(default=False)
 
     class Meta:
         abstract = True
