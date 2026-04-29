@@ -2,7 +2,7 @@ from django.db.models import Sum
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from matches.models import Match
-from predictions.models import MatchPrediction, ScorePrediction, UserScore
+from predictions.models import MatchPrediction, UserScore
 
 def get_outcome(home_score, away_score):
     if home_score > away_score:

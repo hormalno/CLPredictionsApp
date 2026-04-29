@@ -2,9 +2,8 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from predictions.models import MatchPrediction, ScorePrediction
-from predictions.serializers import MatchPredictionResultSerializer, UserMatchPredictionSerializer, UserScorePredictionSerializer, SubmitPredictionSerializer
-from predictions.signals import get_outcome
+from predictions.models import MatchPrediction
+from predictions.serializers import UserMatchPredictionSerializer, SubmitPredictionSerializer
 
 
 class UserPredictionsView(APIView):
@@ -17,9 +16,7 @@ class UserPredictionsView(APIView):
             .select_related('match')
             .order_by('-points', 'match__date')
         )
-        return Response({
-            'match_predictions': UserMatchPredictionSerializer(match_predictions, many=True).data
-        })
+        return Response(UserMatchPredictionSerializer(match_predictions, many=True).data)
 
 
 class SubmitPredictionView(APIView):

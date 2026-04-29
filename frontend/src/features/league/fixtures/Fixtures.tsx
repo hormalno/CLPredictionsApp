@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
+import UserScores from "../../matches/match-fixture/UserScores";
 import { getMatches } from "../../../api/matches";
 import type { Match } from "../../../types";
 import './Fixtures.css';
@@ -44,7 +45,9 @@ const Fixtures = () => {
                         </div>
                         <div className="predictions-list">
                             {dayMatches.map((match) => (
-                                <MatchFixture key={match.id} match={match} />
+                                <MatchFixture key={match.id} match={match}>
+                                    <UserScores />
+                                </MatchFixture>
                             ))}
                         </div>
                     </div>

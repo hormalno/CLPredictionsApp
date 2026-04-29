@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from matches.models import Match
-from predictions.models import MatchPrediction, ScorePrediction
+from predictions.models import MatchPrediction
 
 
 class UserMatchPredictionSerializer(serializers.ModelSerializer):

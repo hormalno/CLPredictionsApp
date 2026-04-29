@@ -22,7 +22,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from matches.views import MatchViewSet
 from groups.views import GroupViewSet
-from predictions.views import ClosePredictionsView, MatchPredictionListView, UserPredictionsView, SubmitPredictionView
+from predictions.views import UserPredictionsView, SubmitPredictionView
 
 router = DefaultRouter()
 router.register(r'matches', MatchViewSet, basename='match')

@@ -10,8 +10,8 @@ class MatchPrediction(models.Model):
     home_team_score = models.PositiveIntegerField()
     away_team_score = models.PositiveIntegerField()
     correct_outcome = models.BooleanField(null=True, blank=True)
-    correct_home_score = models.BooleanField(null=True, blank=True)
-    correct_away_score = models.BooleanField(null=True, blank=True)
+    correct_home_team_score = models.BooleanField(null=True, blank=True)
+    correct_away_team_score = models.BooleanField(null=True, blank=True)
     points = models.PositiveIntegerField(default=0)
 
     class Meta:
