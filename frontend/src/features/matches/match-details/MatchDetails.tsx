@@ -48,7 +48,7 @@ const MatchDetails = () => {
             {match && <MatchResult match={match} />}
           </div>
         </header>
-        {match?.is_finished && <GoalScorers />}
+        {match?.is_finished && <GoalScorers match={match} />}
         <UserPrediction predictions={userPredictions} />
       </>
     );

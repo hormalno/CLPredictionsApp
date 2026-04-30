@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthentic
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from predictions.models import MatchPrediction
-from predictions.serializers import UserMatchPredictionSerializer, SubmitPredictionSerializer, MatchUserScoreSerializer
+from predictions.serializers import UserMatchPredictionSerializer, SubmitPredictionSerializer, MatchUserScoreSerializer, MatchPredictionSerializer
 
 
 class UserPredictionsView(APIView):
@@ -57,3 +57,13 @@ class MatchUserScoresView(APIView):
 
         scores = qs.select_related('user').order_by('match', '-points', 'user__username')
         return Response(MatchUserScoreSerializer(scores, many=True).data)
+    
+class MatchPredictionListView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, match_id):
+        predictions = MatchPrediction.objects.filter(match__id=match_id).select_related('user','match')
+
+        return Response(MatchPredictionSerializer(predictions, many=True).data) 
+
+

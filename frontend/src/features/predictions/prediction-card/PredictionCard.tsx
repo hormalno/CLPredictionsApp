@@ -1,15 +1,16 @@
 import { UserIcon, CheckCircleIcon, XCircleIcon, ClockIcon } from "../../../components/icons/Icons";
 import type { MatchUserPrediction } from "../../../types";
+import './PredictionCard.css';
 
 type Props = {
     prediction: MatchUserPrediction;
 }
 
 const PredictionCard = ({prediction} : Props) => {
-    const classOutcome = prediction.is_finished ? 'pending' : prediction.correct_outcome ? 'correct' : 'wrong';
-    const predictionResult = prediction.is_finished ? 'Pending' : prediction.correct_outcome ? 'Correct Score' : 'Wrong Result';
+    const classOutcome = prediction.is_finished ? prediction.correct_outcome ? 'correct' : 'wrong' : 'pending';
+    const predictionResult = prediction.is_finished ? prediction.correct_outcome ? 'Correct Score' : 'Wrong Result' : 'Pending';
     const showIcon = () => {
-        if (prediction.is_finished) {
+        if (!prediction.is_finished) {
             return <ClockIcon size={24} color="#b3b606" />;
         }
 

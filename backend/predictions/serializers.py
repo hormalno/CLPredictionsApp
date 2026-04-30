@@ -21,4 +21,11 @@ class MatchUserScoreSerializer(serializers.ModelSerializer):
         model = MatchPrediction
         fields = ['match', 'username', 'points']
 
-    
+
+class MatchPredictionSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+    is_finished = serializers.BooleanField(source='match.is_finished', read_only=True)
+
+    class Meta:
+        model = MatchPrediction
+        fields = ['id', 'username', 'home_team_score', 'away_team_score', 'points', 'correct_outcome', 'is_finished']
