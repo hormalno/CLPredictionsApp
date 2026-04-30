@@ -4,7 +4,7 @@ import Footer from "../../components/footer/Footer";
 import PredictionHeader from "./prediction-header/PredictionHeader";
 import PredictionSummary from "./prediction-summary/PredictionSummary";
 import PredictionSection from "./predictions-section/PredictionSection";
-import { getUserPredictions } from "../../api/predictions";
+import { getUserPredictions } from "../../api";
 import type { MatchPrediction } from "../../types";
 import './PredictionPage.css';
 

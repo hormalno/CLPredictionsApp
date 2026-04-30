@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUpcomingMatches } from '../../../api/matches';
+import { getUpcomingMatches } from '../../../api';
 import UpcomingMatchCard from '../../matches/upcoming-match-card/UpcomingMatchCard';
 import type {Match} from '../../../types/match'
 import './Upcoming.css'

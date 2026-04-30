@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import client from '../../api/client'
+import { getMe } from '../../api'
 
 const useAuth = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem('access'))
@@ -14,7 +14,7 @@ const useAuth = () => {
             return
         }
         let cancelled = false
-        client.get('/auth/me/')
+        getMe()
             .then(res => {
                 if (!cancelled) {
                     setUserId(res.data.id)

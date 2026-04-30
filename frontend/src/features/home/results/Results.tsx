@@ -1,22 +1,35 @@
-import { useEffect, useRef, useState } from "react";
-import { getResults } from "../../../api/matches";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { getResults, getAllMatchUserScores } from "../../../api";
+
 import MatchResultCard from '../../matches/match-result-card/MatchResultCard';
-import type {Match} from '../../../types/match'
+import type {Match, MatchUserScore} from '../../../types'
 import './Results.css';
 
 const Results = () => {
     const [results, setResults] = useState<Match[]>([]);
+    const [userScores, setUserScores] = useState<MatchUserScore[]>([])
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const railRef = useRef<HTMLDivElement>(null);
     const drag = useRef({ active: false, startX: 0, scrollLeft: 0 });
 
     useEffect(() => {
-        getResults()
-        .then(setResults)
-        .catch(() => setError('No results found'))
+        Promise.all([getResults(), getAllMatchUserScores(4)])
+        .then(([matchesData, userScoreData]) => {
+            setResults(matchesData);
+            setUserScores(userScoreData)
+        })
+        .catch(() => setError('No matches found'))
         .finally(() => setLoading(false));
     }, []);
+
+    const scoresByMatch = useMemo(() =>
+            userScores.reduce<Map<number, MatchUserScore[]>>((acc, s) => {
+                const existing = acc.get(s.match) ?? [];
+                acc.set(s.match, [...existing, s]);
+                return acc;
+            }, new Map()),[userScores]
+        );
 
     const onMouseDown = (e: React.MouseEvent) => {
         const rail = railRef.current;
@@ -54,7 +67,10 @@ const Results = () => {
             >
                 {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
-                {results && results.map((match) => (<MatchResultCard match={match} />))}
+                {results && results.map((match) => {
+                    const userScores = scoresByMatch.get(match.id);
+                    return (<MatchResultCard match={match} userScores={userScores} />)
+                })}
                 {!loading && !error && !results?.length && <p>No finished matches yet!</p>}
             </div>
             </div>

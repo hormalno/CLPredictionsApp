@@ -1,8 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
 import UserScores from "../../matches/match-fixture/UserScores";
-import { getMatches } from "../../../api/matches";
-import { getMatchUserScores } from "../../../api/predictions";
+import { getMatches, getMatchUserScores } from "../../../api";
 import type { Match, MatchUserScore } from "../../../types";
 import './Fixtures.css';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getGroups } from '../../../api/groups';
+import { getGroups } from '../../../api';
 import Group from '../../group/Group';
 import type { Group as GroupType } from '../../../types/group'
 

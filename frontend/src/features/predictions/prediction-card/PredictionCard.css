@@ -1,0 +1,82 @@
+.user-prediction-card {
+  gap: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  padding: var(--spacing-xl);
+  background: var(--color-surface);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: var(--border-radius-card);
+  flex-direction: column;
+}
+ 
+.user-prediction-card.correct {
+  border-left: 4px solid #2ecc71;
+}
+ 
+.user-prediction-card.wrong {
+  border-left: 4px solid #e74c3c;
+}
+
+.user-prediction-card.pending {
+  border-left: 4px solid #b3b606;
+}
+ 
+.user-prediction-card .user-info {
+  gap: var(--spacing-md);
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+ 
+.user-prediction-card .score-box {
+  padding: var(--spacing-md);
+  background: var(--color-surface-elevated);
+  text-align: center;
+  border-radius: var(--border-radius-md);
+}
+ 
+.user-prediction-card .avatar {
+  color: var(--color-primary);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  background: var(--color-surface-elevated);
+  align-items: center;
+  border-radius: var(--border-radius-full);
+  justify-content: center;
+}
+ 
+.user-prediction-card .meta {
+  flex: 1;
+}
+ 
+.user-prediction-card .badge {
+  display: flex;
+  align-items: center;
+}
+
+.user-prediction-card .predicted-score {
+  color: var(--color-accent);
+  font-size: var(--font-size-xl);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: 2px;
+}
+ 
+.user-prediction-card .username {
+  color: var(--color-on-surface);
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-heading);
+}
+ 
+.user-predictions-card .status-label {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-xs);
+}
+
+.user-predictions-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+ 

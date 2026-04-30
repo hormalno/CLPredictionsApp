@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CalendarIcon, SaveIcon } from '../../../components/icons/Icons';
 import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
-import { submitPrediction } from '../../../api/predictions';
+import { submitPrediction } from '../../../api';
 import './MatchPrediction.css';
 import HomeTeam from '../../teams/home-team/HomeTeam';
 import AwayTeam from '../../teams/away-team/AwayTeam';

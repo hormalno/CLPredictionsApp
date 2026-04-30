@@ -1,0 +1,12 @@
+.match-details-container1 {
+  width: 100%;
+  min-height: 100vh;
+}
+ 
+.match-details-container2 {
+  display: none;
+}
+ 
+.match-details-container3 {
+  display: contents;
+}

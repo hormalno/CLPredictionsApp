@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
-import type { Match } from '../../../types';
+import type { Match, MatchUserScore } from '../../../types';
 import './MatchResultCard.css';
 
 type Props = {
     match: Match;
+    userScores: MatchUserScore[] | undefined;
 };
 
-const MatchResultCard = ({match} : Props) => {
+const MatchResultCard = ({match, userScores} : Props) => {
     return (
         <Link className="result-card" to={`/match/${match.id}`}>
             <div className="result-header">
@@ -18,14 +19,12 @@ const MatchResultCard = ({match} : Props) => {
                 <span>{match.away_team.short_name}</span>
             </div>
             <div className="friend-scores">
-                <div className="friend-score-item">
-                    <span className="friend-name">Alex</span>
-                    <span className="friend-points">+10 pts</span>
-                </div>
-                <div className="friend-score-item">
-                    <span className="friend-name">Jordan</span>
-                    <span className="friend-points">+3 pts</span>
-                </div>
+                {userScores && userScores.map(score => (
+                    <div className="friend-score-item">
+                        <span className="friend-name">{score.username}</span>
+                        <span className="friend-points">+{score.points} pts</span>
+                    </div>)
+                )}
             </div>
         </Link>
     );

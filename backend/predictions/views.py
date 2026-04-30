@@ -42,10 +42,18 @@ class MatchUserScoresView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request):
-        scores = (
-            MatchPrediction.objects
-            .filter(match__is_finished=True)
-            .select_related('user')
-            .order_by('match', '-points', 'user__username')
-        )
+        qs = MatchPrediction.objects.filter(match__is_finished=True)
+
+        limit = request.query_params.get('limit')
+        if limit:
+            from matches.models import Match
+            recent_match_ids = (
+                Match.objects
+                .filter(is_finished=True)
+                .order_by('-date')
+                .values_list('id', flat=True)[:int(limit)]
+            )
+            qs = qs.filter(match__in=recent_match_ids)
+
+        scores = qs.select_related('user').order_by('match', '-points', 'user__username')
         return Response(MatchUserScoreSerializer(scores, many=True).data)

@@ -1,6 +1,5 @@
 import { type Dispatch, type SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
-import { getUserPredictions } from '../../../api/predictions';
-import { getMatches } from "../../../api/matches";
+import { getUserPredictions, getMatches } from '../../../api';
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
 import MyPrediction from "../../matches/match-fixture/MyPrediction";
 import MatchPrediction from "../../matches/match-prediction/MatchPrediction";

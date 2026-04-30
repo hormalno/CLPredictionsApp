@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Navigation from '../../components/navigation/Navigation'
 import Footer from '../../components/footer/Footer'
-import client from '../../api/client'
+import { register } from '../../api'
 import './RegisterPage.css'
 
 const RegisterPage = () => {
@@ -19,7 +19,7 @@ const RegisterPage = () => {
     setError(null)
     setLoading(true)
     try {
-      await client.post('/auth/register/', form)
+      await register(form)
       navigate('/login')
     } catch (err: any) {
       const data = err.response?.data

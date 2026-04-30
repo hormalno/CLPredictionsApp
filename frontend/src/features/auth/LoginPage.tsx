@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Navigation from '../../components/navigation/Navigation'
 import Footer from '../../components/footer/Footer'
 import { UserIcon, LockIcon } from '../../components/icons/Icons'
-import client from '../../api/client'
+import { login } from '../../api'
 import './LoginPage.css'
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
     setError(null)
     setLoading(true)
     try {
-      const res = await client.post('/auth/token/', form)
+      const res = await login(form.username, form.password)
       localStorage.setItem('access', res.data.access)
       localStorage.setItem('refresh', res.data.refresh)
       navigate('/')
