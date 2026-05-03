@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from matches.models import Match
 from teams.serializers import TeamSerializer
+from goals.serializers import GoalSerializer
 
 
 class MatchSerializer(serializers.ModelSerializer):
@@ -27,3 +28,9 @@ class MatchSerializer(serializers.ModelSerializer):
             'is_finished',
             'is_closed'
         ]
+
+class MatchDetailSerializer(MatchSerializer):
+    goals = GoalSerializer(many=True, read_only=True)
+
+    class Meta(MatchSerializer.Meta):
+        fields = MatchSerializer.Meta.fields + ['goals']

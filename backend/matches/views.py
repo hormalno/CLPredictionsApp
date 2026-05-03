@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from matches.models import Match
-from matches.serializers import MatchSerializer
+from matches.serializers import MatchSerializer, MatchDetailSerializer
 
 ROUND_ORDER = Case(
     When(round='PO', then=Value(1)),
@@ -19,16 +19,27 @@ ROUND_ORDER = Case(
 
 
 class MatchViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MatchSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return MatchDetailSerializer
+        return MatchSerializer
+
     def get_queryset(self):
-        return (
+        queryset = (
             Match.objects
             .select_related('home_team', 'away_team')
             .annotate(round_order=ROUND_ORDER)
             .order_by('round_order', 'date')
         )
+        if self.action == 'retrieve':
+            queryset = queryset.prefetch_related(
+                'goals__goalscorer',
+                'goals__assist_player',
+                'goals__team_scored',
+            )
+        return queryset
 
     @action(detail=False, url_path='upcoming')
     def upcoming(self, request):

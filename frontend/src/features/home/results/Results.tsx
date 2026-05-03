@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from "react";
-import { getResults, getAllMatchUserScores } from "../../../api";
+import { getResults, getAllMatchesUserScores } from "../../../api";
 
 import MatchResultCard from '../../matches/match-result-card/MatchResultCard';
 import type {Match, MatchUserScore} from '../../../types'
@@ -14,7 +14,7 @@ const Results = () => {
     const drag = useRef({ active: false, startX: 0, scrollLeft: 0 });
 
     useEffect(() => {
-        Promise.all([getResults(), getAllMatchUserScores(4)])
+        Promise.all([getResults(), getAllMatchesUserScores(4)])
         .then(([matchesData, userScoreData]) => {
             setResults(matchesData);
             setUserScores(userScoreData)

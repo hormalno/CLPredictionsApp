@@ -11,10 +11,10 @@ export const submitPrediction = (matchId: number, homeScore: number, awayScore: 
         away_team_score: awayScore,
     });
 
-export const getAllMatchUserScores = (limit?: number) =>
-    client.get<MatchUserScore[]>('/match-scores/', { params: limit ? { limit } : undefined }).then(res => res.data)
+export const getAllMatchesUserScores = (limit?: number) =>
+    client.get<MatchUserScore[]>('/matches-scores/', { params: limit ? { limit } : undefined }).then(res => res.data)
 
-export const getMatchUserPredictions = (id: number) => 
+export const getUserPredictionsPerMatch = (id: number) => 
     client.get<MatchUserPrediction[]>(`/matches/${id}/predictions/`).then(res => res.data);
 
 

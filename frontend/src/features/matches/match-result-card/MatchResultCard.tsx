@@ -11,7 +11,7 @@ const MatchResultCard = ({match, userScores} : Props) => {
     return (
         <Link className="result-card" to={`/match/${match.id}`}>
             <div className="result-header">
-                <span>{match.group ? `Group ${match.group}` : `Round ${match.round}`}</span>
+                <span>{match.group ? `Group ${match.group_display}` : `Round ${match.round_display}`}</span>
             </div>
             <div className="result-score">
                 <span>{match.home_team.short_name}</span>

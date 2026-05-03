@@ -20,9 +20,9 @@
  
 .goal-scorers__column {
   flex: 1;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-on-surface-secondary);
   padding: var(--spacing-2xl);
-  background: var(--color-surface-elevated);
+  background: var(--color-fixture-background);
   border-radius: var(--border-radius-card);
 }
  
@@ -44,7 +44,7 @@
 }
  
 .goal-scorers__team-name {
-  color: var(--color-primary);
+  color: var(--color-surface);
   font-size: var(--font-size-xl);
   font-family: var(--font-family-heading);
   font-weight: var(--font-weight-heading);
@@ -54,34 +54,7 @@
   color: var(--color-on-surface-secondary);
   padding: var(--spacing-xs) var(--spacing-md);
   font-size: var(--font-size-sm);
-  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 60%, transparent);
   border-radius: var(--border-radius-sm);
 }
  
-.goal-scorers__item {
-  gap: var(--spacing-md);
-  display: flex;
-  align-items: center;
-}
- 
-.goal-scorers__icon-box {
-  color: var(--color-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
- 
-.goal-scorers__info {
-  display: flex;
-  flex-direction: column;
-}
- 
-.goal-scorers__name {
-  color: var(--color-on-surface);
-  font-weight: var(--font-weight-medium);
-}
- 
-.goal-scorers__time {
-  color: var(--color-on-surface-secondary);
-  font-size: var(--font-size-sm);
-}

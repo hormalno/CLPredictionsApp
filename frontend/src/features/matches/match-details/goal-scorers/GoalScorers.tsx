@@ -1,12 +1,15 @@
-import { SoccerBallIcon } from '../../../../components/icons/Icons';
-import type { Match } from '../../../../types';
+import GoalItem from '../goal-item/GoalItem';
+import type { MatchDetail } from '../../../../types';
 import './GoalScorers.css';
 
 type Props = {
-  match: Match;
+  match: MatchDetail;
 }
 
 const GoalScorers = ({match} : Props) => {
+    const homeGoals = match.goals.filter(g => g.team_scored === match.home_team.name);
+    const awayGoals = match.goals.filter(g => g.team_scored === match.away_team.name);
+
     return (
         <section className="goal-scorers">
           <div className="goal-scorers__container">
@@ -17,35 +20,14 @@ const GoalScorers = ({match} : Props) => {
                   <span className="goal-scorers__team-name">
                     <text>{match.home_team.name}</text>
                   </span>
-                  <span className="goal-scorers__total"><text>{match.score_home_team} Goals</text></span>
+                  <span className="goal-scorers__total">
+                    <text>{match.score_home_team} Goals</text>
+                  </span>
                 </div>
                 <ul className="goal-scorers__list">
-                  <li className="goal-scorers__item">
-                    <div className="goal-scorers__icon-box">
-                      <SoccerBallIcon size={24} />
-                    </div>
-                    <div className="goal-scorers__info">
-                      <span className="goal-scorers__name">
-                        <text>Marcus Rashford</text>
-                      </span>
-                      <span className="goal-scorers__time">
-                        <text>12', 45+2'</text>
-                      </span>
-                    </div>
-                  </li>
-                  <li className="goal-scorers__item">
-                    <div className="goal-scorers__icon-box">
-                      <SoccerBallIcon size={24} />
-                    </div>
-                    <div className="goal-scorers__info">
-                      <span className="goal-scorers__name">
-                        <text>Bruno Fernandes</text>
-                      </span>
-                      <span className="goal-scorers__time">
-                        <text>78' (P)</text>
-                      </span>
-                    </div>
-                  </li>
+                  {homeGoals.length > 0 && homeGoals.map(goal => (
+                    <GoalItem key={goal.id} goal={goal} />
+                  ))}
                 </ul>
               </div>
               <div className="goal-scorers__column">
@@ -56,17 +38,9 @@ const GoalScorers = ({match} : Props) => {
                   <span className="goal-scorers__total"><text>{match.score_away_team} Goal</text></span>
                 </div>
                 <ul className="goal-scorers__list">
-                  <li className="goal-scorers__item">
-                    <div className="goal-scorers__icon-box">
-                      <SoccerBallIcon size={24} />
-                    </div>
-                    <div className="goal-scorers__info">
-                      <span className="goal-scorers__name">
-                        <text>Erling Haaland</text>
-                      </span>
-                      <span className="goal-scorers__time"><text>34'</text></span>
-                    </div>
-                  </li>
+                  {awayGoals.length > 0 && awayGoals.map(goal => (
+                    <GoalItem key={goal.id} goal={goal} />
+                  ))}
                 </ul>
               </div>
             </div>

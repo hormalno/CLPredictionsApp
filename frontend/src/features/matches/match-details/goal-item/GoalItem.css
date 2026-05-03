@@ -1,0 +1,27 @@
+.goal-scorers__item {
+  gap: var(--spacing-md);
+  display: flex;
+  align-items: center;
+}
+
+.goal-scorers__icon-box {
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.goal-scorers__info {
+  display: flex;
+  flex-direction: column;
+}
+ 
+.goal-scorers__name {
+  color: var(--color-on-surface-secondary);
+  font-weight: var(--font-weight-medium);
+}
+ 
+.goal-scorers__time {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-sm);
+}
