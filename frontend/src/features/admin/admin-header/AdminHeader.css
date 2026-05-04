@@ -1,0 +1,20 @@
+.header-section {
+  padding: var(--spacing-4xl) 0 var(--spacing-2xl);
+  background: radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent) 15%, transparent), transparent 40%),radial-gradient(circle at bottom left, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 40%);
+}
+
+.header-section-container {
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  max-width: var(--content-max-width);
+}
+ 
+.header-section-card {
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-3xl);
+  background: var(--color-fixture-background);
+  color: var(--color-surface);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  border-radius: var(--border-radius-xl);
+}

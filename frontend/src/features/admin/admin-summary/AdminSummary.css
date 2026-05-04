@@ -1,0 +1,15 @@
+.admin-summary-section {
+  padding: var(--spacing-xl) 0;
+}
+ 
+.admin-summary-section-container {
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  max-width: var(--content-max-width);
+}
+ 
+.admin-summary-section-grid {
+  gap: var(--spacing-xl);
+  display: flex;
+}
+ 

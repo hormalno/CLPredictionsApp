@@ -54,15 +54,16 @@ const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
                 </div>
                 <div className="match-prediction-scoreline-wrapper">
                     <div className='match-prediction-round'>
-                        {match.round_display} {match.group_display && <><span className="match-prediction-round-dot">·</span> {match.group_display}</>}
+                        {match.round !== 'GS' ? match.round_display : `Group ${match.group_display}`}
                     </div>
                     <div className="match-prediction-scoreline">
                         <HomeTeam team={match.home_team} />
                         <div className="prediction-inputs">
                             <input
-                                type="number"
-                                max="99"
-                                min="0"
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                maxLength={2}
                                 placeholder="-"
                                 data-prediction="home"
                                 className="input score-input"
@@ -71,9 +72,10 @@ const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
                             />
                             <span className="match-prediction-score-separator">:</span>
                             <input
-                                type="number"
-                                max="99"
-                                min="0"
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                maxLength={2}
                                 placeholder="-"
                                 data-prediction="away"
                                 className="input score-input"
