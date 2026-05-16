@@ -2,20 +2,16 @@ import { BarChartIcon, TrophyIcon } from '../../../components/icons/Icons'
 import './AdminSummaryCard.css'
 
 type Props = {
-    variant: 'activity' | 'accuracy' | 'points'
+    variant: 'close' | 'matches'
     label: string
-    value: string | number
+    value: string | React.ReactNode
     meta?: string        // for activity variant
     progress?: number   // for accuracy variant (0-100)
 }
 
 const AdminSummaryCard = ({ variant, label, value, meta, progress }: Props) => {
     const showIcon = () => {
-        if (variant === 'points') {
-            return (<TrophyIcon size={24} />);
-        }
-
-        if (variant === 'accuracy') {
+        if (variant === 'close') {
             return (<TrophyIcon size={24} />);
         }
 
@@ -28,11 +24,10 @@ const AdminSummaryCard = ({ variant, label, value, meta, progress }: Props) => {
             <div className="admin-summary-card-content">
                 <span className="admin-summary-card-label">{label}</span>
                 <h2 className="admin-summary-card-value">{value}</h2>
-                {variant === 'points' && <p className="admin-summary-card-meta">{meta}</p>}
-                {variant === 'activity' && <p className="admin-summary-card-meta">{meta}</p>}
-                {variant === 'accuracy' && (
-                    <div className="admin-summary-card-progress-bar">
-                        <div className="admin-summary-card-progress-fill" style={{ width: `${progress}%` }} />
+                {variant === 'close' && <p className="admin-summary-card-meta">{meta}</p>}
+                {variant === 'matches' && (
+                    <div className="summary-card-progress-bar">
+                        <div className="summary-card-progress-fill" style={{ width: `${progress}%` }} />
                     </div>
                 )}
             </div>

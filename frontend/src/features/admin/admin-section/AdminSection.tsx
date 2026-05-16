@@ -4,28 +4,30 @@ import AdminMatchFixture from "../../matches/admin-match-fixture/AdminMatchFixtu
 import type { Match } from '../../../types'
 import './AdminSection.css';
 
-const PredictionSection = () => {
+const AdminSection = () => {
     const [matches, setMatches] = useState<Match[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [refetch, setRefetch] = useState(0);
 
     useEffect(() => {
         getMatches()
         .then(setMatches)
         .catch(() => setError('Failed to load matches.'))
         .finally(() => setLoading(false));
-    }, []);
+    }, [refetch]);
 
     return (
-        <section className="predictions-section">
-            <div className="predictions-section-container">
-                <div className="predictions-header">
+        <section className="admin-predictions-section">
+            <div className="admin-predictions-section-container">
+                <div className="admin-predictions-header">
                     <h2 className="section-title"><text>Recent Predictions</text></h2>
                 </div>
-                <div className="predictions-list">
+                <div className="admin-predictions-list">
                     {loading && <p>Loading...</p>}
                     {error && <p>{error}</p>}
-                    {matches.length > 0 && matches.map(match => (<AdminMatchFixture key={match.id} match={match}  />))}
+                    {matches.length > 0 && matches.map(match => 
+                        (<AdminMatchFixture key={match.id} match={match} onSave={() => setRefetch(r => r + 1)} />))}
                 </div>
             </div>
         </section>
@@ -33,4 +35,4 @@ const PredictionSection = () => {
 
 };
 
-export default PredictionSection;
+export default AdminSection;

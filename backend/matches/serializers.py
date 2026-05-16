@@ -34,3 +34,10 @@ class MatchDetailSerializer(MatchSerializer):
 
     class Meta(MatchSerializer.Meta):
         fields = MatchSerializer.Meta.fields + ['goals']
+
+
+class MatchResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Match
+        fields = ['score_home_team', 'score_away_team']
+

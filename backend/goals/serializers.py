@@ -18,3 +18,9 @@ class GoalSerializer(serializers.ModelSerializer):
             'is_penalty',
             'is_own_goal',
         ]
+
+class GoalCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Goal
+        fields = ['goalscorer', 'assist_player', 'team_scored', 'minute', 'is_penalty', 'is_own_goal']
+

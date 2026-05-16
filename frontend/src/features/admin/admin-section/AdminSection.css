@@ -1,27 +1,27 @@
-.predictions-section {
+.admin-predictions-section {
   padding: var(--spacing-2xl) 0 var(--spacing-4xl);
 }
  
-.predictions-section-container {
+.admin-predictions-section-container {
   margin: 0 auto;
   padding: 0 var(--spacing-xl);
   max-width: var(--content-max-width);
 }
  
-.predictions-header {
+.admin-predictions-header {
   display: flex;
   align-items: center;
   margin-bottom: var(--spacing-xl);
   justify-content: space-between;
 }
  
-.predictions-list {
+.admin-predictions-list {
   gap: var(--spacing-md);
   display: flex;
   flex-direction: column;
 }
  
-.predictions-filters {
+.admin-predictions-filters {
   gap: var(--spacing-sm);
   display: flex;
 }

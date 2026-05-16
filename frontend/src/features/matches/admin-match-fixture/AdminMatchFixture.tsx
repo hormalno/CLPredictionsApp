@@ -8,36 +8,43 @@ import { Button } from '../../../components/button/Button';
 import type { Match } from '../../../types';
 import './AdminMatchFixture.css';
 import { useNavigate } from 'react-router-dom';
+import GoalScorers from '../match-details/goal-scorers/GoalScorers';
+import AddGoalForm from './AddGoalForm';
 
-type Props = { 
+type Props = {
     match: Match;
+    onSave?: () => void;
 };
 
-const AdminMatchFixture = ({ match }: Props) => {
+const AdminMatchFixture = ({ match, onSave }: Props) => {
     const navigate = useNavigate();
     const [homeScore, setHomeScore] = useState<string>('');
     const [awayScore, setAwayScore] = useState<string>('');
+    const [isFinished, setIsFinished] = useState(match.is_finished);
+    const [savedScores, setSavedScores] = useState({ home: match.score_home_team, away: match.score_away_team });
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<ReactNode>(match.is_finished ? (<p>Match finished!</p>) : (<p className='pending'>Pending result...</p>));
 
-
     const handleSubmit = async () => {
-        if (match.is_finished) return;
+        if (isFinished) return;
         if (homeScore === '' || awayScore === '') return;
 
         setLoading(true);
         setError(null);
         try {
             await submitMatch(match.id, Number(homeScore), Number(awayScore));
+            setIsFinished(true);
+            setSavedScores({ home: Number(homeScore), away: Number(awayScore) });
             setSaved(true);
             setTimeout(() => setSaved(false), 1500);
+            setMessage(<p className='success'>Match result saved successfully.</p>);
+            onSave?.();
         } catch {
             setError('Failed to save match result.');
         } finally {
             setLoading(false);
-            setMessage((<p className='success'>Match result saved successfully.</p>));
         }
     };
 
@@ -60,12 +67,16 @@ const AdminMatchFixture = ({ match }: Props) => {
                     </div>
                     <div className="admin-match-input-scoreline">
                         <HomeTeam team={match.home_team} />
-                        {match.is_finished ? (
+                        {isFinished ? (
+                            <>
                             <div className="admin-match-score-result" onClick={() => navigate(`/match/${match.id}`)}>
-                                <span className="score-box">{match.score_home_team}</span>
+                                <span className="score-box">{savedScores.home}</span>
                                 <span className="admin-match-input-score-separator">-</span>
-                                <span className="score-box">{match.score_away_team}</span>                            
+                                <span className="score-box">{savedScores.away}</span>                            
                             </div>
+                            <AddGoalForm match={match} />
+                            </>
+
                         ) : (
                             <div className="admin-match-inputs">
                                 <input
@@ -102,7 +113,7 @@ const AdminMatchFixture = ({ match }: Props) => {
                 <div className='admin-match-input-actions'>
                     <div className="admin-match-input-save">                        
                         <div className="admin-submit-button">
-                            {match.is_finished ?
+                            {isFinished ?
                                 (<Button variant='outline' size='sm' disabled={true}>
                                     <CheckCircleIcon size={16} />
                                 </Button>

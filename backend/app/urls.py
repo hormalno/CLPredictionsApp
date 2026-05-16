@@ -22,11 +22,14 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from matches.views import MatchViewSet
 from groups.views import GroupViewSet
+from players.views import PlayerViewSet
 from predictions.views import UserPredictionsView, SubmitPredictionView, MatchesUserScoresView, PredictionsPerMatchListView
 
 router = DefaultRouter()
 router.register(r'matches', MatchViewSet, basename='match')
 router.register(r'groups', GroupViewSet, basename='group')
+router.register(r'players', PlayerViewSet, basename='player')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
