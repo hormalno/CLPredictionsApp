@@ -38,6 +38,9 @@ class Goal(models.Model):
             if self.team_scored != self.match.home_team and self.team_scored != self.match.away_team:
                 errors['team_scored'] = f"Invalid entry: {self.team_scored} is not part of the match!."
 
+        if self.assist_player and (self.is_penalty or self.is_own_goal):
+            errors['assist_player'] = 'A penalty or own goal cannot have an assist player.'
+
         if self.goalscorer and self.assist_player:
             if self.goalscorer == self.assist_player:
                 errors['goalscorer'] = 'You cannot have the same goalscorer!'

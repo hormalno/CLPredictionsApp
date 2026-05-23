@@ -1,18 +1,18 @@
 import { useState, type ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CalendarIcon, CheckCircleIcon, SaveIcon } from '../../../components/icons/Icons';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
 import { submitMatch } from '../../../api';
+import { Button } from '../../../components/button/Button';
 import HomeTeam from '../../teams/home-team/HomeTeam';
 import AwayTeam from '../../teams/away-team/AwayTeam';
-import { Button } from '../../../components/button/Button';
-import type { Match } from '../../../types';
-import './AdminMatchFixture.css';
-import { useNavigate } from 'react-router-dom';
-import GoalScorers from '../match-details/goal-scorers/GoalScorers';
 import AddGoalForm from './AddGoalForm';
+import type { MatchDetail } from '../../../types';
+import './AdminMatchFixture.css';
+import AdminGoal from './AdminGoal';
 
 type Props = {
-    match: Match;
+    match: MatchDetail;
     onSave?: () => void;
 };
 
@@ -49,8 +49,8 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
     };
 
     return (
-        <div>
-            <div className="admin-match-input-item">
+        <div className="admin-match-input-item">
+            <div className="admin-match-input-row">
                 <div className="admin-match-input-info">
                     <div className="admin-match-input-info-date-row">
                         <span className='admin-match-input-info-date'>
@@ -62,21 +62,17 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
                     <div>{match.location}</div>
                 </div>
                 <div className="admin-match-input-scoreline-wrapper">
-                    <div className='admin-match-input-round'>                        
+                    <div className='admin-match-input-round'>
                         {match.round !== 'GS' ? match.round_display : `Group ${match.group_display}`}
                     </div>
                     <div className="admin-match-input-scoreline">
                         <HomeTeam team={match.home_team} />
                         {isFinished ? (
-                            <>
                             <div className="admin-match-score-result" onClick={() => navigate(`/match/${match.id}`)}>
                                 <span className="score-box">{savedScores.home}</span>
                                 <span className="admin-match-input-score-separator">-</span>
-                                <span className="score-box">{savedScores.away}</span>                            
+                                <span className="score-box">{savedScores.away}</span>
                             </div>
-                            <AddGoalForm match={match} />
-                            </>
-
                         ) : (
                             <div className="admin-match-inputs">
                                 <input
@@ -103,7 +99,7 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
                                     onChange={e => setAwayScore(e.target.value.replace(/\D/g, ''))}
                                 />
                             </div>
-                        )}                
+                        )}
                         <AwayTeam team={match.away_team} />
                     </div>
                     <div className='admin-match-bottom'>
@@ -111,7 +107,7 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
                     </div>
                 </div>
                 <div className='admin-match-input-actions'>
-                    <div className="admin-match-input-save">                        
+                    <div className="admin-match-input-save">
                         <div className="admin-submit-button">
                             {isFinished ?
                                 (<Button variant='outline' size='sm' disabled={true}>
@@ -125,6 +121,13 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
                     </div>
                 </div>
             </div>
+            {isFinished &&
+            <div className='admin-match-add-goals'>
+                {(match.score_home_team + match.score_away_team) > 0 && match.goals.length > 0
+                ? (<AdminGoal match={match} />)
+                : (<AddGoalForm match={{ ...match, score_home_team: savedScores.home, score_away_team: savedScores.away }} />)}
+                
+            </div>}
         </div>
     );
 };

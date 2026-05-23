@@ -13,12 +13,15 @@ const GoalItem = ({goal} : Props) => {
             <SoccerBallIcon size={24} />
             </div>
             <div className="goal-scorers__info">
-            <span className="goal-scorers__name">
-                <text>{goal.goalscorer.name}</text>
-            </span>
-            <span className="goal-scorers__time">
-                <text>{goal.minute}' {goal.is_penalty && '(P)'} {goal.is_own_goal && '(OG)'}</text>
-            </span>
+                <div className="goal-scorers__row">
+                    <span className="goal-scorers__name">{goal.goalscorer.name}</span>
+                    {goal.is_penalty && (<span className="goal-penalty"> (P)</span>)}
+                    {goal.is_own_goal && (<span className="goal-own"> (OG)</span>)}
+                    {goal.assist_player && (<span className="goal-assist__name"> (Assist: {goal.assist_player.name})</span>)}
+                </div>
+                <span className="goal-scorers__time">
+                    <text>{goal.minute}' </text>
+                </span>
             </div>
         </li>
     );

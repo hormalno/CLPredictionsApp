@@ -15,13 +15,37 @@
   display: flex;
   flex-direction: column;
 }
+
+.goal-scorers__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+}
  
-.goal-scorers__name {
+.goal-scorers__info .goal-scorers__name {
+  color: var(--color-on-surface-secondary);
+  font-weight: var(--font-weight-medium);
+  margin-right: var(--spacing-xs);
+}
+
+.goal-scorers__info .goal-penalty {
   color: var(--color-on-surface-secondary);
   font-weight: var(--font-weight-medium);
 }
+
+.goal-scorers__info .goal-own {
+  color: var(--color-on-surface-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.goal-scorers__info .goal-assist__name {
+  color: var(--color-on-surface-secondary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+}
  
-.goal-scorers__time {
+.goal-scorers__info .goal-scorers__time {
   color: var(--color-on-surface-secondary);
   font-size: var(--font-size-sm);
 }

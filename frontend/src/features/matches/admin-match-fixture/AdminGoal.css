@@ -1,0 +1,16 @@
+.admin-goals {
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xs);
+}
+
+.admin-goals .admin-goal {
+  border-right: 1px solid white;
+  padding: 2px 6px;
+  text-align: center;
+}
+
+.admin-goals .admin-goal:first-child {
+  border-left: 1px solid white;
+}

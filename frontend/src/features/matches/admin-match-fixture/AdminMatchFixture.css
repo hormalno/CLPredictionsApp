@@ -1,14 +1,19 @@
 .admin-match-input-item {
-  gap: var(--spacing-sm);
   border: 1px solid var(--color-border);
   display: flex;
+  flex-direction: column;
   padding: var(--spacing-lg) var(--spacing-xl);
-  min-height: 120px;
   transition: transform 0.2s ease, border-color 0.2s ease;
   border-radius: var(--border-radius-lg);
+  background: var(--color-fixture-background);
+}
+
+.admin-match-input-row {
+  display: flex;
   flex-direction: row;
   align-items: center;
-  background: var(--color-fixture-background);
+  gap: var(--spacing-sm);
+  min-height: 120px;
 }
 
 .admin-match-input-info {
@@ -201,4 +206,10 @@
 
 .admin-match-bottom .pending {
   color: orange;
+}
+
+.admin-match-add-goals {
+  margin-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--spacing-sm);
 }

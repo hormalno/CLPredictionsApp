@@ -1,10 +1,14 @@
+from django.core.exceptions import ValidationError as DjangoValidationError
+from django.db import transaction
 from django.db.models import Case, IntegerField, Value, When
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.response import Response
 from matches.models import Match
 from matches.serializers import MatchSerializer, MatchDetailSerializer, MatchResultSerializer
+from goals.models import Goal
 from goals.serializers import GoalCreateSerializer
 
 ROUND_ORDER = Case(
@@ -42,6 +46,17 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
             )
         return queryset
 
+    @action(detail=False, url_path='admin-list', permission_classes=[IsAdminUser])
+    def admin_list(self, request):
+        queryset = self.get_queryset().prefetch_related(
+            'goals__goalscorer',
+            'goals__assist_player',
+            'goals__team_scored',
+        )
+        serializer = MatchDetailSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+
+
     @action(detail=False, url_path='upcoming')
     def upcoming(self, request):
         queryset = self.get_queryset().filter(is_finished=False)[:4]
@@ -67,13 +82,15 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
         match.refresh_from_db()
         return Response(MatchDetailSerializer(match, context={'request': request}).data)
     
-    @action(detail=True, methods=['post'], url_path='add-goal', permission_classes=[IsAdminUser])
-    def add_goal(self, request, pk=None):
+    @action(detail=True, methods=['post'], url_path='add-goals', permission_classes=[IsAdminUser])
+    def add_goals(self, request, pk=None):
         match = self.get_object()
-        serializer = GoalCreateSerializer(data=request.data)
+        serializer = GoalCreateSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         try:
-            serializer.save(match=match)
+            with transaction.atomic():
+                for goal_data in serializer.validated_data:
+                    Goal(match=match, **goal_data).save()
         except DjangoValidationError as e:
             raise DRFValidationError(e.message_dict)
         match.refresh_from_db()

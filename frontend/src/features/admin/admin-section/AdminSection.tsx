@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { getMatches } from '../../../api';
+import { getAdminMatches } from '../../../api';
 import AdminMatchFixture from "../../matches/admin-match-fixture/AdminMatchFixture";
-import type { Match } from '../../../types'
+import type { MatchDetail } from '../../../types'
 import './AdminSection.css';
 
 const AdminSection = () => {
-    const [matches, setMatches] = useState<Match[]>([]);
+    const [matches, setMatches] = useState<MatchDetail[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [refetch, setRefetch] = useState(0);
 
     useEffect(() => {
-        getMatches()
+        getAdminMatches()
         .then(setMatches)
         .catch(() => setError('Failed to load matches.'))
         .finally(() => setLoading(false));
