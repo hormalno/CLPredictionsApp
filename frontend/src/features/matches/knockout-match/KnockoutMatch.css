@@ -1,0 +1,136 @@
+/* ── Match card ──────────────────────────────────────────────────────────── */
+
+.knockout-match-card {
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-md);
+  z-index: 5;
+  position: relative;
+  background: var(--color-surface);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  border-radius: var(--border-radius-lg);
+}
+
+.final-card {
+  border: 2px solid var(--color-accent);
+}
+
+.knockout-match-card-header {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-xs);
+  text-align: center;
+  font-family: var(--font-family-body);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: var(--letter-spacing-body);
+  padding-bottom: var(--spacing-sm);
+}
+
+.knockout-match-card-team {
+  gap: var(--spacing-md);
+  display: flex;
+  padding: var(--spacing-sm);
+  align-items: center;
+  border-radius: var(--border-radius-sm);
+}
+
+.knockout-match-card-team-selector {
+  padding: var(--spacing-sm);
+}
+
+.knockout-match-card-flag {
+  width: 36px;
+  height: 28px;
+  object-fit: contain;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-surface-elevated);
+  flex-shrink: 0;
+}
+
+.knockout-match-card-flag-placeholder {
+  display: inline-block;
+  width: 36px;
+  height: 28px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-surface-elevated);
+  flex-shrink: 0;
+}
+
+.knockout-match-card-team-name {
+  color: var(--color-on-surface-secondary);
+  flex-grow: 1;
+  font-size: var(--font-size-sm);
+}
+
+.knockout-match-card-score {
+  font-size: var(--font-size-base);
+  min-width: 1.5rem;
+  text-align: right;
+  font-weight: var(--font-weight-heading);
+}
+
+.knockout-match-card-extra {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-xs);
+  margin-left: var(--spacing-xs);
+}
+
+.knockout-match-card-trophy {
+  top: -20px;
+  right: -10px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  position: absolute;
+}
+
+.knockout-match-card-dropdown {
+  color: var(--color-on-surface);
+  width: 100%;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  background: var(--color-surface);
+  font-family: var(--font-family-body);
+  border-radius: var(--border-radius-control);
+}
+
+/* ── States ──────────────────────────────────────────────────────────────── */
+
+.knockout-match-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-primary);
+}
+
+.knockout-match-card-team.winner {
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+}
+
+.knockout-match-card-team.winner .knockout-match-card-team-name {
+  color: var(--color-on-surface);
+  font-weight: var(--font-weight-heading);
+}
+
+/* ── Prediction mode ─────────────────────────────────────────────────────── */
+
+.prediction-mode-only {
+  display: none;
+}
+
+.prediction-active .prediction-mode-only {
+  display: block;
+}
+
+.prediction-active .knockout-match-card:not(.prediction-mode-only) {
+  display: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .knockout-bracket-hero-title {
+    font-size: var(--font-size-3xl);
+  }
+}

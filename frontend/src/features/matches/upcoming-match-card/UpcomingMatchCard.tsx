@@ -18,13 +18,13 @@ const UpcomingMatchCard = ({match} : Props) => {
             </div>
             <div className="match-teams-row">
                 <div className="match-team">
-                    <span>{match.home_team.short_name}</span>
+                    <span>{match.home_team?.short_name}</span>
                 </div>
                 <div className="match-vs-small">
                     <span>vs</span>
                 </div>
                 <div className="match-team">
-                    <span>{match.away_team.short_name}</span>
+                    <span>{match.away_team?.short_name}</span>
                 </div>
             </div>
             <Button variant="primary" size="sm" onClick={() => navigate(`/match/${match.id}`)}>

@@ -17,11 +17,11 @@ const NextMatchCard = ({match} : Props) => {
         <div className="next-match-card">
             <span className="next-match-label">Next Upcoming Match</span>
             <div className="next-match-teams">
-                <TeamNextMatch team={match.home_team} />
+                <TeamNextMatch team={match.home_team} placeholder={match.home_placeholder} />
                 <div className="match-vs">
                     <span>VS</span>
                 </div>
-                <TeamNextMatch team={match.away_team} />
+                <TeamNextMatch team={match.away_team} placeholder={match.away_placeholder} />
             </div>
             <div className="next-match-info">
             <div className="match-meta">

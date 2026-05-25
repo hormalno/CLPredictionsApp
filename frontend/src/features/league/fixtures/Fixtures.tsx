@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
 import UserScores from "../../matches/match-fixture/UserScores";
-import { getMatches, getAllMatchesUserScores } from "../../../api";
+import { getGroupStageMatches, getAllMatchesUserScores } from "../../../api";
 import type { Match, MatchUserScore } from "../../../types";
 import './Fixtures.css';
 
@@ -27,7 +27,7 @@ const Fixtures = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        Promise.all([getMatches(),  getAllMatchesUserScores()])
+        Promise.all([getGroupStageMatches(),  getAllMatchesUserScores()])
         .then(([matchesData, userScoreData]) => {
             setMatches(matchesData);
             setUserScores(userScoreData)

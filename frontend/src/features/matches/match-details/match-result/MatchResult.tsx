@@ -1,6 +1,7 @@
 import { formatMatchDate } from "../../../../utils/formatMatchDate";
 import type { Match as MatchType } from "../../../../types";
 import './MatchResult.css';
+import TeamDetail from "../../../teams/team-detail/TeamDetail";
 
 type Props = {
     match : MatchType
@@ -14,29 +15,13 @@ const MatchResult = ({match} : Props) => {
                 <span>{match.is_finished ? 'Full Time' : 'Upcoming'}</span>
             </div>
             <div className="header-match-result__score-board">
-                <div className="header-match-result__team">
-                  <div className="header-match-result__team-icon">
-                    {match.home_team.logo
-                      ? <img src={match.home_team.logo} alt={match.home_team.short_name} />
-                      : <span>{match.home_team.short_name}</span>
-                    }
-                  </div>
-                  <h1 className="hero-title">{match.home_team.name}</h1>
-                </div>
+                <TeamDetail team={match.home_team} placeholder={match.home_placeholder} />
                 <div className="header-match-result__score-display">
                   <span className="header-match-result__score">{match.score_home_team}</span>
                   <span className="header-match-result__divider">-</span>
                   <span className="header-match-result__score">{match.score_away_team}</span>
                 </div>
-                <div className="header-match-result__team">
-                  <div className="header-match-result__team-icon">
-                    {match.away_team.logo
-                      ? <img src={match.away_team.logo} alt={match.away_team.short_name} />
-                      : <span>{match.away_team.short_name}</span>
-                    }
-                  </div>
-                  <h1 className="hero-title">{match.away_team.name}</h1>
-                </div>
+                <TeamDetail team={match.away_team} placeholder={match.away_placeholder} />
             </div>
             <div className="header-match-result__bottom">
                 <button>{match.round === 'GS' ? `Group ${match.group_display}` : match.round_display} • {formatMatchDate(match.date)}</button>

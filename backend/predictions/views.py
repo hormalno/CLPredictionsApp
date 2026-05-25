@@ -2,8 +2,15 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from predictions.models import MatchPrediction
-from predictions.serializers import UserMatchPredictionSerializer, SubmitPredictionSerializer, MatchesUserScoreSerializer, MatchPredictionSerializer
+from predictions.models import KnockoutPrediction, MatchPrediction
+from predictions.serializers import (
+    MatchesUserScoreSerializer,
+    MatchPredictionSerializer,
+    SubmitKnockoutPredictionSerializer,
+    SubmitPredictionSerializer,
+    UserKnockoutPredictionSerializer,
+    UserMatchPredictionSerializer,
+)
 
 
 class UserPredictionsView(APIView):
@@ -62,8 +69,43 @@ class PredictionsPerMatchListView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, match_id):
-        predictions = MatchPrediction.objects.filter(match__id=match_id,match__is_closed=True).select_related('user','match')
+        predictions = MatchPrediction.objects.filter(match__id=match_id, match__is_closed=True).select_related('user', 'match')
+        return Response(MatchPredictionSerializer(predictions, many=True).data)
 
-        return Response(MatchPredictionSerializer(predictions, many=True).data) 
 
+class SubmitKnockoutPredictionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = SubmitKnockoutPredictionSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+
+        data = serializer.validated_data
+        match = data['match']
+
+        defaults = {}
+        for field in ('predicted_home_team', 'predicted_away_team', 'predicted_winner', 'home_team_score', 'away_team_score'):
+            if field in data:
+                defaults[field] = data[field]
+
+        KnockoutPrediction.objects.update_or_create(
+            match=match,
+            user=request.user,
+            defaults=defaults,
+        )
+
+        return Response({'status': 'saved'}, status=201)
+
+
+class UserKnockoutPredictionsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        predictions = (
+            KnockoutPrediction.objects
+            .filter(user=request.user)
+            .select_related('match', 'predicted_home_team', 'predicted_away_team', 'predicted_winner')
+            .order_by('match__date')
+        )
+        return Response(UserKnockoutPredictionSerializer(predictions, many=True).data)
 

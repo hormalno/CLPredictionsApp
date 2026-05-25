@@ -1,0 +1,24 @@
+.knockout-match-card-flag {
+  width: 36px;
+  height: 28px;
+  object-fit: contain;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-surface-elevated);
+  flex-shrink: 0;
+}
+
+.knockout-match-card-flag-placeholder {
+  width: 36px;
+  height: 28px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-surface-elevated);
+  flex-shrink: 0;
+}
+
+.knockout-match-card-team-name {
+  color: var(--color-on-surface-secondary);
+  flex-grow: 1;
+  font-size: var(--font-size-sm);
+}

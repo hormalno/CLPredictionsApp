@@ -66,7 +66,7 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
                         {match.round !== 'GS' ? match.round_display : `Group ${match.group_display}`}
                     </div>
                     <div className="admin-match-input-scoreline">
-                        <HomeTeam team={match.home_team} />
+                        <HomeTeam team={match.home_team} placeholder={match.home_placeholder} />
                         {isFinished ? (
                             <div className="admin-match-score-result" onClick={() => navigate(`/match/${match.id}`)}>
                                 <span className="score-box">{savedScores.home}</span>
@@ -100,7 +100,7 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
                                 />
                             </div>
                         )}
-                        <AwayTeam team={match.away_team} />
+                        <AwayTeam team={match.away_team} placeholder={match.away_placeholder} />
                     </div>
                     <div className='admin-match-bottom'>
                         {error ? <p className="error">{error}</p> : <p>{message}</p>}
@@ -123,7 +123,7 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
             </div>
             {isFinished &&
             <div className='admin-match-add-goals'>
-                {(match.score_home_team + match.score_away_team) > 0 && match.goals.length > 0
+                {((match.score_home_team ?? 0) + (match.score_away_team ?? 0)) > 0 && match.goals.length > 0
                 ? (<AdminGoal match={match} />)
                 : (<AddGoalForm match={{ ...match, score_home_team: savedScores.home, score_away_team: savedScores.away }} />)}
                 

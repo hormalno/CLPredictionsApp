@@ -3,35 +3,24 @@ import type { Team } from './team';
 
 export type Match = {
     id: number;
-    home_team: Team;
-    away_team: Team;
-    score_home_team: number;
-    score_away_team: number;
+    home_team: Team | null;
+    away_team: Team | null;
+    home_placeholder: string;
+    away_placeholder: string;
+    score_home_team: number | null;
+    score_away_team: number | null;
     date: string;
     stadium: string;
     location: string;
     round: string;
     round_display: string;
-    group: string;
-    group_display: string;
+    group: string | null;
+    group_display: string | null;
+    leg: number | null;
     is_finished: boolean;
     is_closed: boolean;
 };
 
-export type MatchDetail = {
-    id: number;
-    home_team: Team;
-    away_team: Team;
-    score_home_team: number;
-    score_away_team: number;
-    date: string;
-    stadium: string;
-    location: string;
-    round: string;
-    round_display: string;
-    group: string;
-    group_display: string;
-    is_finished: boolean;
-    is_closed: boolean;
-    goals: Goal[] | [];
-}
+export type MatchDetail = Match & {
+    goals: Goal[];
+};

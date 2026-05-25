@@ -25,21 +25,22 @@ const emptyEntry = (defaultTeamId: number): GoalEntry => ({
 
 const AddGoalForm = ({ match }: Props) => {
     const [players, setPlayers] = useState<PlayerSummary[]>([]);
-    const goal_number = match.score_home_team + match.score_away_team;
+    const goal_number = (match.score_home_team ?? 0) + (match.score_away_team ?? 0);
     const [entries, setEntries] = useState<GoalEntry[]>(() =>
-        Array.from({ length: goal_number }, () => emptyEntry(match.home_team.id))
+        Array.from({ length: goal_number }, () => emptyEntry(match.home_team?.id ?? 0))
     );
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        if (!match.home_team || !match.away_team) return;
         Promise.all([
             getPlayersByTeam(match.home_team.id),
             getPlayersByTeam(match.away_team.id),
         ])
             .then(([home, away]) => setPlayers([...home, ...away]))
             .catch(() => setPlayers([]));
-    }, [match.home_team.id, match.away_team.id]);
+    }, [match.home_team, match.away_team]);
 
     const update = (index: number, patch: Partial<GoalEntry>) => {
         setEntries(prev => prev.map((e, i) => i === index ? { ...e, ...patch } : e));
@@ -81,8 +82,8 @@ const AddGoalForm = ({ match }: Props) => {
             {entries.map((entry, i) => (
                 <div key={i} className="add-goal-form__inline">
                     <select className="add-goal-form__select" value={entry.teamId} onChange={e => update(i, { teamId: Number(e.target.value) })}>
-                        <option value={match.home_team.id}>{match.home_team.name}</option>
-                        <option value={match.away_team.id}>{match.away_team.name}</option>
+                        <option value={match.home_team?.id}>{match.home_team?.name}</option>
+                        <option value={match.away_team?.id}>{match.away_team?.name}</option>
                     </select>
                     <select className="add-goal-form__select" value={entry.goalscorer} onChange={e => update(i, { goalscorer: e.target.value })}>
                         <option value="">— goalscorer —</option>

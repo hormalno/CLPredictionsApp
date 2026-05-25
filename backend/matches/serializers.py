@@ -5,8 +5,8 @@ from goals.serializers import GoalSerializer
 
 
 class MatchSerializer(serializers.ModelSerializer):
-    home_team = TeamSerializer()
-    away_team = TeamSerializer()
+    home_team = TeamSerializer(allow_null=True)
+    away_team = TeamSerializer(allow_null=True)
     round_display = serializers.CharField(source='get_round_display', read_only=True)
     group_display = serializers.CharField(source='group.name', read_only=True, allow_null=True)
 
@@ -16,18 +16,22 @@ class MatchSerializer(serializers.ModelSerializer):
             'id',
             'home_team',
             'away_team',
+            'home_placeholder',
+            'away_placeholder',
             'round',
             'round_display',
             'group',
             'group_display',
+            'leg',
             'score_home_team',
             'score_away_team',
             'stadium',
             'location',
             'date',
             'is_finished',
-            'is_closed'
+            'is_closed',
         ]
+
 
 class MatchDetailSerializer(MatchSerializer):
     goals = GoalSerializer(many=True, read_only=True)
@@ -40,4 +44,3 @@ class MatchResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         fields = ['score_home_team', 'score_away_team']
-

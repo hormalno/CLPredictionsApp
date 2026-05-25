@@ -1,12 +1,22 @@
 import type { Team } from '../../../types/index';
+import './TeamDetail.css'
 
 type Props = {
-    team: Team;
+    team: Team | null;
+    placeholder: string | null;
 }
 
-const TeamDetail = ({team} : Props) => {
+const TeamDetail = ({team, placeholder} : Props) => {
     return (
-        <div></div>
+        <div className="header-match-result__team">
+            <div className="header-match-result__team-icon">
+            {team
+                ? <img src={team.logo} alt={team.short_name} />
+                : <span>{placeholder}</span>
+            }
+            </div>
+            <h1 className="hero-title">{team ? team.name : placeholder}</h1>
+        </div>
     )
 };
 

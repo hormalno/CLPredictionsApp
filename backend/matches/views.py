@@ -12,12 +12,13 @@ from goals.models import Goal
 from goals.serializers import GoalCreateSerializer
 
 ROUND_ORDER = Case(
-    When(round='PO', then=Value(1)),
-    When(round='GS', then=Value(2)),
-    When(round='R16', then=Value(3)),
-    When(round='QF', then=Value(4)),
-    When(round='SF', then=Value(5)),
-    When(round='F', then=Value(6)),
+    When(round='GS', then=Value(1)),
+    When(round='PO', then=Value(2)),
+    When(round='R32', then=Value(3)),
+    When(round='R16', then=Value(4)),
+    When(round='QF', then=Value(5)),
+    When(round='SF', then=Value(6)),
+    When(round='F', then=Value(7)),
     default=Value(99),
     output_field=IntegerField(),
 )
@@ -56,6 +57,18 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = MatchDetailSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
+
+    @action(detail=False, url_path='group-stage')
+    def group_stage(self, request):
+        queryset = self.get_queryset().filter(round='GS')
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, url_path='knockout')
+    def knockout(self, request):
+        queryset = self.get_queryset().filter(round__in=['PO', 'R32', 'R16', 'QF', 'SF', 'F'])
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     @action(detail=False, url_path='upcoming')
     def upcoming(self, request):

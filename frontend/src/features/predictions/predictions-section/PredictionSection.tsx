@@ -1,5 +1,5 @@
 import { type Dispatch, type SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
-import { getUserPredictions, getMatches } from '../../../api';
+import { getUserMatchPredictions, getGroupStageMatches } from '../../../api';
 import MatchFixture from "../../matches/match-fixture/MatchFixture";
 import MyPrediction from "../../matches/match-fixture/MyPrediction";
 import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
@@ -17,13 +17,13 @@ const PredictionSection = ({ predictions, setPredictions }: Props) => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const refreshPredictions = useCallback(() => {
-        getUserPredictions()
+        getUserMatchPredictions()
         .then(setPredictions)
         .catch(() => {});
     }, [setPredictions]);
 
     useEffect(() => {
-        const fetchMatches = getMatches()
+        const fetchMatches = getGroupStageMatches()
             .then(setMatches)
             .catch(() => setError('Failed to load matches.'));
 

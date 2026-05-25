@@ -14,9 +14,9 @@ const MatchResultCard = ({match, userScores} : Props) => {
                 <span>{match.group ? `Group ${match.group_display}` : `Round ${match.round_display}`}</span>
             </div>
             <div className="result-score">
-                <span>{match.home_team.short_name}</span>
+                <span>{match.home_team?.short_name}</span>
                 <span className="score-number">{match.score_home_team} - {match.score_away_team}</span>
-                <span>{match.away_team.short_name}</span>
+                <span>{match.away_team?.short_name}</span>
             </div>
             <div className="friend-scores">
                 {userScores && userScores.map(score => (

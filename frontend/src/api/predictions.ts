@@ -1,7 +1,7 @@
 import client from './client';
 import type { MatchUserPrediction,  MatchPrediction, MatchUserScore } from '../types/prediction';
 
-export const getUserPredictions = (): Promise<MatchPrediction[]> =>
+export const getUserMatchPredictions = (): Promise<MatchPrediction[]> =>
     client.get<MatchPrediction[]>('/predictions/me/').then(res => res.data);
 
 export const submitPrediction = (matchId: number, homeScore: number, awayScore: number) =>

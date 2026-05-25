@@ -23,7 +23,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from matches.views import MatchViewSet
 from groups.views import GroupViewSet
 from players.views import PlayerViewSet
-from predictions.views import UserPredictionsView, SubmitPredictionView, MatchesUserScoresView, PredictionsPerMatchListView
+from predictions.views import (
+    MatchesUserScoresView,
+    PredictionsPerMatchListView,
+    SubmitKnockoutPredictionView,
+    SubmitPredictionView,
+    UserKnockoutPredictionsView,
+    UserPredictionsView,
+)
 
 router = DefaultRouter()
 router.register(r'matches', MatchViewSet, basename='match')
@@ -41,4 +48,6 @@ urlpatterns = [
     path('api/predictions/me/', UserPredictionsView.as_view(), name='user_predictions'),
     path('api/matches-scores/', MatchesUserScoresView.as_view(), name='matches_scores'),
     path('api/matches/<int:match_id>/predictions/', PredictionsPerMatchListView.as_view(), name='match_predictions'),
+    path('api/predictions/knockout/submit/', SubmitKnockoutPredictionView.as_view(), name='submit_knockout_prediction'),
+    path('api/predictions/knockout/me/', UserKnockoutPredictionsView.as_view(), name='user_knockout_predictions'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

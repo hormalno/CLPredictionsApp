@@ -24,7 +24,7 @@
 
 .league-tabs-section {
   color: var(--color-on-surface);
-  overflow: hidden;
+  overflow: clip;
   position: relative;
   background-color: var(--color-surface);
 }
@@ -51,6 +51,7 @@
   display: flex;
   position: relative;
   justify-content: center;
+  margin-top: var(--spacing-2xl);
 }
  
 .league-tabs-content {

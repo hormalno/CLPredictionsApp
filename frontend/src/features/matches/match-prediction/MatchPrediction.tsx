@@ -57,7 +57,7 @@ const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
                         {match.round !== 'GS' ? match.round_display : `Group ${match.group_display}`}
                     </div>
                     <div className="match-prediction-scoreline">
-                        <HomeTeam team={match.home_team} />
+                        <HomeTeam team={match.home_team} placeholder={match.home_placeholder} />
                         <div className="prediction-inputs">
                             <input
                                 type="text"
@@ -83,7 +83,7 @@ const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
                                 onChange={e => setAwayScore(e.target.value)}
                             />
                         </div>
-                        <AwayTeam team={match.away_team} />
+                        <AwayTeam team={match.away_team} placeholder={match.away_placeholder} />
                     </div>
                 </div>
                 <div className='match-prediction-actions'>
