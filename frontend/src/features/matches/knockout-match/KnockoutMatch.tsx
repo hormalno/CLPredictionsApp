@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import type { Match } from '../../../types';
 import KnockoutTeam from '../../teams/knockout-team/KnockoutTeam';
+import type { Match } from '../../../types';
 import './KnockoutMatch.css'
 
 type Props = { match: Match };

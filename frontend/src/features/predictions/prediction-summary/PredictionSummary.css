@@ -12,4 +12,13 @@
   gap: var(--spacing-xl);
   display: flex;
 }
+
+.summary-section-label {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
+}
  

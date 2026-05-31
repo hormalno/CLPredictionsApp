@@ -3,7 +3,7 @@ import Navigation from '../../components/navigation/Navigation';
 import Footer from '../../components/footer/Footer';
 import Fixtures from './fixtures/Fixtures';
 import Groups from './groups/Groups';
-import Knockout from './knockout/Knockout';
+import Bracket from './knockout/Bracket';
 import './LeaguePage.css';
 
 
@@ -97,7 +97,7 @@ const LeaguePage = () => {
                   hidden={activeTab !== 'knockout'}
                 >
                   <div className="league-tabs-grid">
-                    <Knockout key={refreshKeys.knockout} />
+                    <Bracket key={refreshKeys.knockout} />
                   </div>
                 </div>
               </div>

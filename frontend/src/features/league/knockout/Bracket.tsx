@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { getKnockoutMatches } from '../../../api/matches';
-import type { Match } from '../../../types';
 import KnockoutMatch from '../../matches/knockout-match/KnockoutMatch';
-import './Knockout.css'
+import type { Match } from '../../../types';
+import './Bracket.css'
 
 const ROUNDS = [
     { key: 'PO',  label: 'Play-off' },

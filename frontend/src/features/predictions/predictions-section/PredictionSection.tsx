@@ -1,17 +1,11 @@
-import { type Dispatch, type SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getUserMatchPredictions, getGroupStageMatches } from '../../../api';
-import MatchFixture from "../../matches/match-fixture/MatchFixture";
-import MyPrediction from "../../matches/match-fixture/MyPrediction";
 import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
-import type { Match, MatchPrediction as MatchPredictionType } from '../../../types'
+import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
+import './PredictionSection.css';
 
-
-type Props = {
-    predictions: MatchPredictionType[];
-    setPredictions: Dispatch<SetStateAction<MatchPredictionType[]>>;
-};
-
-const PredictionSection = ({ predictions, setPredictions }: Props) => {
+const PredictionSection = () => {
+    const [predictions, setPredictions] = useState<MatchPredictionType[]>([]);
     const [matches, setMatches] = useState<Match[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -20,7 +14,7 @@ const PredictionSection = ({ predictions, setPredictions }: Props) => {
         getUserMatchPredictions()
         .then(setPredictions)
         .catch(() => {});
-    }, [setPredictions]);
+    }, []);
 
     useEffect(() => {
         const fetchMatches = getGroupStageMatches()
@@ -51,14 +45,6 @@ const PredictionSection = ({ predictions, setPredictions }: Props) => {
                     {error && <p>{error}</p>}
                     {!loading && !error && matches.map(match => {
                         const prediction = predictionByMatch.get(match.id);
-
-                        if (match.is_closed) {
-
-                            return (<MatchFixture key={match.id} match={match} prediction={prediction}>
-                                        {prediction && <MyPrediction is_pending={!match.is_finished} prediction={prediction} />}
-                                    </MatchFixture>)
-                        }
-                        
                         return <MatchPrediction key={match.id} match={match} prediction={prediction} onSaved={refreshPredictions} />
                     })}
                 </div>

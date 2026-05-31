@@ -16,32 +16,33 @@ def dt(s):
 #   1X  = winner of group X
 #   2X  = runner-up of group X
 #   3rd-N = Nth best third-place team
-#   W <id> = winner of the match with the given local_id
+#   WINNER<id> = winner of the match with the given local_id
 #
 # NOTE: Adjust matchups, venues, and dates to match the official FIFA 2026 bracket once published.
 BRACKET = [
     # ── Final ─────────────────────────────────────────────────────────────────────
-    ('f1',     'F',   'W sf1',    'W sf2',    'MetLife Stadium',         'New York/New Jersey', '2026-07-26 18:00:00', None,     None   ),
+    ('f1',     'F',   'WINNER SF1',    'WINNER SF2',    'MetLife Stadium',         'New York/New Jersey', '2026-07-26 18:00:00', None,     None   ),
+    ('f2',     'F',   'LOSER SF1',    'LOSER SF2',    'MetLife Stadium',         'New York/New Jersey', '2026-07-26 18:00:00', None,     None   ),
 
     # ── Semi Finals ───────────────────────────────────────────────────────────────
-    ('sf1',    'SF',  'W qf1',    'W qf2',    'AT&T Stadium',            'Dallas',              '2026-07-21 18:00:00', 'f1',    'home' ),
-    ('sf2',    'SF',  'W qf3',    'W qf4',    'MetLife Stadium',         'New York/New Jersey', '2026-07-22 18:00:00', 'f1',    'away' ),
+    ('sf1',    'SF',  'WINNER QF1',    'WINNER QF2',    'AT&T Stadium',            'Dallas',              '2026-07-21 18:00:00', 'f1',    'home' ),
+    ('sf2',    'SF',  'WINNER QF3',    'WINNER QF4',    'MetLife Stadium',         'New York/New Jersey', '2026-07-22 18:00:00', 'f1',    'away' ),
 
     # ── Quarter Finals ────────────────────────────────────────────────────────────
-    ('qf1',    'QF',  'W r16_1',  'W r16_2',  'SoFi Stadium',            'Los Angeles',         '2026-07-16 18:00:00', 'sf1',   'home' ),
-    ('qf2',    'QF',  'W r16_3',  'W r16_4',  'NRG Stadium',             'Houston',             '2026-07-16 21:00:00', 'sf1',   'away' ),
-    ('qf3',    'QF',  'W r16_5',  'W r16_6',  'Hard Rock Stadium',       'Miami',               '2026-07-17 18:00:00', 'sf2',   'home' ),
-    ('qf4',    'QF',  'W r16_7',  'W r16_8',  'BC Place',                'Vancouver',           '2026-07-17 21:00:00', 'sf2',   'away' ),
+    ('qf1',    'QF',  'WINNER R16_1',  'WINNER R16_2',  'SoFi Stadium',            'Los Angeles',         '2026-07-16 18:00:00', 'sf1',   'home' ),
+    ('qf2',    'QF',  'WINNER R16_3',  'WINNER R16_4',  'NRG Stadium',             'Houston',             '2026-07-16 21:00:00', 'sf1',   'away' ),
+    ('qf3',    'QF',  'WINNER R16_5',  'WINNER R16_6',  'Hard Rock Stadium',       'Miami',               '2026-07-17 18:00:00', 'sf2',   'home' ),
+    ('qf4',    'QF',  'WINNER R16_7',  'WINNER R16_8',  'BC Place',                'Vancouver',           '2026-07-17 21:00:00', 'sf2',   'away' ),
 
     # ── Round of 16 ───────────────────────────────────────────────────────────────
-    ('r16_1',  'R16', 'W r32_1',  'W r32_2',  'AT&T Stadium',            'Dallas',              '2026-07-09 18:00:00', 'qf1',   'home' ),
-    ('r16_2',  'R16', 'W r32_3',  'W r32_4',  "Levi's Stadium",          'San Francisco',       '2026-07-09 21:00:00', 'qf1',   'away' ),
-    ('r16_3',  'R16', 'W r32_5',  'W r32_6',  'Lincoln Financial Field', 'Philadelphia',        '2026-07-10 18:00:00', 'qf2',   'home' ),
-    ('r16_4',  'R16', 'W r32_7',  'W r32_8',  'Estadio Azteca',          'Mexico City',         '2026-07-10 21:00:00', 'qf2',   'away' ),
-    ('r16_5',  'R16', 'W r32_9',  'W r32_10', 'MetLife Stadium',         'New York/New Jersey', '2026-07-11 18:00:00', 'qf3',   'home' ),
-    ('r16_6',  'R16', 'W r32_11', 'W r32_12', 'SoFi Stadium',            'Los Angeles',         '2026-07-11 21:00:00', 'qf3',   'away' ),
-    ('r16_7',  'R16', 'W r32_13', 'W r32_14', 'Arrowhead Stadium',       'Kansas City',         '2026-07-12 18:00:00', 'qf4',   'home' ),
-    ('r16_8',  'R16', 'W r32_15', 'W r32_16', 'Lumen Field',             'Seattle',             '2026-07-12 21:00:00', 'qf4',   'away' ),
+    ('r16_1',  'R16', 'WINNER R32_1',  'WINNER R32_2',  'AT&T Stadium',            'Dallas',              '2026-07-09 18:00:00', 'qf1',   'home' ),
+    ('r16_2',  'R16', 'WINNER R32_3',  'WINNER R32_4',  "Levi's Stadium",          'San Francisco',       '2026-07-09 21:00:00', 'qf1',   'away' ),
+    ('r16_3',  'R16', 'WINNER R32_5',  'WINNER R32_6',  'Lincoln Financial Field', 'Philadelphia',        '2026-07-10 18:00:00', 'qf2',   'home' ),
+    ('r16_4',  'R16', 'WINNER R32_7',  'WINNER R32_8',  'Estadio Azteca',          'Mexico City',         '2026-07-10 21:00:00', 'qf2',   'away' ),
+    ('r16_5',  'R16', 'WINNER R32_9',  'WINNER R32_10', 'MetLife Stadium',         'New York/New Jersey', '2026-07-11 18:00:00', 'qf3',   'home' ),
+    ('r16_6',  'R16', 'WINNER R32_11', 'WINNER R32_12', 'SoFi Stadium',            'Los Angeles',         '2026-07-11 21:00:00', 'qf3',   'away' ),
+    ('r16_7',  'R16', 'WINNER R32_13', 'WINNER R32_14', 'Arrowhead Stadium',       'Kansas City',         '2026-07-12 18:00:00', 'qf4',   'home' ),
+    ('r16_8',  'R16', 'WINNER R32_15', 'WINNER R32_16', 'Lumen Field',             'Seattle',             '2026-07-12 21:00:00', 'qf4',   'away' ),
 
     # ── Round of 32 ───────────────────────────────────────────────────────────────
     # Group winners vs runners-up from different groups (adjust to official FIFA bracket)

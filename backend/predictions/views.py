@@ -1,4 +1,7 @@
+from django.core.exceptions import ValidationError as DjangoValidationError
+
 from rest_framework import generics
+from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -88,11 +91,14 @@ class SubmitKnockoutPredictionView(APIView):
             if field in data:
                 defaults[field] = data[field]
 
-        KnockoutPrediction.objects.update_or_create(
-            match=match,
-            user=request.user,
-            defaults=defaults,
-        )
+        try:
+            KnockoutPrediction.objects.update_or_create(
+                match=match,
+                user=request.user,
+                defaults=defaults,
+            )
+        except DjangoValidationError as exc:
+            raise DRFValidationError(exc.message_dict if hasattr(exc, 'message_dict') else exc.messages)
 
         return Response({'status': 'saved'}, status=201)
 
@@ -107,5 +113,5 @@ class UserKnockoutPredictionsView(APIView):
             .select_related('match', 'predicted_home_team', 'predicted_away_team', 'predicted_winner')
             .order_by('match__date')
         )
-        return Response(UserKnockoutPredictionSerializer(predictions, many=True).data)
+        return Response(UserKnockoutPredictionSerializer(predictions, many=True, context={'request': request}).data)
 

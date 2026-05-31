@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { CalendarIcon, SaveIcon } from '../../../components/icons/Icons';
-import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
 import { submitPrediction } from '../../../api';
-import './MatchPrediction.css';
+import { CalendarIcon, SaveIcon } from '../../../components/icons/Icons';
+import { Button } from '../../../components/button/Button';
 import HomeTeam from '../../teams/home-team/HomeTeam';
 import AwayTeam from '../../teams/away-team/AwayTeam';
-import { Button } from '../../../components/button/Button';
+import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
+import './MatchPrediction.css';
+import MyPrediction from './MyPrediction';
 
 type Props = { 
     match: Match; 
     prediction: MatchPredictionType | undefined;
-    onSaved?: () => void 
+    onSaved?: () => void;
 };
 
 const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
@@ -21,6 +22,13 @@ const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+
+    const scoreResultClass = () => {
+        if (match.is_finished) {
+            return prediction?.correct_outcome ? 'success' : 'wrong'
+        }
+        return "";
+    };
 
     const handleSave = async () => {
         if (homeScore === '' || awayScore === '') return;
@@ -58,43 +66,58 @@ const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
                     </div>
                     <div className="match-prediction-scoreline">
                         <HomeTeam team={match.home_team} placeholder={match.home_placeholder} />
-                        <div className="prediction-inputs">
-                            <input
-                                type="text"
-                                inputMode="numeric"
-                                pattern="[0-9]*"
-                                maxLength={2}
-                                placeholder="-"
-                                data-prediction="home"
-                                className="input score-input"
-                                value={homeScore}
-                                onChange={e => setHomeScore(e.target.value)}
-                            />
-                            <span className="match-prediction-score-separator">:</span>
-                            <input
-                                type="text"
-                                inputMode="numeric"
-                                pattern="[0-9]*"
-                                maxLength={2}
-                                placeholder="-"
-                                data-prediction="away"
-                                className="input score-input"
-                                value={awayScore}
-                                onChange={e => setAwayScore(e.target.value)}
-                            />
-                        </div>
+                        {match.is_closed ? (
+                            <div className={`match-prediction-score-result ${scoreResultClass()}`}>
+                                <span className="match-prediction-score-box">{prediction ? prediction.home_team_score : '-'}</span>
+                                <span className="match-prediction-score-separator">-</span>
+                                <span className="match-prediction-score-box">{prediction ? prediction.away_team_score : '-'}</span>
+                            </div>
+                        ) : (
+                            <div className="prediction-inputs">
+                                <input
+                                    type="text"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
+                                    maxLength={2}
+                                    placeholder="-"
+                                    data-prediction="home"
+                                    className="input score-input"
+                                    value={homeScore}
+                                    onChange={e => setHomeScore(e.target.value)}
+                                />
+                                <span className="match-prediction-score-separator">:</span>
+                                <input
+                                    type="text"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
+                                    maxLength={2}
+                                    placeholder="-"
+                                    data-prediction="away"
+                                    className="input score-input"
+                                    value={awayScore}
+                                    onChange={e => setAwayScore(e.target.value)}
+                                />
+                            </div>
+                        )}
                         <AwayTeam team={match.away_team} placeholder={match.away_placeholder} />
+                    </div>
+                    <div className='match-prediction-bottom'>
+                        {match.is_finished ? `Actual result: ${match.score_home_team} - ${match.score_away_team}` : 'Pending...'}
+                        {error && <p className="error">{error}</p>}
                     </div>
                 </div>
                 <div className='match-prediction-actions'>
-                    <div className="match-prediction-save">
-                        <div className="save-button">
-                            <Button variant='outline' size='sm' onClick={handleSave} disabled={saved || loading}>
-                                <SaveIcon size={16} />{loading ? 'Saving...' : saved ? 'Saved!' : hasPrediction ? 'Edit Prediction' : 'Save Prediction'}
-                            </Button>
+                    {match.is_closed ?
+                        prediction && <MyPrediction is_pending={!match.is_finished} prediction={prediction} />
+                    : (
+                        <div className="match-prediction-save">
+                            <div className="save-button">
+                                <Button variant='outline' size='sm' onClick={handleSave} disabled={saved || loading}>
+                                    <SaveIcon size={16} />{loading ? 'Saving...' : saved ? 'Saved!' : hasPrediction ? 'Edit Prediction' : 'Save Prediction'}
+                                </Button>
+                            </div>
                         </div>
-                        {error && <p className="prediction-error">{error}</p>}
-                    </div>
+                    )}
                 </div>
             </div>
         </div>

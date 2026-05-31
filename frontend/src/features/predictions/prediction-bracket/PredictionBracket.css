@@ -1,0 +1,181 @@
+.tournament-prediction-bracket {
+  overflow: clip;
+  padding-bottom: var(--spacing-4xl);
+}
+
+/* ── Sticky header: buttons + round titles ───────────────────────────────── */
+
+.bracket-sticky-header {
+  top: 88px;
+  z-index: 100;
+  position: sticky;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.bracket-sticky-header-inner {
+  gap: var(--spacing-2xl);
+  display: grid;
+  grid-template-columns: 32px repeat(3, 1fr) 32px;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-md) var(--spacing-xl);
+  align-items: center;
+}
+
+.bracket-sticky-header .section-subtitle {
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── Nav buttons ─────────────────────────────────────────────────────────── */
+
+.bracket-nav-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  display: flex;
+  font-size: 1.25rem;
+  background: var(--color-surface-elevated);
+  transition: all 0.2s ease;
+  align-items: center;
+  border-radius: var(--border-radius-md);
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.bracket-nav-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+.bracket-nav-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+/* ── Bracket grid ────────────────────────────────────────────────────────── */
+
+.tournament-prediction-bracket-grid {
+  gap: var(--spacing-2xl);
+  display: grid;
+  grid-template-columns: 32px repeat(3, 1fr) 32px;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-xl) 0;
+  align-items: stretch;
+}
+
+.bracket-spacer {
+  width: 32px;
+}
+
+.bracket-round {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.bracket-matches {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bracket-pair {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.match-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--spacing-sm) 0;
+}
+
+/* Horizontal line from each card center to the vertical bar */
+.bracket-round:not(.bracket-round--last) .bracket-pair .knockout-match-card::after {
+  top: calc(50% - 1px);
+  right: calc(-1 * var(--spacing-2xl) / 2);
+  width: calc(var(--spacing-2xl) / 2);
+  height: 2px;
+  content: "";
+  z-index: 1;
+  position: absolute;
+  background: var(--color-border);
+  border-radius: 1px;
+}
+
+/* Vertical bar at gap midpoint spanning both card centers */
+.bracket-round:not(.bracket-round--last) .bracket-pair::before {
+  top: 25%;
+  right: calc(-1 * var(--spacing-2xl) / 2);
+  width: 2px;
+  height: 50%;
+  content: "";
+  z-index: 1;
+  position: absolute;
+  background: var(--color-border);
+  border-radius: 1px;
+}
+
+/* Horizontal exit line from vertical bar to next round's card */
+.bracket-round:not(.bracket-round--last) .bracket-pair::after {
+  top: calc(50% - 1px);
+  right: calc(-1 * var(--spacing-2xl));
+  width: calc(var(--spacing-2xl) / 2);
+  height: 2px;
+  content: "";
+  z-index: 1;
+  position: absolute;
+  background: var(--color-border);
+  border-radius: 1px;
+}
+
+/* ── Slide animations ────────────────────────────────────────────────────── */
+
+@keyframes enterForward {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes enterBackward {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.bracket-enter-forward {
+  animation: enterForward 0.3s ease;
+}
+
+.bracket-enter-backward {
+  animation: enterBackward 0.3s ease;
+}
+
+@media (max-width: 767px) {
+  .bracket-sticky-header {
+    top: 76px;
+  }
+
+  .bracket-nav-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .tournament-prediction-bracket-grid {
+    gap: var(--spacing-lg);
+  }
+}

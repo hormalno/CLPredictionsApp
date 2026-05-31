@@ -1,3 +1,5 @@
+import re
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from app import settings
@@ -50,9 +52,61 @@ class KnockoutPrediction(models.Model):
 
     KNOCKOUT_ROUNDS = {'R32', 'R16', 'QF', 'SF', 'F'}
 
+    def _validate_team_for_slot(self, team, placeholder):
+        """Return an error string if team is not eligible for the given placeholder, else None."""
+        if not team or not placeholder:
+            return None
+        m = re.match(r'^[12]([A-L])$', placeholder)
+        if not m:
+            return None  # 3rd-N or WINNER slots — no group restriction
+        group_letter = m.group(1)
+        from groups.models import Group
+        try:
+            group = Group.objects.get(name=group_letter)
+        except Group.DoesNotExist:
+            return None
+        if not group.teams.filter(pk=team.pk).exists():
+            return f'{team} is not eligible for this slot — must be from Group {group_letter}.'
+        return None
+
+    def _validate_no_duplicate_teams(self):
+        """Return a dict of field errors if any predicted team is already used in another match of the same round."""
+        if not self.match_id or not self.user_id:
+            return {}
+
+        already_used = set(
+            KnockoutPrediction.objects
+            .filter(user_id=self.user_id, match__round=self.match.round)
+            .exclude(pk=self.pk)
+            .values_list('predicted_home_team_id', 'predicted_away_team_id')
+        )
+        used_ids = {tid for pair in already_used for tid in pair if tid is not None}
+
+        errors = {}
+        if self.predicted_home_team_id and self.predicted_away_team_id and self.predicted_home_team_id == self.predicted_away_team_id:
+            errors['predicted_away_team'] = 'Home and away teams cannot be the same.'
+        else:
+            if self.predicted_home_team_id and self.predicted_home_team_id in used_ids:
+                errors['predicted_home_team'] = f'{self.predicted_home_team} is already predicted in another {self.match.round} match.'
+            if self.predicted_away_team_id and self.predicted_away_team_id in used_ids:
+                errors['predicted_away_team'] = f'{self.predicted_away_team} is already predicted in another {self.match.round} match.'
+        return errors
+
     def clean(self):
         if self.match and self.match.round not in self.KNOCKOUT_ROUNDS:
             raise ValidationError({'match': 'Knockout predictions are only allowed for R32, R16, QF, SF, or F matches.'})
+
+        errors = {}
+
+        if self.match and self.match.round == 'R32':
+            home_err = self._validate_team_for_slot(self.predicted_home_team, self.match.home_placeholder)
+            if home_err:
+                errors['predicted_home_team'] = home_err
+            away_err = self._validate_team_for_slot(self.predicted_away_team, self.match.away_placeholder)
+            if away_err:
+                errors['predicted_away_team'] = away_err
+
+        errors.update(self._validate_no_duplicate_teams())
 
         if (
             self.predicted_winner
@@ -60,7 +114,10 @@ class KnockoutPrediction(models.Model):
             and self.predicted_away_team
             and self.predicted_winner not in (self.predicted_home_team, self.predicted_away_team)
         ):
-            raise ValidationError({'predicted_winner': 'Winner must be one of the two predicted teams.'})
+            errors['predicted_winner'] = 'Winner must be one of the two predicted teams.'
+
+        if errors:
+            raise ValidationError(errors)
 
     def propagate_winner(self):
         next_match = self.match.next_match

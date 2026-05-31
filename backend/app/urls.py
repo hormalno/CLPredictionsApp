@@ -23,6 +23,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from matches.views import MatchViewSet
 from groups.views import GroupViewSet
 from players.views import PlayerViewSet
+from teams.views import TeamListView
 from predictions.views import (
     MatchesUserScoresView,
     PredictionsPerMatchListView,
@@ -44,10 +45,11 @@ urlpatterns = [
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/auth/', include('accounts.urls')),
     path('api/', include(router.urls)),
-    path('api/predictions/submit/', SubmitPredictionView.as_view(), name='submit_prediction'),
-    path('api/predictions/me/', UserPredictionsView.as_view(), name='user_predictions'),
     path('api/matches-scores/', MatchesUserScoresView.as_view(), name='matches_scores'),
     path('api/matches/<int:match_id>/predictions/', PredictionsPerMatchListView.as_view(), name='match_predictions'),
+    path('api/predictions/submit/', SubmitPredictionView.as_view(), name='submit_prediction'),
+    path('api/predictions/me/', UserPredictionsView.as_view(), name='user_predictions'),    
     path('api/predictions/knockout/submit/', SubmitKnockoutPredictionView.as_view(), name='submit_knockout_prediction'),
     path('api/predictions/knockout/me/', UserKnockoutPredictionsView.as_view(), name='user_knockout_predictions'),
+    path('api/teams/', TeamListView.as_view(), name='teams_list'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

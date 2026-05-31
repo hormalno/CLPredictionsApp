@@ -1,26 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navigation from "../../components/navigation/Navigation";
 import Footer from "../../components/footer/Footer";
 import PredictionHeader from "./prediction-header/PredictionHeader";
 import PredictionSummary from "./prediction-summary/PredictionSummary";
 import PredictionSection from "./predictions-section/PredictionSection";
-import { getUserMatchPredictions } from "../../api";
-import type { MatchPrediction } from "../../types";
 import './PredictionPage.css';
+import PredictionBracket from "./prediction-bracket/PredictionBracket";
 
 type Tab = 'group' | 'knockout';
 
 const PredictionPage = () => {
-    const [predictions, setPredictions] = useState<MatchPrediction[]>([]);
     const [activeTab, setActiveTab] = useState<Tab>('group');
 
     const handleTabClick = (tab: Tab) => {
         setActiveTab(tab);
     };
-
-    useEffect(() => {
-        getUserMatchPredictions().then(setPredictions).catch(() => {});
-    }, []);
 
     return (
         <>
@@ -61,8 +55,8 @@ const PredictionPage = () => {
                   hidden={activeTab !== 'group'}
                 >
                   <div className="league-tabs-grid">
-                    <PredictionSummary predictions={predictions} />
-                    <PredictionSection predictions={predictions} setPredictions={setPredictions} />
+                    <PredictionSummary summary_type="match" />
+                    <PredictionSection />
                   </div>
                 </div>
                 <div
@@ -73,7 +67,8 @@ const PredictionPage = () => {
                   hidden={activeTab !== 'knockout'}
                 >
                   <div className="league-tabs-grid">
-                    {/* <Knockout key={refreshKeys.knockout} /> */}
+                    <PredictionSummary summary_type="knockout" />
+                    <PredictionBracket />
                   </div>
                 </div>
               </div>

@@ -1,0 +1,244 @@
+.knockout-team-winner-btn {
+  gap: var(--spacing-md);
+  display: flex;
+  width: 100%;
+  padding: var(--spacing-sm);
+  align-items: center;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  font-family: inherit;
+}
+
+.knockout-team-winner-btn:hover {
+  background: color-mix(in oklab, var(--color-primary) 8%, transparent);
+  border-color: color-mix(in oklab, var(--color-primary) 30%, transparent);
+}
+
+.knockout-team-winner-btn.winner {
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  border-color: var(--color-accent);
+}
+
+.knockout-team-winner-btn.winner .knockout-match-card-team-name {
+  color: var(--color-on-surface);
+  font-weight: var(--font-weight-heading);
+}
+
+.knockout-predictions-actions-centered {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-left: auto;
+}
+
+.knockout-predictions-match-card {
+  gap: var(--spacing-md);
+  width: 100%;
+  border: var(--divider-value);
+  display: flex;
+  padding: var(--spacing-lg);
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--color-on-surface) 5%, transparent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: var(--border-radius-card);
+  flex-direction: column;
+  background-color: var(--color-surface-elevated);
+}
+ 
+.knockout-predictions-final-card {
+  overflow: hidden;
+  position: relative;
+  border-color: var(--color-accent);
+  border-width: 2px;
+}
+ 
+.match-header {
+  color: var(--color-on-surface-secondary);
+  width: 100%;
+  font-size: var(--font-size-xs);
+  text-align: center;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-border) 50%, transparent);
+  padding-bottom: var(--spacing-sm);
+}
+ 
+.match-teams {
+  gap: var(--spacing-sm);
+  flex: 1 1 0;
+  display: flex;
+  min-width: 0;
+  align-items: stretch;
+  flex-direction: row;
+}
+ 
+.btn-predict {
+  width: 100%;
+  margin-top: var(--spacing-xs);
+}
+ 
+.btn-save {
+  border-style: dashed;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+ 
+.trophy-wrapper {
+  color: var(--color-accent);
+  display: flex;
+  margin-bottom: var(--spacing-xs);
+  justify-content: center;
+}
+ 
+.team-selectors-wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.team-selector {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: var(--spacing-sm);
+  align-items: center;
+  width: 100%;
+}
+
+.team-selector .winner-radio {
+  justify-self: center;
+}
+ 
+.custom-select {
+  color: var(--color-on-surface);
+  width: 100%;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  appearance: none;
+  font-family: var(--font-family-body);
+  border-radius: var(--border-radius-control);
+  background-color: var(--color-surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23d97706' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-sm) center;
+}
+ 
+.main-footer {
+  padding: var(--spacing-4xl) 0 var(--spacing-2xl);
+  border-top: var(--divider-value);
+  background-color: var(--color-surface-elevated);
+}
+ 
+.knockout-predictions-footer-container {
+  gap: var(--spacing-4xl);
+  margin: 0 auto;
+  display: grid;
+  padding: 0 var(--spacing-xl);
+  max-width: var(--content-max-width);
+  grid-template-columns: 2fr 1fr 1fr;
+}
+ 
+.knockout-predictions-footer-bottom {
+  color: var(--color-on-surface-secondary);
+  margin: var(--spacing-4xl) auto 0;
+  padding: var(--spacing-xl) var(--spacing-xl) 0;
+  max-width: var(--content-max-width);
+  border-top: var(--divider-value);
+  text-align: center;
+}
+ 
+.knockout-predictions-footer-column {
+  gap: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+}
+ 
+.knockout-predictions-footer-links {
+  gap: var(--spacing-sm);
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+ 
+.knockout-predictions-nav-link:hover {
+  color: var(--color-primary);
+  background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+}
+ 
+.knockout-predictions-nav-link.active {
+  color: var(--color-primary);
+  background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+}
+ 
+.toggle-label.active {
+  color: var(--color-on-surface);
+}
+ 
+.toggle-switch.active {
+  background-color: var(--color-primary);
+}
+ 
+.toggle-switch.active .toggle-knob {
+  transform: translateX(24px);
+}
+ 
+.knockout-predictions-match-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px color-mix(in oklab, var(--color-on-surface) 10%, transparent);
+  border-color: var(--color-primary);
+}
+ 
+.custom-select:focus {
+  outline: 2px solid var(--color-primary);
+  border-color: var(--color-primary);
+}
+ 
+
+ 
+
+ 
+.winner-selected-label {
+  color: var(--color-on-surface-secondary);
+  width: 100%;
+  padding: var(--spacing-xs) 0;
+  font-size: var(--font-size-xs);
+  min-height: 1.5em;
+  text-align: center;
+}
+ 
+.winner-radio {
+  width: 22px;
+  border: 2px solid var(--color-border);
+  cursor: pointer;
+  height: 22px;
+  display: flex;
+  padding: 0;
+  transition: all 0.2s ease;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: var(--border-radius-full);
+  justify-content: center;
+  background-color: var(--color-surface);
+}
+ 
+.winner-radio:hover {
+  border-color: var(--color-primary);
+}
+ 
+.winner-radio.selected {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-primary) 20%, transparent);
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+}
+ 
+.winner-radio.selected::after {
+  width: 8px;
+  height: 8px;
+  content: "";
+  display: block;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-on-primary);
+}

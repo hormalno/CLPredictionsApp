@@ -1,8 +1,11 @@
 import client from './client';
-import type { MatchUserPrediction,  MatchPrediction, MatchUserScore } from '../types/prediction';
+import type { MatchUserPrediction, MatchPrediction, MatchUserScore, KnockoutPrediction } from '../types/prediction';
 
 export const getUserMatchPredictions = (): Promise<MatchPrediction[]> =>
     client.get<MatchPrediction[]>('/predictions/me/').then(res => res.data);
+
+export const getUserKnockoutPredictions = (): Promise<KnockoutPrediction[]> =>
+    client.get<KnockoutPrediction[]>('/predictions/knockout/me/').then(res => res.data);
 
 export const submitPrediction = (matchId: number, homeScore: number, awayScore: number) =>
     client.post('/predictions/submit/', {
@@ -14,7 +17,14 @@ export const submitPrediction = (matchId: number, homeScore: number, awayScore: 
 export const getAllMatchesUserScores = (limit?: number) =>
     client.get<MatchUserScore[]>('/matches-scores/', { params: limit ? { limit } : undefined }).then(res => res.data)
 
-export const getUserPredictionsPerMatch = (id: number) => 
+export const getUserPredictionsPerMatch = (id: number) =>
     client.get<MatchUserPrediction[]>(`/matches/${id}/predictions/`).then(res => res.data);
+
+export const submitKnockoutPrediction = (data: {
+    match: number;
+    predicted_home_team?: number | null;
+    predicted_away_team?: number | null;
+    predicted_winner?: number | null;
+}) => client.post('/predictions/knockout/submit/', data);
 
 

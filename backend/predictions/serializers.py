@@ -2,6 +2,7 @@ from rest_framework import serializers
 from matches.models import Match
 from predictions.models import KnockoutPrediction, MatchPrediction
 from teams.models import Team
+from teams.serializers import TeamSerializer
 
 KNOCKOUT_ROUNDS = {
     Match.RoundChoices.R32,
@@ -70,11 +71,25 @@ class SubmitKnockoutPredictionSerializer(serializers.Serializer):
         return data
 
 
+class KnockoutMatchDetailSerializer(serializers.ModelSerializer):
+    home_team = TeamSerializer(allow_null=True, read_only=True)
+    away_team = TeamSerializer(allow_null=True, read_only=True)
+
+    class Meta:
+        model = Match
+        fields = ['id', 'date', 'location', 'round', 'home_team', 'away_team', 'home_placeholder', 'away_placeholder', 'is_closed']
+
+
 class UserKnockoutPredictionSerializer(serializers.ModelSerializer):
+    predicted_home_team = TeamSerializer(allow_null=True, read_only=True)
+    predicted_away_team = TeamSerializer(allow_null=True, read_only=True)
+    predicted_winner = TeamSerializer(allow_null=True, read_only=True)
+    match_detail = KnockoutMatchDetailSerializer(source='match', read_only=True)
+
     class Meta:
         model = KnockoutPrediction
         fields = [
-            'id', 'match',
+            'id', 'match', 'match_detail',
             'predicted_home_team', 'predicted_away_team', 'predicted_winner',
             'home_team_correct', 'away_team_correct', 'winner_correct',
             'points',

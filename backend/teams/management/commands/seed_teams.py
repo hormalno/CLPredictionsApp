@@ -17,7 +17,7 @@ TEAMS = [
     {'name': 'Czechia', 'short_name': 'CZE', 'country_code': 'CZ', 'group': 'A', 'logo': 'cz.svg'},
     # Group B
     {'name': 'Canada', 'short_name': 'CAN', 'country_code': 'CA', 'group': 'B', 'logo': 'ca.svg'},
-    {'name': 'Bosnia and Herzegovina', 'short_name': 'BIH', 'country_code': 'BA', 'group': 'B', 'logo': 'ba.svg'},
+    {'name': 'Bosnia', 'short_name': 'BIH', 'country_code': 'BA', 'group': 'B', 'logo': 'ba.svg'},
     {'name': 'Qatar', 'short_name': 'QAT', 'country_code': 'QA', 'group': 'B', 'logo': 'qa.svg'},
     {'name': 'Switzerland', 'short_name': 'SUI', 'country_code': 'CH', 'group': 'B', 'logo': 'ch.svg'},
     # Group C
