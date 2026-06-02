@@ -3,6 +3,9 @@ import { getKnockoutMatches, getUserKnockoutPredictions, getTeams, getGroups } f
 import KnockoutPrediction from '../../matches/knockout-prediction/KnockoutPrediction';
 import type { KnockoutPrediction as KnockoutPredictionType, Match, Team } from '../../../types';
 import './PredictionBracket.css';
+import FinalOutcome from '../../matches/knockout-prediction/FinalOutcome';
+import PredictWinner from '../../matches/knockout-prediction/PredictWinner';
+import TeamSelector from '../../matches/knockout-prediction/TeamSelector';
 
 const ROUNDS = [
     { key: 'PO',  label: 'Play-off' },
@@ -89,6 +92,25 @@ const PredictionBracket = () => {
     const handlePrev = () => { setDir('backward'); setOffset(o => o - 1); };
     const handleNext = () => { setDir('forward');  setOffset(o => o + 1); };
 
+    const renderKnockoutMatches = (match : Match, prediction : KnockoutPredictionType | undefined, round : string) => (
+        <div className="match-slot">
+            <KnockoutPrediction match={match} >
+                {match.is_closed
+                ?  <FinalOutcome match={match} prediction={prediction} />
+                :  round === 'R32' 
+                    ?    (<TeamSelector
+                            match={match}
+                            prediction={prediction}
+                            homeTeams={filterTeamsForPlaceholder(match.home_placeholder, teams, groupTeamIds)}
+                            awayTeams={filterTeamsForPlaceholder(match.away_placeholder, teams, groupTeamIds)}
+                            usedTeamIds={r32UsedTeamIds}
+                            onSaved={refreshPredictions}
+                        />)
+                    : <PredictWinner match={match} prediction={prediction} onSaved={refreshPredictions} />}
+            </KnockoutPrediction>
+        </div>
+    )
+
     return (
         <section ref={sectionRef} id="prediction-bracket-section" className="tournament-prediction-bracket">
             <div className="bracket-sticky-header">
@@ -126,49 +148,18 @@ const PredictionBracket = () => {
                             className={`bracket-round${idx === visibleRounds.length - 1 ? ' bracket-round--last' : ''}`}
                         >
                             <div className="bracket-matches">
-                                {round.key === 'F'
-                                    ? items.map(({ match, prediction }) => (
-                                        <KnockoutPrediction
-                                            key={match.id}
-                                            match={match}
-                                            prediction={prediction}
-                                            homeTeams={filterTeamsForPlaceholder(match.home_placeholder, teams, groupTeamIds)}
-                                            awayTeams={filterTeamsForPlaceholder(match.away_placeholder, teams, groupTeamIds)}
-                                            usedTeamIds={round.key === 'R32' ? r32UsedTeamIds : undefined}
-                                            canSelectTeams={round.key === 'R32'}
-                                            onSaved={refreshPredictions}
-                                        />
-                                    ))
-                                    : items.reduce<MatchWithPrediction[][]>((pairs, item, i) => {
+                                {round.key === 'F' // Final
+                                ? 
+                                    items.map(({ match, prediction }) => renderKnockoutMatches(match, prediction, round.key))
+                                : // Other rounds
+                                    items.reduce<MatchWithPrediction[][]>((pairs, item, i) => {
                                         if (i % 2 === 0) pairs.push([item]);
                                         else pairs[pairs.length - 1].push(item);
                                         return pairs;
                                     }, []).map((pair, i) => (
                                         <div key={i} className="bracket-pair">
-                                            <div className="match-slot">
-                                                <KnockoutPrediction
-                                                    match={pair[0].match}
-                                                    prediction={pair[0].prediction}
-                                                    homeTeams={filterTeamsForPlaceholder(pair[0].match.home_placeholder, teams, groupTeamIds)}
-                                                    awayTeams={filterTeamsForPlaceholder(pair[0].match.away_placeholder, teams, groupTeamIds)}
-                                                    usedTeamIds={round.key === 'R32' ? r32UsedTeamIds : undefined}
-                                                    canSelectTeams={round.key === 'R32'}
-                                                    onSaved={refreshPredictions}
-                                                />
-                                            </div>
-                                            {pair[1] && (
-                                                <div className="match-slot">
-                                                    <KnockoutPrediction
-                                                        match={pair[1].match}
-                                                        prediction={pair[1].prediction}
-                                                        homeTeams={filterTeamsForPlaceholder(pair[1].match.home_placeholder, teams, groupTeamIds)}
-                                                        awayTeams={filterTeamsForPlaceholder(pair[1].match.away_placeholder, teams, groupTeamIds)}
-                                                        usedTeamIds={round.key === 'R32' ? r32UsedTeamIds : undefined}
-                                                        canSelectTeams={round.key === 'R32'}
-                                                        onSaved={refreshPredictions}
-                                                    />
-                                                </div>
-                                            )}
+                                            {renderKnockoutMatches(pair[0].match, pair[0].prediction, round.key)}
+                                            {renderKnockoutMatches(pair[1].match, pair[1].prediction, round.key)}
                                         </div>
                                     ))
                                 }

@@ -227,6 +227,18 @@ export const LogOutIcon = ({ size = 18, color = 'currentColor', className }: Ico
     </svg>
 );
 
+export const CheckmarkIcon = ({ size = 14, color = 'currentColor', className }: IconProps) => (
+    <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={cls('icon-checkmark', className)}>
+        <path fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M20 6L9 17l-5-5" />
+    </svg>
+);
+
+export const XMarkIcon = ({ size = 14, color = 'currentColor', className }: IconProps) => (
+    <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={cls('icon-xmark', className)}>
+        <path fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M18 6L6 18M6 6l12 12" />
+    </svg>
+);
+
 export const LogInIcon = ({ size = 18, color = 'currentColor', className }: IconProps) => (
     <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cls('icon-login', className)}>
         <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />

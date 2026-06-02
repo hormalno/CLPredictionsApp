@@ -4,6 +4,20 @@ import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
 import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
 import './PredictionSection.css';
 
+const formatDate = (dateStr: string) => {
+    const d = new Date(dateStr);
+    const weekday = d.toLocaleDateString('en-GB', { weekday: 'short' });
+    const dayMonth = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
+    return `${weekday}, ${dayMonth}`;
+};
+
+const groupByDate = (matches: Match[], timeZone = 'Europe/Sofia') =>
+    matches.reduce<Record<string, Match[]>>((acc, match) => {
+        const key = new Date(match.date).toLocaleDateString('sv-SE', { timeZone });
+        (acc[key] ??= []).push(match);
+        return acc;
+    }, {});
+
 const PredictionSection = () => {
     const [predictions, setPredictions] = useState<MatchPredictionType[]>([]);
     const [matches, setMatches] = useState<Match[]>([]);
@@ -29,6 +43,8 @@ const PredictionSection = () => {
         [predictions]
     );
 
+    const grouped = useMemo(() => groupByDate(matches), [matches]);
+
     return (
         <section className="predictions-section">
             <div className="predictions-section-container">
@@ -40,14 +56,21 @@ const PredictionSection = () => {
                         <button className="btn-sm btn-outline btn"><text>Pending</text></button>
                     </div>
                 </div>
-                <div className="predictions-list">
-                    {loading && <p>Loading...</p>}
-                    {error && <p>{error}</p>}
-                    {!loading && !error && matches.map(match => {
-                        const prediction = predictionByMatch.get(match.id);
-                        return <MatchPrediction key={match.id} match={match} prediction={prediction} onSaved={refreshPredictions} />
-                    })}
-                </div>
+                {loading && <p>Loading...</p>}
+                {error && <p>{error}</p>}
+                {!loading && !error && Object.entries(grouped).map(([date, dayMatches]) => (
+                    <div key={date}>
+                        <div className="predictions-header">
+                            <h2 className="predictions-section-title">{formatDate(date)}</h2>
+                        </div>
+                        <div className="predictions-list">
+                            {dayMatches.map(match => {
+                                const prediction = predictionByMatch.get(match.id);
+                                return <MatchPrediction key={match.id} match={match} prediction={prediction} onSaved={refreshPredictions} />;
+                            })}
+                        </div>
+                    </div>
+                ))}
             </div>
         </section>
     )

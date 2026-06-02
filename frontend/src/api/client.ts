@@ -32,4 +32,19 @@ client.interceptors.response.use(
   }
 )
 
+export function parseApiError(err: unknown): string {
+    if (axios.isAxiosError(err) && err.response?.data) {
+        const data = err.response.data;
+        if (typeof data === 'string') return data;
+        if (data.detail) return data.detail;
+        const messages = Object.entries(data).flatMap(([field, msgs]) =>
+            Array.isArray(msgs)
+                ? (msgs as string[]).map(m => `${field}: ${m}`)
+                : [`${field}: ${msgs}`]
+        );
+        if (messages.length) return messages.join(' · ');
+    }
+    return 'Something went wrong.';
+}
+
 export default client

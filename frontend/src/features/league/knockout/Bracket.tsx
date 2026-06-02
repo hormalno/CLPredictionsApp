@@ -99,7 +99,7 @@ const Knockout = () => {
                                 }
                             </div>
                         </div>
-                    );
+                    );  
                 })}
                 <div className="bracket-spacer" />
             </div>
