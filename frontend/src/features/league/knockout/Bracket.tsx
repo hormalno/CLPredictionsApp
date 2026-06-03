@@ -3,6 +3,7 @@ import { getKnockoutMatches } from '../../../api/matches';
 import KnockoutMatch from '../../matches/knockout-match/KnockoutMatch';
 import type { Match } from '../../../types';
 import './Bracket.css'
+import KnockoutUserScores from '../../matches/knockout-match/KnockoutUserScores';
 
 const ROUNDS = [
     { key: 'PO',  label: 'Play-off' },
@@ -85,15 +86,24 @@ const Knockout = () => {
                         >
                             <div className="bracket-matches">
                                 {round.key === 'F'
-                                    ? matches.map(m => <KnockoutMatch key={m.id} match={m} />)
+                                    ? matches.map(m => <KnockoutMatch key={m.id} match={m}><KnockoutUserScores /></KnockoutMatch>)
                                     : matches.reduce<Match[][]>((pairs, m, i) => {
                                         if (i % 2 === 0) pairs.push([m]);
                                         else pairs[pairs.length - 1].push(m);
                                         return pairs;
                                     }, []).map((pair, i) => (
                                         <div key={i} className="bracket-pair">
-                                            <div className="match-slot"><KnockoutMatch match={pair[0]} /></div>
-                                            {pair[1] && <div className="match-slot"><KnockoutMatch match={pair[1]} /></div>}
+                                            <div className="match-slot">
+                                                <KnockoutMatch match={pair[0]}>
+                                                    <KnockoutUserScores />
+                                                </KnockoutMatch>
+                                            </div>
+                                            {pair[1] && 
+                                                <div className="match-slot">
+                                                    <KnockoutMatch match={pair[1]}>
+                                                        <KnockoutUserScores />
+                                                    </KnockoutMatch>
+                                                </div>}
                                         </div>
                                     ))
                                 }

@@ -25,6 +25,8 @@ class Match(models.Model):
     away_placeholder = models.CharField(max_length=10, blank=True, default='')
     score_home_team = models.PositiveSmallIntegerField(null=True, blank=True)
     score_away_team = models.PositiveSmallIntegerField(null=True, blank=True)
+    home_penalties = models.PositiveSmallIntegerField(null=True, blank=True)
+    away_penalties = models.PositiveSmallIntegerField(null=True, blank=True)
     round = models.CharField(choices=RoundChoices.choices, max_length=10)
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, related_name='matches')
     leg = models.IntegerField(choices=LegChoices.choices, null=True, blank=True)
@@ -81,6 +83,8 @@ class Match(models.Model):
         if self.round not in ['PO', 'R32', 'R16', 'QF', 'SF', 'F']:
             if self.leg:
                 errors['leg'] = 'The legs are only for knockout stage.'
+            if self.home_penalties is not None or self.away_penalties is not None:
+                errors['home_penalties'] = 'Penalties are only for non-group stage matches.'
 
         if self.leg == 2 and self.home_team and self.away_team:
             match_first_leg = Match.objects.filter(

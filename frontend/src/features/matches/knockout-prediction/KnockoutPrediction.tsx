@@ -1,5 +1,6 @@
 
 import type { Match } from '../../../types';
+import { formatShortDate, formatTime } from '../../../utils/dateConfig';
 import './KnockoutPrediction.css';
 
 type Props = {
@@ -8,8 +9,8 @@ type Props = {
 };
 
 const KnockoutPrediction = ({ match, children }: Props) => {
-    const dateStr = new Date(match.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-    const timeStr = new Date(match.date).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    const dateStr = formatShortDate(match.date);
+    const timeStr = formatTime(match.date);
 
     return (
         <div className="knockout-predictions-match-card">

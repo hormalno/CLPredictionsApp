@@ -25,6 +25,8 @@ class MatchSerializer(serializers.ModelSerializer):
             'leg',
             'score_home_team',
             'score_away_team',
+            'home_penalties',
+            'away_penalties',
             'stadium',
             'location',
             'date',
@@ -43,4 +45,4 @@ class MatchDetailSerializer(MatchSerializer):
 class MatchResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
-        fields = ['score_home_team', 'score_away_team']
+        fields = ['score_home_team', 'score_away_team', 'home_penalties', 'away_penalties']

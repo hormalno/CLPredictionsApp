@@ -1,6 +1,6 @@
-import type { MatchUserScore } from '../../../types';
 import useAuth from '../../auth/useAuth';
-import './UserScores.css'
+import type { MatchUserScore } from '../../../types';
+import './MatchUserScores.css';
 
 type Props = {
     scores: MatchUserScore[];

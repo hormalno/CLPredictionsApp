@@ -1,5 +1,5 @@
 import KnockoutTeam from "../../teams/knockout-team/KnockoutTeam";
-import { CheckmarkIcon, ClockIcon, TrophyIcon, XMarkIcon } from '../../../components/icons/Icons';
+import { CheckmarkIcon, ClockIcon, XMarkIcon } from '../../../components/icons/Icons';
 import type { KnockoutPrediction, Match } from '../../../types';
 import './FinalOutcome.css';
 
@@ -47,9 +47,8 @@ const FinalOutcome = ({match, prediction} : Props) => {
                 </div>
             </div>            
             <div className="knockout-predictions-footer-bottom">
-                {/* Actual winner: Brazil */}
-                {/* {error ? (<span className='error'>error</span>) 
-                : prediction?.predicted_winner ? `Predicted winner: ${winnerName}` : 'Predict a winner.'} */}
+                Winner: Brazil
+                {/* {prediction?.predicted_winner ? `Predicted winner: ${winnerName}` : 'Predict a winner.'} */}
             </div>
         </div>
     );

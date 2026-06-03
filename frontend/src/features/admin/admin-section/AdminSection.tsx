@@ -2,21 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { getAdminMatches } from '../../../api';
 import AdminMatchFixture from "../../matches/admin-match-fixture/AdminMatchFixture";
 import type { MatchDetail } from '../../../types'
+import { groupByDate, formatSectionDate } from '../../../utils/dateConfig';
 import './AdminSection.css';
-
-const formatDate = (dateStr: string) => {
-    const d = new Date(dateStr);
-    const weekday = d.toLocaleDateString('en-GB', { weekday: 'short' });
-    const dayMonth = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
-    return `${weekday}, ${dayMonth}`;
-};
-
-const groupByDate = (matches: MatchDetail[], timeZone = 'Europe/Sofia') =>
-    matches.reduce<Record<string, MatchDetail[]>>((acc, match) => {
-        const key = new Date(match.date).toLocaleDateString('sv-SE', { timeZone });
-        (acc[key] ??= []).push(match);
-        return acc;
-    }, {});
 
 const AdminSection = () => {
     const [matches, setMatches] = useState<MatchDetail[]>([]);
@@ -44,7 +31,7 @@ const AdminSection = () => {
                 {!loading && !error && Object.entries(grouped).map(([date, dayMatches]) => (
                     <div key={date}>
                         <div className="admin-predictions-header">
-                            <h2 className="predictions-section-title">{formatDate(date)}</h2>
+                            <h2 className="predictions-section-title">{formatSectionDate(date)}</h2>
                         </div>
                         <div className="admin-predictions-list">
                             {dayMatches.map(match =>

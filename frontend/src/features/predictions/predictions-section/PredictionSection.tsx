@@ -2,21 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { getUserMatchPredictions, getGroupStageMatches } from '../../../api';
 import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
 import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
+import { groupByDate, formatSectionDate } from '../../../utils/dateConfig';
 import './PredictionSection.css';
-
-const formatDate = (dateStr: string) => {
-    const d = new Date(dateStr);
-    const weekday = d.toLocaleDateString('en-GB', { weekday: 'short' });
-    const dayMonth = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
-    return `${weekday}, ${dayMonth}`;
-};
-
-const groupByDate = (matches: Match[], timeZone = 'Europe/Sofia') =>
-    matches.reduce<Record<string, Match[]>>((acc, match) => {
-        const key = new Date(match.date).toLocaleDateString('sv-SE', { timeZone });
-        (acc[key] ??= []).push(match);
-        return acc;
-    }, {});
 
 const PredictionSection = () => {
     const [predictions, setPredictions] = useState<MatchPredictionType[]>([]);
@@ -61,7 +48,7 @@ const PredictionSection = () => {
                 {!loading && !error && Object.entries(grouped).map(([date, dayMatches]) => (
                     <div key={date}>
                         <div className="predictions-header">
-                            <h2 className="predictions-section-title">{formatDate(date)}</h2>
+                            <h2 className="predictions-section-title">{formatSectionDate(date)}</h2>
                         </div>
                         <div className="predictions-list">
                             {dayMatches.map(match => {
