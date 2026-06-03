@@ -44,7 +44,7 @@ const KnockoutMatch = ({ match, children }: Props) => {
                                 </div>
                             </div>
                             <div className="knockout-predictions-actions-centered">
-                                {children}
+                                {match.match_id}
                             </div>
                         </div>            
                         <div className="knockout-predictions-footer-bottom">

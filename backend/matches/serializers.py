@@ -14,6 +14,7 @@ class MatchSerializer(serializers.ModelSerializer):
         model = Match
         fields = [
             'id',
+            'match_id',
             'home_team',
             'away_team',
             'home_placeholder',

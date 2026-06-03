@@ -19,6 +19,7 @@ class Match(models.Model):
         FIRST = (1, 'First Leg')
         SECOND = (2, 'Second Leg')
 
+    match_id = models.PositiveIntegerField(unique=True, null=True, blank=True)
     home_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_matches', null=True, blank=True)
     away_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_matches', null=True, blank=True)
     home_placeholder = models.CharField(max_length=10, blank=True, default='')

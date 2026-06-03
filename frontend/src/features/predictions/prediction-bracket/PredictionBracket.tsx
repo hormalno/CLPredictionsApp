@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { getKnockoutMatches, getUserKnockoutPredictions, getTeams, getGroups } from '../../../api';
 import KnockoutPrediction from '../../matches/knockout-prediction/KnockoutPrediction';
-import type { KnockoutPrediction as KnockoutPredictionType, Match, Team } from '../../../types';
+import type { KnockoutPrediction as KnockoutPredictionType, Match, Team, Group } from '../../../types';
 import './PredictionBracket.css';
 import FinalOutcome from '../../matches/knockout-prediction/FinalOutcome';
 import PredictWinner from '../../matches/knockout-prediction/PredictWinner';
@@ -23,19 +23,37 @@ type MatchWithPrediction = {
     prediction: KnockoutPredictionType | undefined;
 };
 
-const GROUP_PLACEHOLDER_RE = /^[12]([A-L])$/;
+function filterTeamsForR32(match: Match, placeholder: string, allTeams: Team[], groups: Group[]): Team[] {
+    const matchId = match.match_id;
+    if (!matchId) return allTeams;
 
-function filterTeamsForPlaceholder(placeholder: string, allTeams: Team[], groupTeamIds: Record<string, number[]>): Team[] {
-    const m = placeholder.match(GROUP_PLACEHOLDER_RE);
-    if (!m) return allTeams;
-    const ids = new Set(groupTeamIds[m[1]] ?? []);
-    return allTeams.filter(t => ids.has(t.id));
+    if (/^1[A-L]$/.test(placeholder)) {
+        const group = groups.find(g => g.next_p1 === matchId);
+        if (!group) return allTeams;
+        const ids = new Set(group.teams.map(t => t.id));
+        return allTeams.filter(t => ids.has(t.id));
+    }
+
+    if (/^2[A-L]$/.test(placeholder)) {
+        const group = groups.find(g => g.next_p2 === matchId);
+        if (!group) return allTeams;
+        const ids = new Set(group.teams.map(t => t.id));
+        return allTeams.filter(t => ids.has(t.id));
+    }
+
+    if (placeholder.startsWith('3')) {
+        const eligible = groups.filter(g => g.next_p3 === matchId);
+        const ids = new Set(eligible.flatMap(g => g.teams.map(t => t.id)));
+        return ids.size ? allTeams.filter(t => ids.has(t.id)) : allTeams;
+    }
+
+    return allTeams;
 }
 
 const PredictionBracket = () => {
     const [matchesByRound, setMatchesByRound] = useState<Record<string, MatchWithPrediction[]>>({});
     const [teams, setTeams] = useState<Team[]>([]);
-    const [groupTeamIds, setGroupTeamIds] = useState<Record<string, number[]>>({});
+    const [groups, setGroups] = useState<Group[]>([]);
     const [offset, setOffset] = useState(0);
     const [dir, setDir] = useState<'forward' | 'backward'>('forward');
     const sectionRef = useRef<HTMLElement>(null);
@@ -66,7 +84,7 @@ const PredictionBracket = () => {
             matchesRef.current = matches;
             setMatchesByRound(mergePredictions(matches, predictions));
             setTeams(allTeams);
-            setGroupTeamIds(Object.fromEntries(groups.map(g => [g.name, g.teams.map(t => t.id)])));
+            setGroups(groups);
         });
     }, []);
 
@@ -101,8 +119,8 @@ const PredictionBracket = () => {
                     ?    (<TeamSelector
                             match={match}
                             prediction={prediction}
-                            homeTeams={filterTeamsForPlaceholder(match.home_placeholder, teams, groupTeamIds)}
-                            awayTeams={filterTeamsForPlaceholder(match.away_placeholder, teams, groupTeamIds)}
+                            homeTeams={filterTeamsForR32(match, match.home_placeholder, teams, groups)}
+                            awayTeams={filterTeamsForR32(match, match.away_placeholder, teams, groups)}
                             usedTeamIds={r32UsedTeamIds}
                             onSaved={refreshPredictions}
                         />)

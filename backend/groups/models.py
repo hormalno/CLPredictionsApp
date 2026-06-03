@@ -19,6 +19,9 @@ class Group(models.Model):
 
     name = models.CharField(max_length=1, choices=GroupChoices.choices, unique=True)
     teams = models.ManyToManyField(Team, related_name='groups', blank=True)
+    next_p1 = models.PositiveIntegerField()
+    next_p2 = models.PositiveIntegerField()
+    next_p3 = models.PositiveIntegerField()
 
     class Meta:
         verbose_name = 'Match Group'

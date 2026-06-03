@@ -66,10 +66,16 @@ def _propagate_group_stage_results(match):
     if len(ranked) < 2:
         return
 
-    for position, entry in enumerate(ranked[:2], start=1):
-        placeholder = f'{position}{group.name}'
-        Match.objects.filter(round='R32', home_placeholder=placeholder).update(home_team=entry['team'])
-        Match.objects.filter(round='R32', away_placeholder=placeholder).update(away_team=entry['team'])
+    placements = [
+        (ranked[0]['team'], group.next_p1, f'1{group.name}'),
+        (ranked[1]['team'], group.next_p2, f'2{group.name}'),
+    ]
+
+    for team, next_match_id, placeholder in placements:
+        if not next_match_id:
+            continue
+        Match.objects.filter(match_id=next_match_id, home_placeholder=placeholder).update(home_team=team)
+        Match.objects.filter(match_id=next_match_id, away_placeholder=placeholder).update(away_team=team)
 
 
 def _propagate_knockout_winner(match):

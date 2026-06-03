@@ -3,6 +3,7 @@ import type { Team } from './team';
 
 export type Match = {
     id: number;
+    match_id: number | null;
     home_team: Team | null;
     away_team: Team | null;
     home_placeholder: string;

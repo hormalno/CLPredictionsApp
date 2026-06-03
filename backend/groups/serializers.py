@@ -8,7 +8,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = ['id', 'name', 'teams']
+        fields = ['id', 'name', 'next_p1', 'next_p2', 'next_p3', 'teams']
 
     def get_teams(self, group):
         finished_matches = group.matches.filter(is_finished=True).select_related('home_team', 'away_team')
