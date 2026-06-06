@@ -5,13 +5,14 @@ import Fixtures from './fixtures/Fixtures';
 import Groups from './groups/Groups';
 import Bracket from './knockout/Bracket';
 import './LeaguePage.css';
+import GoalScorers from './goalscorers/GoalScorers';
 
 
-type Tab = 'fixtures' | 'group' | 'knockout';
+type Tab = 'fixtures' | 'group' | 'knockout' | 'goalscorers';
 
 const LeaguePage = () => {
     const [activeTab, setActiveTab] = useState<Tab>('fixtures');
-    const [refreshKeys, setRefreshKeys] = useState<Record<Tab, number>>({ fixtures: 0, group: 0, knockout: 0 });
+    const [refreshKeys, setRefreshKeys] = useState<Record<Tab, number>>({ fixtures: 0, group: 0, knockout: 0, goalscorers: 0  });
 
     const handleTabClick = (tab: Tab) => {
         setActiveTab(tab);
@@ -62,6 +63,16 @@ const LeaguePage = () => {
                   >
                     Knockout Phase
                   </button>
+                  <button
+                    id="tab-knockout"
+                    role="tab"
+                    aria-controls="panel-goalscorers"
+                    aria-selected={activeTab === 'goalscorers'}
+                    className={`league-tabs-btn${activeTab === 'goalscorers' ? ' active' : ''}`}
+                    onClick={() => handleTabClick('goalscorers')}
+                  >
+                    Top Goalscorers
+                  </button>
                 </div>
               </div>
             </section>
@@ -99,6 +110,15 @@ const LeaguePage = () => {
                   <div className="league-tabs-grid">
                     <Bracket key={refreshKeys.knockout} />
                   </div>
+                </div>
+                <div
+                  id="panel-goalscorers"
+                  role="tabpanel"
+                  aria-labelledby="tab-goalscorers"
+                  className={`league-tabs-panel${activeTab === 'goalscorers' ? ' active' : ''}`}
+                  hidden={activeTab !== 'goalscorers'}
+                >
+                  <GoalScorers />
                 </div>
               </div>
             </section>

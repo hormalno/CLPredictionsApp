@@ -1,14 +1,22 @@
+import { useEffect, useState } from 'react';
+import { getMatches } from '../../../api';
 import { Button } from '../../../components/button/Button';
 import AdminSummaryCard from '../admin-summary-card/AdminSummaryCard';
 import './AdminSummary.css';
 
 const AdminSummary = () => {
-    const finishedMatches = 30;
-    const totalMatches = 104;
-    const progress = (finishedMatches / totalMatches) * 100;
+    const [totalMatches, setTotalMatches] = useState(0);
+    const [finishedMatches, setFinishedMatches] = useState(0);
+    const progress = totalMatches > 0 ? (finishedMatches / totalMatches) * 100 : 0;
+
+    useEffect(() => {
+        getMatches().then(matches => {
+            setTotalMatches(matches.length);
+            setFinishedMatches(matches.filter(m => m.is_finished).length);
+        });
+    }, []);
 
     const handleClosePredictions = () => {
-        // Implement the logic to close all predictions here
         console.log('Close All Predictions button clicked');
     };
 

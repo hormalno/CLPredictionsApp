@@ -1,0 +1,231 @@
+
+.prediction-container {
+  display: flex;
+  padding: var(--spacing-4xl) var(--spacing-xl);
+  z-index: 4;
+  position: relative;
+  margin-top: 0;
+  justify-content: center;
+  background-color: var(--color-surface);
+}
+
+.goalscorer-prediction-card {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-3xl);
+  max-width: 32rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  background: var(--color-fixture-background);
+}
+
+.goalscorer-prediction-card .prediction-header {
+  gap: var(--spacing-md);
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin-bottom: var(--spacing-3xl);
+  flex-direction: column;
+  color: var(--color-surface);
+}
+
+.goalscorer-prediction-card .icon-wrapper {
+  color: var(--color-accent);
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius-full);
+  justify-content: center;
+  background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
+}
+
+.goalscorer-prediction-card .prediction-form {
+  gap: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.goalscorer-prediction-card .form-group {
+  gap: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.goalscorer-prediction-card .form-group label {
+  color: var(--color-on-surface-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.goalscorer-prediction-card .select-wrapper {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.goalscorer-prediction-card .form-select {
+  color: var(--color-on-surface);
+  width: 100%;
+  border: 2px solid var(--color-border);
+  cursor: pointer;
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-base);
+  appearance: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: var(--font-family-body);
+  border-radius: var(--border-radius-md);
+  padding-right: var(--spacing-4xl);
+  background-color: var(--color-surface);
+}
+
+.goalscorer-prediction-card .form-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  border-color: var(--color-primary);
+}
+
+.goalscorer-prediction-card .form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: color-mix(in srgb, var(--color-surface) 90%, black);
+}
+
+.goalscorer-prediction-card .select-icon {
+  color: var(--color-on-surface-secondary);
+  right: var(--spacing-lg);
+  display: flex;
+  position: absolute;
+  align-items: center;
+  pointer-events: none;
+}
+
+.goalscorer-prediction-card .btn {
+  gap: var(--spacing-xs);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  box-shadow: var(--shadow-level-1);
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  align-items: center;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  user-select: none;
+  white-space: nowrap;
+  border-radius: var(--border-radius-control);
+  justify-content: center;
+  text-decoration: none;
+}
+
+.goalscorer-prediction-card .btn:focus-visible {
+  outline: 2px solid var(--color-outline);
+  outline-offset: 2px;
+}
+
+.goalscorer-prediction-card .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.goalscorer-prediction-card .btn-primary {
+  color: #1a1a1a;
+  border-color: #d4a574;
+  background-color: #d4a574;
+}
+
+.goalscorer-prediction-card .btn-primary:hover:not(:disabled) {
+  box-shadow: 0 0 12px rgba(212, 165, 116, 0.4);
+  border-color: #e8c9a0;
+  background-color: #e8c9a0;
+}
+
+.goalscorer-prediction-card .btn-lg {
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+.goalscorer-prediction-card .submit-btn {
+  gap: var(--spacing-md);
+  width: 100%;
+  margin-top: var(--spacing-lg);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.goalscorer-prediction-card .submit-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.goalscorer-prediction-card .form-feedback {
+  display: none;
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xl);
+  min-height: 1.5rem;
+  text-align: center;
+  border-radius: var(--border-radius-sm);
+}
+
+.goalscorer-prediction-card .form-feedback.success {
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+  display: block;
+  background-color: color-mix(in srgb, #2ecc71 15%, transparent);
+}
+
+.goalscorer-prediction-card .form-feedback.error {
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  display: block;
+  background-color: color-mix(in srgb, #e74c3c 15%, transparent);
+}
+
+.goalscorer-prediction-card .prediction-locked {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.goalscorer-prediction-card .locked-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-on-surface-secondary);
+  font-size: var(--font-size-sm);
+  border-radius: var(--border-radius-sm);
+  background-color: color-mix(in srgb, var(--color-border) 40%, transparent);
+}
+
+.goalscorer-prediction-card .locked-value {
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-base);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-on-surface);
+  background-color: color-mix(in srgb, var(--color-surface) 90%, black);
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .prediction-container {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    margin-top: -3rem;
+  }
+
+  .goalscorer-prediction-card {
+    padding: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 479px) {
+  .prediction-header {
+    margin-bottom: var(--spacing-xl);
+  }
+}

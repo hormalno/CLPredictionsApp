@@ -6,8 +6,9 @@ import PredictionSummary from "./prediction-summary/PredictionSummary";
 import PredictionSection from "./predictions-section/PredictionSection";
 import './PredictionPage.css';
 import PredictionBracket from "./prediction-bracket/PredictionBracket";
+import PredictGoalscorer from "./prediction-goalscorer/PredictGoalscorer";
 
-type Tab = 'group' | 'knockout';
+type Tab = 'group' | 'knockout' | 'goalscorer';
 
 const PredictionPage = () => {
     const [activeTab, setActiveTab] = useState<Tab>('group');
@@ -30,7 +31,7 @@ const PredictionPage = () => {
                     className={`league-tabs-btn${activeTab === 'group' ? ' active' : ''}`}
                     onClick={() => handleTabClick('group')}
                   >
-                    Group Stage Phase
+                    Group Stage
                   </button>
                   <button
                     id="tab-knockout"
@@ -41,6 +42,16 @@ const PredictionPage = () => {
                     onClick={() => handleTabClick('knockout')}
                   >
                     Knockout Phase
+                  </button>
+                  <button
+                    id="tab-goalscorer"
+                    role="tab"
+                    aria-controls="panel-goalscorer"
+                    aria-selected={activeTab === 'goalscorer'}
+                    className={`league-tabs-btn${activeTab === 'goalscorer' ? ' active' : ''}`}
+                    onClick={() => handleTabClick('goalscorer')}
+                  >
+                    Goalscorer
                   </button>
                 </div>
               </div>
@@ -69,6 +80,17 @@ const PredictionPage = () => {
                   <div className="league-tabs-grid">
                     <PredictionSummary summary_type="knockout" />
                     <PredictionBracket />
+                  </div>
+                </div>
+                <div
+                  id="panel-goalscorer"
+                  role="tabpanel"
+                  aria-labelledby="tab-goalscorer"
+                  className={`league-tabs-panel${activeTab === 'goalscorer' ? ' active' : ''}`}
+                  hidden={activeTab !== 'goalscorer'}
+                >
+                  <div className="league-tabs-grid">
+                    <PredictGoalscorer />
                   </div>
                 </div>
               </div>

@@ -1,5 +1,8 @@
 import client from './client';
-import type { PlayerSummary } from '../types';
+import type { Player, TopScorerEntry } from '../types';
 
 export const getPlayersByTeam = (teamId: number) =>
-    client.get<PlayerSummary[]>(`/players/?team=${teamId}`).then(res => res.data);
+    client.get<Player[]>(`/players/?team=${teamId}`).then(res => res.data);
+
+export const getTopGoalScorers = () =>
+    client.get<TopScorerEntry[]>('/players/top-scorers/').then(res => res.data);

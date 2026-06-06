@@ -15,6 +15,6 @@ export type Group = {
     name: string;
     next_p1: number;
     next_p2: number;
-    next_p3: number;
+    next_p3: number[];
     teams: GroupTeam[];
 };

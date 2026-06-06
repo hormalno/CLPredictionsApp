@@ -4,7 +4,8 @@ import Footer from '../../components/footer/Footer';
 import AdminHeader from './admin-header/AdminHeader';
 import AdminSection from './admin-section/AdminSection';
 import AdminSummary from './admin-summary/AdminSummary';
-import Knockout from '../league/knockout/Bracket';
+import AdminBracket from './admin-knockout/AdminBracket';
+
 
 type Tab = 'group' | 'knockout';
 
@@ -59,7 +60,7 @@ const AdminPage = () => {
                         className={`league-tabs-panel${activeTab === 'knockout' ? ' active' : ''}`}
                         hidden={activeTab !== 'knockout'}
                     >
-                        <Knockout />
+                        <AdminBracket />
                     </div>
                 </div>
             </section>

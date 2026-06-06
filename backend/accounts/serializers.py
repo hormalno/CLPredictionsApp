@@ -24,3 +24,22 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'points', 'is_superuser')
         read_only_fields = ('points', 'is_superuser')
+
+
+class LeaderboardSerializer(serializers.ModelSerializer):
+    rank = serializers.IntegerField(read_only=True)
+    trend = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'points', 'rank', 'trend')
+
+    def get_trend(self, obj) -> str:
+        prev = getattr(obj, 'prev_rank', None)
+        if prev is None:
+            return 'new'
+        if obj.rank < prev:
+            return 'up'
+        if obj.rank > prev:
+            return 'down'
+        return 'same'

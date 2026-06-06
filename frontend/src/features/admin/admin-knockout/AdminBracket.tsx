@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { getKnockoutMatches } from '../../../api/matches';
-import KnockoutMatch from '../../matches/knockout-match/KnockoutMatch';
+import AdminKnockoutMatch from '../../matches/admin-knockout-match/AdminKnockoutMatch';
 import type { Match } from '../../../types';
-import './Bracket.css'
+import './AdminBracket.css'
 
 const ROUNDS = [
     { key: 'PO',  label: 'Play-off' },
@@ -15,7 +15,7 @@ const ROUNDS = [
 
 const WINDOW = 3;
 
-const Knockout = () => {
+const AdminBracket = () => {
     const [matchesByRound, setMatchesByRound] = useState<Record<string, Match[]>>({});
     const [offset, setOffset] = useState(0);
     const [dir, setDir] = useState<'forward' | 'backward'>('forward');
@@ -85,7 +85,7 @@ const Knockout = () => {
                         >
                             <div className="bracket-matches">
                                 {round.key === 'F'
-                                    ? matches.map(m => <KnockoutMatch key={m.id} match={m} />)
+                                    ? matches.map(m => <AdminKnockoutMatch key={m.id} match={m} />)
                                     : matches.reduce<Match[][]>((pairs, m, i) => {
                                         if (i % 2 === 0) pairs.push([m]);
                                         else pairs[pairs.length - 1].push(m);
@@ -93,11 +93,11 @@ const Knockout = () => {
                                     }, []).map((pair, i) => (
                                         <div key={i} className="bracket-pair">
                                             <div className="match-slot">
-                                                <KnockoutMatch match={pair[0]} />
+                                                <AdminKnockoutMatch match={pair[0]} />
                                             </div>
                                             {pair[1] && 
                                                 <div className="match-slot">
-                                                    <KnockoutMatch match={pair[1]} />
+                                                    <AdminKnockoutMatch match={pair[1]} />
                                                 </div>}
                                         </div>
                                     ))
@@ -112,4 +112,4 @@ const Knockout = () => {
     );
 };
 
-export default Knockout;
+export default AdminBracket;

@@ -87,6 +87,20 @@ class Match(models.Model):
             if self.home_penalties is not None or self.away_penalties is not None:
                 errors['home_penalties'] = 'Penalties are only for non-group stage matches.'
 
+        knockout_rounds = ['PO', 'R32', 'R16', 'QF', 'SF', 'F']
+        has_score = self.score_home_team is not None or self.score_away_team is not None
+        has_penalties = self.home_penalties is not None or self.away_penalties is not None
+
+        if self.round in knockout_rounds and has_score:
+            if self.home_team is None or self.away_team is None:
+                errors['score_home_team'] = 'Cannot enter a result until both teams are set.'
+
+        if has_penalties:
+            if self.score_home_team is None or self.score_away_team is None:
+                errors['home_penalties'] = 'Penalties cannot be entered without a match result.'
+            elif self.score_home_team != self.score_away_team:
+                errors['home_penalties'] = 'Penalties can only be entered when the match ends in a draw.'
+
         if self.leg == 2 and self.home_team and self.away_team:
             match_first_leg = Match.objects.filter(
                 Q(home_team=self.home_team) | Q(away_team=self.home_team),

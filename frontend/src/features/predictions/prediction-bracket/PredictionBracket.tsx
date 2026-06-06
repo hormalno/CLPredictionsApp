@@ -42,7 +42,7 @@ function filterTeamsForR32(match: Match, placeholder: string, allTeams: Team[], 
     }
 
     if (placeholder.startsWith('3')) {
-        const eligible = groups.filter(g => g.next_p3 === matchId);
+        const eligible = groups.filter(g => g.next_p3.includes(matchId));
         const ids = new Set(eligible.flatMap(g => g.teams.map(t => t.id)));
         return ids.size ? allTeams.filter(t => ids.has(t.id)) : allTeams;
     }

@@ -138,3 +138,68 @@ def update_prediction_points(sender, instance, **kwargs):
 
     for user_id in affected_users:
         _recalculate_user_score(user_id)
+
+
+def score_match_predictions(match):
+    """Score all predictions for a finished match. Call this after saving results via QuerySet.update()."""
+    if not match.is_finished:
+        return
+
+    affected_users = set()
+
+    actual_outcome = get_outcome(match.score_home_team, match.score_away_team)
+
+    for mp in MatchPrediction.objects.filter(match=match):
+        mp.correct_outcome = mp.outcome == actual_outcome
+        mp.correct_home_team_score = mp.home_team_score == match.score_home_team
+        mp.correct_away_team_score = mp.away_team_score == match.score_away_team
+
+        points = 1 if mp.correct_outcome else 0
+        if mp.correct_home_team_score and mp.correct_away_team_score:
+            points += 3
+        elif mp.correct_home_team_score or mp.correct_away_team_score:
+            points += 1
+        mp.points = points
+
+        mp.save(update_fields=['correct_outcome', 'correct_home_team_score', 'correct_away_team_score', 'points'])
+        affected_users.add(mp.user_id)
+
+    if match.round in KNOCKOUT_TEAM_POINTS:
+        team_pts = KNOCKOUT_TEAM_POINTS[match.round]
+
+        actual_winner_id = None
+        if match.score_home_team is not None and match.score_away_team is not None:
+            if match.score_home_team > match.score_away_team:
+                actual_winner_id = match.home_team_id
+            elif match.score_away_team > match.score_home_team:
+                actual_winner_id = match.away_team_id
+            elif match.home_penalties is not None and match.away_penalties is not None:
+                actual_winner_id = (
+                    match.home_team_id if match.home_penalties > match.away_penalties
+                    else match.away_team_id
+                )
+
+        for kp in KnockoutPrediction.objects.filter(match=match):
+            points = 0
+            if match.home_team_id:
+                kp.home_team_correct = kp.predicted_home_team_id == match.home_team_id
+                if kp.home_team_correct:
+                    points += team_pts
+            if match.away_team_id:
+                kp.away_team_correct = kp.predicted_away_team_id == match.away_team_id
+                if kp.away_team_correct:
+                    points += team_pts
+            if actual_winner_id is not None:
+                kp.winner_correct = kp.predicted_winner_id == actual_winner_id
+            kp.points = points
+            kp.save(update_fields=['home_team_correct', 'away_team_correct', 'winner_correct', 'points'])
+            affected_users.add(kp.user_id)
+
+    from accounts.models import User
+    for user_id in affected_users:
+        _recalculate_user_score(user_id)
+        total = (
+            (MatchPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0) +
+            (KnockoutPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0)
+        )
+        User.objects.filter(pk=user_id).update(points=total)

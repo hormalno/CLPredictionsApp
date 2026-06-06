@@ -246,3 +246,19 @@ export const LogInIcon = ({ size = 18, color = 'currentColor', className }: Icon
         <line x1="15" y1="12" x2="3" y2="12" />
     </svg>
 );
+
+export const JerseyIcon = ({ size = 32, color = 'currentColor', className }: IconProps) => (
+    <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={cls('icon-jersey', className)}>
+        <path d="M8 2C8.5 3.5 10 4.5 12 4.5C14 4.5 15.5 3.5 16 2L22 4.5L20.5 10L17 8.5V22H7V8.5L3.5 10L2 4.5Z" />
+    </svg>
+);
+
+export const TargetIcon = ({ size = 24, color = 'currentColor', className }: IconProps) => (
+    <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={cls('icon-target', className)}>
+        <g stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle r="10" cx="12" cy="12" />
+            <circle r="6" cx="12" cy="12" />
+            <circle r="2" cx="12" cy="12" />
+        </g>
+    </svg>
+);

@@ -178,6 +178,11 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
         if 'away_penalties' in serializer.validated_data:
             update_data['away_penalties'] = serializer.validated_data['away_penalties']
 
+        if match.round in KNOCKOUT_ROUNDS and (match.home_team is None or match.away_team is None):
+            raise DRFValidationError(
+                'Cannot submit a result until both teams are confirmed (no placeholders).'
+            )
+
         # Knockout matches must have a clear winner — ties require penalties
         if match.round in KNOCKOUT_ROUNDS:
             home = serializer.validated_data['score_home_team']
@@ -194,8 +199,17 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
                         'Penalty scores must have a winner — they cannot also be equal.'
                     )
 
+        try:
+            from accounts.utils import take_rank_snapshot
+            take_rank_snapshot()
+        except Exception:
+            pass
+
         Match.objects.filter(pk=match.pk).update(**update_data)
         match.refresh_from_db()
+
+        from predictions.signals import score_match_predictions
+        score_match_predictions(match)
 
         _propagate_knockout_winner(match)
         _propagate_group_stage_results(match)

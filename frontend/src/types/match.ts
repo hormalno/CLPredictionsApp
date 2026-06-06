@@ -10,6 +10,8 @@ export type Match = {
     away_placeholder: string;
     score_home_team: number | null;
     score_away_team: number | null;
+    home_penalties: number | null;
+    away_penalties: number | null;
     date: string;
     stadium: string;
     location: string;

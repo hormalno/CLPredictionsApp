@@ -18,3 +18,16 @@ export const refreshToken = (refresh: string) =>
 
 export const getMe = () =>
   client.get('/auth/me/')
+
+export interface LeaderboardEntry {
+  id: number
+  username: string
+  first_name: string
+  last_name: string
+  points: number
+  rank: number
+  trend: 'up' | 'down' | 'same' | 'new'
+}
+
+export const getLeaderboard = () =>
+  client.get<LeaderboardEntry[]>('/auth/leaderboard/').then(res => res.data)

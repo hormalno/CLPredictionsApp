@@ -21,7 +21,7 @@ class Group(models.Model):
     teams = models.ManyToManyField(Team, related_name='groups', blank=True)
     next_p1 = models.PositiveIntegerField()
     next_p2 = models.PositiveIntegerField()
-    next_p3 = models.PositiveIntegerField()
+    next_p3 = models.JSONField(default=list)
 
     class Meta:
         verbose_name = 'Match Group'

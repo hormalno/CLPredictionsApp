@@ -6,10 +6,9 @@ import './KnockoutMatch.css'
 
 type Props = {
     match: Match;
-    children: React.ReactNode;
 };
 
-const KnockoutMatch = ({ match, children }: Props) => {
+const KnockoutMatch = ({ match }: Props) => {
     const dateStr = formatShortDate(match.date);
     const timeStr = formatTime(match.date);
 
@@ -25,32 +24,33 @@ const KnockoutMatch = ({ match, children }: Props) => {
             <div className="knockout-match-card">
                 <div className="knockout-match-card-header">
                     <span>{dateStr} · {timeStr} · {match.location}</span>
+                    <span className="knockout-match-code">
+                        M{match.match_id}
+                    </span>
                 </div>
+                
                 <div className="knockout-match-card-teams">
                     <div className="team-selector-container">
                         <div className="team-row">
+                            
                             <div className="team-wrapper">
                                 <div className={`team ${homeWinner}`}>
                                     <KnockoutTeam team={match.home_team ?? null} placeholder={match.home_placeholder} />
                                     <span className="knockout-match-card-score">
-                                        {match.score_home_team ?? '-'} (0)
+                                        {match.score_home_team ?? '-'} {match.home_penalties ? `(${match.home_penalties})` : ""}
                                     </span>
                                 </div>
                                 <div className={`team ${awayWinner}`}>
                                     <KnockoutTeam team={match.away_team ?? null} placeholder={match.away_placeholder} />
                                     <span className="knockout-match-card-score">
-                                        {match.score_away_team ?? '-'} (0)
+                                        {match.score_away_team ?? '-'} {match.away_penalties ? `(${match.away_penalties})` : ""}
                                     </span>
                                 </div>
                             </div>
-                            <div className="knockout-predictions-actions-centered">
-                                {match.match_id}
-                            </div>
+                            
                         </div>            
                         <div className="knockout-predictions-footer-bottom">
-                            {/* Actual winner: Brazil */}
-                            {/* {error ? (<span className='error'>error</span>) 
-                            : prediction?.predicted_winner ? `Predicted winner: ${winnerName}` : 'Predict a winner.'} */}
+                            
                         </div>
                     </div>
                 </div>

@@ -2,8 +2,8 @@ from django.core.management.base import BaseCommand
 from groups.models import Group
 
 # next_p1 / next_p2: match_id of the R32 match where the group winner / runner-up goes.
-# next_p3: 0 — 3rd-place routing depends on the combination of qualifying 3rd-place
-#          teams across all groups; it cannot be pre-assigned per group.
+# next_p3: list of match_ids of R32 matches where this group's 3rd-place team can go,
+#          depending on the combination of qualifying 3rd-place teams across all groups.
 #
 # R32 match_id reference (from seed_knockout_matches):
 #   73: 2A(h) vs 2B(a)   74: 1E(h) vs 3*(a)    75: 1F(h) vs 2C(a)   76: 1C(h) vs 2F(a)
@@ -11,18 +11,18 @@ from groups.models import Group
 #   81: 1D(h) vs 3*(a)   82: 1G(h) vs 3*(a)    83: 2K(h) vs 2L(a)   84: 1H(h) vs 2J(a)
 #   85: 1B(h) vs 3*(a)   86: 1J(h) vs 2H(a)    87: 1K(h) vs 3*(a)   88: 2D(h) vs 2G(a)
 GROUPS = [
-    {"name": "A", "next_p1": 79, "next_p2": 73, "next_p3": 0},
-    {"name": "B", "next_p1": 85, "next_p2": 73, "next_p3": 0},
-    {"name": "C", "next_p1": 76, "next_p2": 75, "next_p3": 0},
-    {"name": "D", "next_p1": 81, "next_p2": 88, "next_p3": 0},
-    {"name": "E", "next_p1": 74, "next_p2": 78, "next_p3": 0},
-    {"name": "F", "next_p1": 75, "next_p2": 76, "next_p3": 0},
-    {"name": "G", "next_p1": 82, "next_p2": 88, "next_p3": 0},
-    {"name": "H", "next_p1": 84, "next_p2": 86, "next_p3": 0},
-    {"name": "I", "next_p1": 77, "next_p2": 78, "next_p3": 0},
-    {"name": "J", "next_p1": 86, "next_p2": 84, "next_p3": 0},
-    {"name": "K", "next_p1": 87, "next_p2": 83, "next_p3": 0},
-    {"name": "L", "next_p1": 80, "next_p2": 83, "next_p3": 0},
+    {"name": "A", "next_p1": 79, "next_p2": 73, "next_p3": []},
+    {"name": "B", "next_p1": 85, "next_p2": 73, "next_p3": []},
+    {"name": "C", "next_p1": 76, "next_p2": 75, "next_p3": []},
+    {"name": "D", "next_p1": 81, "next_p2": 88, "next_p3": []},
+    {"name": "E", "next_p1": 74, "next_p2": 78, "next_p3": []},
+    {"name": "F", "next_p1": 75, "next_p2": 76, "next_p3": []},
+    {"name": "G", "next_p1": 82, "next_p2": 88, "next_p3": []},
+    {"name": "H", "next_p1": 84, "next_p2": 86, "next_p3": []},
+    {"name": "I", "next_p1": 77, "next_p2": 78, "next_p3": []},
+    {"name": "J", "next_p1": 86, "next_p2": 84, "next_p3": []},
+    {"name": "K", "next_p1": 87, "next_p2": 83, "next_p3": []},
+    {"name": "L", "next_p1": 80, "next_p2": 83, "next_p3": []},
 ]
 
 
@@ -40,6 +40,6 @@ class Command(BaseCommand):
                 },
             )
             status = 'created' if created else 'updated'
-            self.stdout.write(f'Group {data["name"]} (1st→{data["next_p1"]}, 2nd→{data["next_p2"]}) — {status}')
+            self.stdout.write(f'Group {data["name"]} (1st->{data["next_p1"]}, 2nd->{data["next_p2"]}) - {status}')
 
         self.stdout.write(self.style.SUCCESS(f'\nDone — {len(GROUPS)} groups seeded.'))

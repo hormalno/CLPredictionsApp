@@ -5,14 +5,16 @@ from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from predictions.models import KnockoutPrediction, MatchPrediction
+from predictions.models import KnockoutPrediction, MatchPrediction, TopScorerPrediction
 from predictions.serializers import (
     MatchesUserScoreSerializer,
     MatchPredictionSerializer,
     SubmitKnockoutPredictionSerializer,
     SubmitPredictionSerializer,
+    SubmitTopScorerPredictionSerializer,
     UserKnockoutPredictionSerializer,
     UserMatchPredictionSerializer,
+    UserTopScorerPredictionSerializer,
 )
 
 
@@ -114,4 +116,36 @@ class UserKnockoutPredictionsView(APIView):
             .order_by('match__date')
         )
         return Response(UserKnockoutPredictionSerializer(predictions, many=True, context={'request': request}).data)
+
+
+class SubmitTopScorerPredictionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from matches.models import Match
+        if Match.objects.filter(round='GS', is_finished=True).exists():
+            return Response({'detail': 'Top scorer predictions are locked once the tournament has started.'}, status=403)
+
+        serializer = SubmitTopScorerPredictionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        player = serializer.validated_data['player']
+        TopScorerPrediction.objects.update_or_create(
+            user=request.user,
+            defaults={'player': player},
+        )
+        return Response({'status': 'saved'}, status=201)
+
+
+class UserTopScorerPredictionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        from matches.models import Match
+        locked = Match.objects.filter(round='GS', is_finished=True).exists()
+        try:
+            prediction = TopScorerPrediction.objects.select_related('player').get(user=request.user)
+            data = UserTopScorerPredictionSerializer(prediction).data
+        except TopScorerPrediction.DoesNotExist:
+            data = None
+        return Response({'prediction': data, 'tournament_locked': locked})
 

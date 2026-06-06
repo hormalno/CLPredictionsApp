@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from matches.models import Match
-from predictions.models import KnockoutPrediction, MatchPrediction
+from players.models import Player
+from players.serializers import PlayerSerializer
+from predictions.models import KnockoutPrediction, MatchPrediction, TopScorerPrediction
 from teams.models import Team
 from teams.serializers import TeamSerializer
 
@@ -110,3 +112,19 @@ class MatchPredictionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MatchPrediction
         fields = ['id', 'username', 'home_team_score', 'away_team_score', 'points', 'correct_outcome', 'is_finished']
+
+
+class SubmitTopScorerPredictionSerializer(serializers.Serializer):
+    player = serializers.PrimaryKeyRelatedField(queryset=Player.objects.all())
+
+
+class UserTopScorerPredictionSerializer(serializers.ModelSerializer):
+    player = PlayerSerializer(read_only=True)
+    tournament_locked = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TopScorerPrediction
+        fields = ['id', 'player', 'player_correct', 'tournament_locked']
+
+    def get_tournament_locked(self, obj):
+        return Match.objects.filter(round='GS', is_finished=True).exists()
