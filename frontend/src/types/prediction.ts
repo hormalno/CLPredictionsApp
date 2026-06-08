@@ -52,3 +52,16 @@ export type MatchUserPrediction = {
     correct_outcome: boolean | null;
     is_finished: boolean;
 }
+
+export type KnockoutMatchUserPrediction = {
+    id: number;
+    username: string;
+    predicted_home_team: import('./team').Team | null;
+    predicted_away_team: import('./team').Team | null;
+    predicted_winner: import('./team').Team | null;
+    home_team_correct: boolean | null;
+    away_team_correct: boolean | null;
+    winner_correct: boolean | null;
+    points: number;
+    is_finished: boolean;
+}

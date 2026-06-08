@@ -123,6 +123,23 @@ class MatchPredictionSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'home_team_score', 'away_team_score', 'points', 'correct_outcome', 'is_finished']
 
 
+class KnockoutPredictionPerMatchSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+    predicted_home_team = TeamSerializer(allow_null=True, read_only=True)
+    predicted_away_team = TeamSerializer(allow_null=True, read_only=True)
+    predicted_winner = TeamSerializer(allow_null=True, read_only=True)
+    is_finished = serializers.BooleanField(source='match.is_finished', read_only=True)
+
+    class Meta:
+        model = KnockoutPrediction
+        fields = [
+            'id', 'username',
+            'predicted_home_team', 'predicted_away_team', 'predicted_winner',
+            'home_team_correct', 'away_team_correct', 'winner_correct',
+            'points', 'is_finished',
+        ]
+
+
 class SubmitTopScorerPredictionSerializer(serializers.Serializer):
     player = serializers.PrimaryKeyRelatedField(queryset=Player.objects.all())
 

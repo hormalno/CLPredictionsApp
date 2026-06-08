@@ -25,6 +25,7 @@ from groups.views import GroupViewSet
 from players.views import PlayerViewSet, TopGoalScorersView
 from teams.views import TeamListView
 from predictions.views import (
+    KnockoutPredictionsPerMatchListView,
     MatchesUserScoresView,
     PredictionsPerMatchListView,
     SubmitKnockoutPredictionView,
@@ -50,6 +51,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/matches-scores/', MatchesUserScoresView.as_view(), name='matches_scores'),
     path('api/matches/<int:match_id>/predictions/', PredictionsPerMatchListView.as_view(), name='match_predictions'),
+    path('api/matches/<int:match_id>/knockout-predictions/', KnockoutPredictionsPerMatchListView.as_view(), name='match_knockout_predictions'),
     path('api/predictions/submit/', SubmitPredictionView.as_view(), name='submit_prediction'),
     path('api/predictions/me/', UserPredictionsView.as_view(), name='user_predictions'),
     path('api/predictions/knockout/submit/', SubmitKnockoutPredictionView.as_view(), name='submit_knockout_prediction'),

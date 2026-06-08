@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from predictions.models import KnockoutPrediction, MatchPrediction, TopScorerPrediction
 from predictions.serializers import (
+    KnockoutPredictionPerMatchSerializer,
     KnockoutUserScoreSerializer,
     MatchesUserScoreSerializer,
     MatchPredictionSerializer,
@@ -86,6 +87,18 @@ class PredictionsPerMatchListView(APIView):
     def get(self, request, match_id):
         predictions = MatchPrediction.objects.filter(match__id=match_id, match__is_closed=True).select_related('user', 'match')
         return Response(MatchPredictionSerializer(predictions, many=True).data)
+
+
+class KnockoutPredictionsPerMatchListView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, match_id):
+        predictions = (
+            KnockoutPrediction.objects
+            .filter(match__id=match_id, match__is_closed=True)
+            .select_related('user', 'match', 'predicted_home_team', 'predicted_away_team', 'predicted_winner')
+        )
+        return Response(KnockoutPredictionPerMatchSerializer(predictions, many=True, context={'request': request}).data)
 
 
 class SubmitKnockoutPredictionView(APIView):
