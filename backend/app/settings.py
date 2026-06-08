@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,16 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m^rxh3ire)ag4wvz3tw8+(@%3sv(**y-p8afho36bcuot_@cb&'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-m^rxh3ire)ag4wvz3tw8+(@%3sv(**y-p8afho36bcuot_@cb&')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-]
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    'CORS_ALLOWED_ORIGINS', 'http://localhost:5173'
+).split(',')
 
 
 # Application definition
@@ -89,12 +89,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',   # or 'postgresql_psycopg2'
-        'NAME': 'predict_mate_db',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',        # or your DB host
-        'PORT': '5432',             # default Postgres port
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'predict_mate_db'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -142,6 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
