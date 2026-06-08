@@ -21,6 +21,7 @@ class GroupSerializer(serializers.ModelSerializer):
                 'wins': 0,
                 'draws': 0,
                 'losses': 0,
+                'played': 0,
                 'goalsFor': 0,
                 'goalsAgainst': 0,
                 'points': 0,
@@ -35,6 +36,8 @@ class GroupSerializer(serializers.ModelSerializer):
             if home_id not in standings or away_id not in standings:
                 continue
 
+            standings[home_id]['played'] += 1
+            standings[away_id]['played'] += 1
             standings[home_id]['goalsFor'] += home_goals
             standings[home_id]['goalsAgainst'] += away_goals
             standings[away_id]['goalsFor'] += away_goals

@@ -3,6 +3,7 @@ export type GroupTeam = {
     name: string;
     short_name: string;
     logo: string;
+    played: number;
     wins: number;
     draws: number;
     losses: number;

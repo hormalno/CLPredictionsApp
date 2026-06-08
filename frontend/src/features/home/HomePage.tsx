@@ -1,6 +1,6 @@
 import Navigation from "../../components/navigation/Navigation"
 import Footer from "../../components/footer/Footer"
-import HowWorks from "./how-works/HowWorks";
+import Rules from "./rules/Rules";
 import Standings from "./standings/Standings";
 import QuickHub from "./quick-hub/QuickHub";
 import Results from "./results/Results";
@@ -15,7 +15,7 @@ const HomePage = () => {
             <Results />
             <Upcoming />
             <Standings />
-            <HowWorks />
+            <Rules />
             <Footer />
         </div>
     );

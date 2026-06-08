@@ -4,9 +4,11 @@ import { Button } from '../../../components/button/Button';
 import NextMatchCard from '../../matches/next-match-card/NextMatchCard';
 import type { Match } from '../../../types';
 import './QuickHub.css';
+import { useNavigate } from "react-router-dom";
 
 
 const QuickHub = () => {
+    const navigate = useNavigate();
     const [matches, setUpcomingMatches] = useState<Match[] | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -42,11 +44,11 @@ const QuickHub = () => {
                                 Track scores, climb the leaderboard, and claim bragging rights.
                             </p>
                             <div className="quick-hub-actions">
-                                <Button variant="outline" size="lg">
+                                <Button variant="outline" size="lg" onClick={() => navigate('/predictions')}>
                                     <span>Make a Prediction</span>
                                 </Button>
-                                <Button variant="outline" size="lg">
-                                    <span>View Leaderboard</span>
+                                <Button variant="outline" size="lg" onClick={() => document.getElementById('rules')?.scrollIntoView({ behavior: 'smooth' })}>
+                                    <span>View Rules</span>
                                 </Button>
                             </div>
                         </div>

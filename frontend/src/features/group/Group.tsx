@@ -19,6 +19,7 @@ const Group = ({ group }: { group: GroupType }) => {
                     <tr>
                       <th>Pos</th>
                       <th>Team name</th>
+                      <th>Played</th>
                       <th>Win</th>
                       <th>Draw</th>
                       <th>Loss</th>
@@ -36,6 +37,7 @@ const Group = ({ group }: { group: GroupType }) => {
                         >
                           <td>{index + 1}</td>
                           <td className="team-cell"><TeamGroup team={team} /></td>
+                          <td>{team.played}</td>
                           <td>{team.wins}</td>
                           <td>{team.draws}</td>
                           <td>{team.losses}</td>

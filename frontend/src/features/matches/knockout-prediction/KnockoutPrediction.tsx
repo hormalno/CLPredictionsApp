@@ -17,6 +17,9 @@ const KnockoutPrediction = ({ match, children }: Props) => {
             <div>
                 <div className="match-header">
                     <span>{dateStr} · {timeStr} · {match.location}</span>
+                    <span className="knockout-prediction-code">
+                        M{match.match_id}
+                    </span>
                 </div>
                 <div className="match-teams">
                     {children}
