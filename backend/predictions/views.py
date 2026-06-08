@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from predictions.models import KnockoutPrediction, MatchPrediction, TopScorerPrediction
 from predictions.serializers import (
+    KnockoutUserScoreSerializer,
     MatchesUserScoreSerializer,
     MatchPredictionSerializer,
     SubmitKnockoutPredictionSerializer,
@@ -54,21 +55,30 @@ class MatchesUserScoresView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request):
-        qs = MatchPrediction.objects.filter(match__is_finished=True)
+        from matches.models import Match
+
+        mp_qs = MatchPrediction.objects.filter(match__is_finished=True)
+        kp_qs = KnockoutPrediction.objects.filter(match__is_finished=True)
 
         limit = request.query_params.get('limit')
         if limit:
-            from matches.models import Match
             recent_match_ids = (
                 Match.objects
                 .filter(is_finished=True)
                 .order_by('-date')
                 .values_list('id', flat=True)[:int(limit)]
             )
-            qs = qs.filter(match__in=recent_match_ids)
+            mp_qs = mp_qs.filter(match__in=recent_match_ids)
+            kp_qs = kp_qs.filter(match__in=recent_match_ids)
 
-        scores = qs.select_related('user').order_by('match', '-points', 'user__username')
-        return Response(MatchesUserScoreSerializer(scores, many=True).data)
+        mp_data = MatchesUserScoreSerializer(mp_qs.select_related('user'), many=True).data
+        kp_data = KnockoutUserScoreSerializer(kp_qs.select_related('user'), many=True).data
+
+        combined = sorted(
+            list(mp_data) + list(kp_data),
+            key=lambda x: (x['match'], -x['points'], x['username']),
+        )
+        return Response(combined)
     
 class PredictionsPerMatchListView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]

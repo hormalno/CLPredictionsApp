@@ -27,6 +27,34 @@ def _get_knockout_winner(match):
     return None
 
 
+def _get_knockout_loser(match):
+    home, away = match.score_home_team, match.score_away_team
+    if home > away:
+        return match.away_team
+    if away > home:
+        return match.home_team
+    hp, ap = match.home_penalties, match.away_penalties
+    if hp is not None and ap is not None:
+        return match.away_team if hp > ap else match.home_team
+    return None
+
+
+def _propagate_knockout_loser(match):
+    if match.round != Match.RoundChoices.SF:
+        return
+    loser = _get_knockout_loser(match)
+    if not loser:
+        return
+    third_place_match = Match.objects.filter(round=Match.RoundChoices.THIRD_PLACE).first()
+    if not third_place_match:
+        return
+    slot = match.next_match_slot  # same slot as in the Final — home/away mirrors 3P
+    if slot == 'home':
+        Match.objects.filter(pk=third_place_match.pk).update(home_team=loser)
+    elif slot == 'away':
+        Match.objects.filter(pk=third_place_match.pk).update(away_team=loser)
+
+
 def _compute_group_standings(group):
     standings = {}
     for team in group.teams.all():
@@ -67,15 +95,85 @@ def _propagate_group_stage_results(match):
         return
 
     placements = [
-        (ranked[0]['team'], group.next_p1, f'1{group.name}'),
-        (ranked[1]['team'], group.next_p2, f'2{group.name}'),
+        (ranked[0]['team'], f'1{group.name}'),
+        (ranked[1]['team'], f'2{group.name}'),
     ]
 
-    for team, next_match_id, placeholder in placements:
-        if not next_match_id:
+    for team, placeholder in placements:
+        Match.objects.filter(home_placeholder=placeholder).update(home_team=team)
+        Match.objects.filter(away_placeholder=placeholder).update(away_team=team)
+
+
+def _propagate_third_place_teams():
+    """
+    After all group-stage matches are done, rank every group's 3rd-place team
+    by points → goal difference → goals scored, take the best 8, then use
+    backtracking to find the unique valid assignment of each qualifier to an
+    R32 match according to the group's next_p3 list.
+    """
+    from groups.models import Group
+
+    all_groups = list(Group.objects.all())
+
+    # Wait until every group has finished all its matches
+    for group in all_groups:
+        total = group.matches.count()
+        finished = group.matches.filter(is_finished=True).count()
+        if finished < total:
+            return
+
+    # Collect third-place finisher + stats for every group
+    third_place = []
+    for group in all_groups:
+        ranked = _compute_group_standings(group)
+        if len(ranked) < 3:
             continue
-        Match.objects.filter(match_id=next_match_id, home_placeholder=placeholder).update(home_team=team)
-        Match.objects.filter(match_id=next_match_id, away_placeholder=placeholder).update(away_team=team)
+        entry = ranked[2]
+        third_place.append({
+            'team': entry['team'],
+            'group': group,
+            'points': entry['points'],
+            'gd': entry['gf'] - entry['ga'],
+            'gf': entry['gf'],
+        })
+
+    # Best 8 by: points desc → GD desc → GF desc
+    third_place.sort(key=lambda x: (-x['points'], -x['gd'], -x['gf']))
+    qualifiers = third_place[:8]
+
+    # Build option sets and sort by most-constrained first (MRV heuristic)
+    options = {q['group'].name: set(q['group'].next_p3) for q in qualifiers}
+    group_names = sorted(
+        [q['group'].name for q in qualifiers],
+        key=lambda n: len(options[n]),
+    )
+    assignment = {}  # group_name → R32 match_id
+
+    def assign(idx):
+        if idx == len(group_names):
+            return True
+        name = group_names[idx]
+        used = set(assignment.values())
+        for match_id in options[name]:
+            if match_id not in used:
+                assignment[name] = match_id
+                if assign(idx + 1):
+                    return True
+                del assignment[name]
+        return False
+
+    if not assign(0):
+        return  # No valid assignment exists (should never happen with correct seed data)
+
+    team_by_group = {q['group'].name: q['team'] for q in qualifiers}
+    slot_by_group = {q['group'].name: q['group'].slot_p3 for q in qualifiers}
+
+    for group_name, match_id in assignment.items():
+        team = team_by_group[group_name]
+        if slot_by_group[group_name] == 'home':
+            Match.objects.filter(match_id=match_id).update(home_team=team)
+        else:
+            Match.objects.filter(match_id=match_id).update(away_team=team)
 
 
 def _propagate_knockout_winner(match):
@@ -146,7 +244,7 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, url_path='knockout')
     def knockout(self, request):
-        queryset = self.get_queryset().filter(round__in=['PO', 'R32', 'R16', 'QF', 'SF', 'F'])
+        queryset = self.get_queryset().filter(round__in=['PO', 'R32', 'R16', 'QF', 'SF', '3P', 'F'])
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -158,7 +256,7 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, url_path='results')
     def results(self, request):
-        queryset = self.get_queryset().filter(is_finished=True)[:4]
+        queryset = self.get_queryset().filter(is_finished=True).order_by('-date')[:4]
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)   
 
@@ -212,7 +310,9 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
         score_match_predictions(match)
 
         _propagate_knockout_winner(match)
+        _propagate_knockout_loser(match)
         _propagate_group_stage_results(match)
+        _propagate_third_place_teams()
 
         return Response(MatchDetailSerializer(match, context={'request': request}).data)
     

@@ -13,6 +13,7 @@ class Match(models.Model):
         R16 = ('R16', 'Round of 16')
         QF = ('QF', 'Quarter Final')
         SF = ('SF', 'Semi Final')
+        THIRD_PLACE = ('3P', '3rd Place')
         F = ('F', 'Final')
 
     class LegChoices(models.IntegerChoices):
@@ -56,7 +57,9 @@ class Match(models.Model):
         if self.home_team and self.away_team and self.home_team == self.away_team:
             errors['away_team'] = 'You cannot have the same team as the home team!'
 
-        if self.home_team and self.round in ['PO', 'R32', 'R16', 'QF', 'SF', 'F']:
+        knockout_rounds = ['PO', 'R32', 'R16', 'QF', 'SF', '3P', 'F']
+
+        if self.home_team and self.round in knockout_rounds:
             existing = Match.objects.filter(
                 Q(home_team=self.home_team) | Q(away_team=self.home_team),
                 round=self.round,
@@ -65,7 +68,7 @@ class Match(models.Model):
             if existing > 0:
                 errors['home_team'] = f'{self.home_team.name} already plays in different match.'
 
-        if self.away_team and self.round in ['PO', 'R32', 'R16', 'QF', 'SF', 'F']:
+        if self.away_team and self.round in knockout_rounds:
             existing = Match.objects.filter(
                 Q(home_team=self.away_team) | Q(away_team=self.away_team),
                 round=self.round,
@@ -74,20 +77,19 @@ class Match(models.Model):
             if existing > 0:
                 errors['away_team'] = f'{self.away_team.name} already plays in different match.'
 
-        round_limits = {'PO': 8, 'R32': 16, 'R16': 8, 'QF': 4, 'SF': 2, 'F': 1}
+        round_limits = {'PO': 8, 'R32': 16, 'R16': 8, 'QF': 4, 'SF': 2, '3P': 1, 'F': 1}
         if self.round in round_limits:
             limit = round_limits[self.round]
             existing_matches = Match.objects.filter(round=self.round, leg=self.leg).exclude(id=self.pk).count()
             if existing_matches >= limit:
                 errors['round'] = f'The {self.round} can only have a maximum of {limit} matches.'
 
-        if self.round not in ['PO', 'R32', 'R16', 'QF', 'SF', 'F']:
+        if self.round not in knockout_rounds:
             if self.leg:
                 errors['leg'] = 'The legs are only for knockout stage.'
             if self.home_penalties is not None or self.away_penalties is not None:
                 errors['home_penalties'] = 'Penalties are only for non-group stage matches.'
 
-        knockout_rounds = ['PO', 'R32', 'R16', 'QF', 'SF', 'F']
         has_score = self.score_home_team is not None or self.score_away_team is not None
         has_penalties = self.home_penalties is not None or self.away_penalties is not None
 

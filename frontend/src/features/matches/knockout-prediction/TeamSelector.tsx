@@ -70,7 +70,7 @@ const TeamSelector = ({ match, prediction, homeTeams, awayTeams, usedTeamIds, on
                             }}
                         >
                             <option value="" disabled>-- Team {match.home_placeholder} --</option>
-                            {homeTeams.filter(t => t.id !== predictedAwayTeam && (t.id === savedHomeId || t.id === savedAwayId || !usedTeamIds?.has(t.id))).map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                            {homeTeams.filter(t => t.id !== predictedAwayTeam && (t.id === savedHomeId || t.id === savedAwayId || !usedTeamIds?.has(t.id))).map(t => <option key={t.id} value={t.id}>{t.name} ({t.group_name})</option>)}
                         </select>
                         <button
                             className={`button winner-radio${predictedHomeTeam !== '' && predictedWinner === predictedHomeTeam ? ' selected' : ''}`}
@@ -91,7 +91,7 @@ const TeamSelector = ({ match, prediction, homeTeams, awayTeams, usedTeamIds, on
                             }}
                         >
                             <option value="" disabled>-- Team {match.away_placeholder} --</option>
-                            {awayTeams.filter(t => t.id !== predictedHomeTeam && (t.id === savedHomeId || t.id === savedAwayId || !usedTeamIds?.has(t.id))).map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                            {awayTeams.filter(t => t.id !== predictedHomeTeam && (t.id === savedHomeId || t.id === savedAwayId || !usedTeamIds?.has(t.id))).map(t => <option key={t.id} value={t.id}>{t.name} ({t.group_name})</option>)}
                         </select>
                         <button
                             className={`button winner-radio${predictedAwayTeam !== '' && predictedWinner === predictedAwayTeam ? ' selected' : ''}`}

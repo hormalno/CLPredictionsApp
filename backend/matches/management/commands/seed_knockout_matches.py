@@ -44,16 +44,16 @@ BRACKET = [
     {"id": 100, "round": "QF",  "home": "WINNER 95",     "away": "WINNER 96",     "stadium": "Arrowhead Stadium",       "location": "Kansas",              "date": "2026-07-12 01:00:00", "next": 102,  "slot": "away"},
 
     # ── Semi Finals ───────────────────────────────────────────────────────────────
-    {"id": 101, "round": "SF",  "home": "WINNER 97",     "away": "WINNER 98",     "stadium": "AT&T Stadium",            "location": "Dallas",              "date": "2026-07-14 19:00:00", "next": 103,  "slot": "home"},
-    {"id": 102, "round": "SF",  "home": "WINNER 99",     "away": "WINNER 100",    "stadium": "Mercedes-Benz Stadium",   "location": "Atlanta",             "date": "2026-07-15 19:00:00", "next": 103,  "slot": "away"},
+    {"id": 101, "round": "SF",  "home": "WINNER 97",     "away": "WINNER 98",     "stadium": "AT&T Stadium",            "location": "Dallas",              "date": "2026-07-14 19:00:00", "next": 104,  "slot": "home"},
+    {"id": 102, "round": "SF",  "home": "WINNER 99",     "away": "WINNER 100",    "stadium": "Mercedes-Benz Stadium",   "location": "Atlanta",             "date": "2026-07-15 19:00:00", "next": 104,  "slot": "away"},
 
     # ── Final ─────────────────────────────────────────────────────────────────────
-    {"id": 103, "round": "F",   "home": "WINNER 101",    "away": "WINNER 102",    "stadium": "Hard Rock Stadium",       "location": "Miami",                "date": "2026-07-18 21:00:00", "next": None, "slot": None},
-    {"id": 104, "round": "F",   "home": "LOSER 101",     "away": "LOSER 102",     "stadium": "MetLife Stadium",         "location": "New York/New Jersey",  "date": "2026-07-19 19:00:00", "next": None, "slot": None},
+    {"id": 103, "round": "3P",   "home": "LOSER 101",    "away": "LOSER 102",    "stadium": "Hard Rock Stadium",       "location": "Miami",                "date": "2026-07-18 21:00:00", "next": None, "slot": None},
+    {"id": 104, "round": "F",  "home": "WINNER 101",     "away": "WINNER 102",     "stadium": "MetLife Stadium",         "location": "New York/New Jersey",  "date": "2026-07-19 19:00:00", "next": None, "slot": None},
 ]
 
 ROUND_DISPLAY = {
-    'F': 'Final', 'SF': 'Semi Final', 'QF': 'Quarter Final',
+    'F': 'Final', '3P': '3rd Place', 'SF': 'Semi Final', 'QF': 'Quarter Final',
     'R16': 'Round of 16', 'R32': 'Round of 32',
 }
 
@@ -62,9 +62,9 @@ class Command(BaseCommand):
     help = 'Seed knockout phase matches with bracket links'
 
     def handle(self, *args, **kwargs):
-        # Pass 1: create all matches
+        # Pass 1: create/update all matches (update_or_create ensures match_id is always written)
         for data in BRACKET:
-            match, created = Match.objects.get_or_create(
+            match, created = Match.objects.update_or_create(
                 round=data['round'],
                 home_placeholder=data['home'],
                 away_placeholder=data['away'],
@@ -75,15 +75,15 @@ class Command(BaseCommand):
                     'date': dt(data['date']),
                 },
             )
-            status = 'created' if created else 'already exists'
+            status = 'created' if created else 'updated'
             self.stdout.write(f'[{ROUND_DISPLAY[data["round"]]}] {data["home"]} vs {data["away"]} — {status}')
 
-        # Pass 2: wire up bracket links via match_id
+        # Pass 2: wire up bracket links via placeholder (robust if match_id was previously NULL)
         for data in BRACKET:
             if data['next'] is None:
                 continue
 
-            match = Match.objects.get(match_id=data['id'])
+            match = Match.objects.get(home_placeholder=data['home'], round=data['round'])
             next_match = Match.objects.get(match_id=data['next'])
 
             Match.objects.filter(pk=match.pk).update(

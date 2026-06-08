@@ -14,7 +14,10 @@ export type GroupTeam = {
 export type Group = {
     name: string;
     next_p1: number;
+    slot_p1: 'home' | 'away';
     next_p2: number;
+    slot_p2: 'home' | 'away';
     next_p3: number[];
+    slot_p3: 'home' | 'away';
     teams: GroupTeam[];
 };

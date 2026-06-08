@@ -1,3 +1,8 @@
+.leaderboard-state {
+  text-align: center;
+  padding: var(--spacing-2xl);
+}
+
 .leaderboard-table-wrapper {
   border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
   overflow: hidden;

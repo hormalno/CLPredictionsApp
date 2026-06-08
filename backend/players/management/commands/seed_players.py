@@ -100,9 +100,9 @@ PLAYERS = [
     {"name": "Romelu Lukaku", "position": "FW", "jersey_number": 9, "team": "Belgium"},
     {"name": "Thibaut Courtois", "position": "GK", "jersey_number": 1, "team": "Belgium"},
     # Bosnia and Herzegovina
-    {"name": "Edin Džeko", "position": "FW", "jersey_number": 11, "team": "Bosnia and Herzegovina"},
-    {"name": "Miralem Pjanić", "position": "MF", "jersey_number": 8, "team": "Bosnia and Herzegovina"},
-    {"name": "Sead Kolašinac", "position": "DF", "jersey_number": 3, "team": "Bosnia and Herzegovina"},
+    {"name": "Edin Džeko", "position": "FW", "jersey_number": 11, "team": "Bosnia"},
+    {"name": "Miralem Pjanić", "position": "MF", "jersey_number": 8, "team": "Bosnia"},
+    {"name": "Sead Kolašinac", "position": "DF", "jersey_number": 3, "team": "Bosnia"},
     # Sweden
     {"name": "Alexander Isak", "position": "FW", "jersey_number": 11, "team": "Sweden"},
     {"name": "Viktor Gyökeres", "position": "FW", "jersey_number": 9, "team": "Sweden"},

@@ -85,7 +85,19 @@ const Knockout = () => {
                         >
                             <div className="bracket-matches">
                                 {round.key === 'F'
-                                    ? matches.map(m => <KnockoutMatch key={m.id} match={m} />)
+                                    ? (
+                                        <>
+                                            {matches.map(m => <KnockoutMatch key={m.id} match={m} />)}
+                                            {(matchesByRound['3P'] ?? []).length > 0 && (
+                                                <div className="third-place-section">
+                                                    <span className="third-place-label">3rd Place</span>
+                                                    <div className="third-place-match-wrapper">
+                                                        {(matchesByRound['3P'] ?? []).map(m => <KnockoutMatch key={m.id} match={m} />)}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </>
+                                    )
                                     : matches.reduce<Match[][]>((pairs, m, i) => {
                                         if (i % 2 === 0) pairs.push([m]);
                                         else pairs[pairs.length - 1].push(m);

@@ -34,6 +34,7 @@ class TopScorerPrediction(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     player_correct = models.BooleanField(null=True, blank=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    points = models.PositiveIntegerField(default=0)
 
 
 class KnockoutPrediction(models.Model):
@@ -50,24 +51,39 @@ class KnockoutPrediction(models.Model):
     class Meta:
         unique_together = ('match', 'user')
 
-    KNOCKOUT_ROUNDS = {'R32', 'R16', 'QF', 'SF', 'F'}
+    KNOCKOUT_ROUNDS = {'R32', 'R16', 'QF', 'SF', '3P', 'F'}
 
     def _validate_team_for_slot(self, team, placeholder):
         """Return an error string if team is not eligible for the given placeholder, else None."""
         if not team or not placeholder:
             return None
-        m = re.match(r'^[12]([A-L])$', placeholder)
-        if not m:
-            return None  # 3rd-N or WINNER slots — no group restriction
-        group_letter = m.group(1)
+
         from groups.models import Group
-        try:
-            group = Group.objects.get(name=group_letter)
-        except Group.DoesNotExist:
+
+        m = re.match(r'^[12]([A-L])$', placeholder)
+        if m:
+            group_letter = m.group(1)
+            try:
+                group = Group.objects.get(name=group_letter)
+            except Group.DoesNotExist:
+                return None
+            if not group.teams.filter(pk=team.pk).exists():
+                return f'{team} is not eligible for this slot — must be from Group {group_letter}.'
             return None
-        if not group.teams.filter(pk=team.pk).exists():
-            return f'{team} is not eligible for this slot — must be from Group {group_letter}.'
-        return None
+
+        if placeholder.startswith('3'):
+            match_id = self.match.match_id if self.match else None
+            if not match_id:
+                return None
+            eligible_ids = set(
+                Group.objects.filter(next_p3__contains=[match_id])
+                .values_list('teams__id', flat=True)
+            )
+            if eligible_ids and team.pk not in eligible_ids:
+                return f'{team} is not eligible for this 3rd-place slot.'
+            return None
+
+        return None  # WINNER slots — no group restriction
 
     def _validate_no_duplicate_teams(self):
         """Return a dict of field errors if any predicted team is already used in another match of the same round."""

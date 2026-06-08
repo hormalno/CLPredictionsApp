@@ -4,6 +4,8 @@ from teams.serializers import TeamSerializer
 
 
 class PlayerSerializer(serializers.ModelSerializer):
+    team = TeamSerializer(read_only=True)
+
     class Meta:
         model = Player
         fields = ['id', 'name', 'position', 'jersey_number', 'team']

@@ -53,7 +53,7 @@ const QuickHub = () => {
                         <div className="quick-hub-card-wrapper">
                             {loading && <p>Loading...</p>}
                             {error && <p>{error}</p>}
-                            {matches && <NextMatchCard match={matches[0]} />}
+                            {matches?.[0] && <NextMatchCard match={matches[0]} />}
                         </div>
                     </div>
                 </div>

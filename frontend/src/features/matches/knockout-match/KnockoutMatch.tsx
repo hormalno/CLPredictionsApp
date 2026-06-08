@@ -12,12 +12,22 @@ const KnockoutMatch = ({ match }: Props) => {
     const dateStr = formatShortDate(match.date);
     const timeStr = formatTime(match.date);
 
-    const homeWinner = match.is_finished &&
-        match.score_home_team !== null && match.score_away_team !== null &&
-        match.score_home_team > match.score_away_team ? 'winner' : '';
-    const awayWinner = match.is_finished &&
-        match.score_home_team !== null && match.score_away_team !== null &&
-        match.score_away_team > match.score_home_team ? 'winner' : '';
+    const homeWinner = (() => {
+        if (!match.is_finished || match.score_home_team === null || match.score_away_team === null) return '';
+        if (match.score_home_team > match.score_away_team) return 'winner';
+        if (match.score_home_team === match.score_away_team &&
+            match.home_penalties !== null && match.away_penalties !== null &&
+            match.home_penalties > match.away_penalties) return 'winner';
+        return '';
+    })();
+    const awayWinner = (() => {
+        if (!match.is_finished || match.score_home_team === null || match.score_away_team === null) return '';
+        if (match.score_away_team > match.score_home_team) return 'winner';
+        if (match.score_home_team === match.score_away_team &&
+            match.home_penalties !== null && match.away_penalties !== null &&
+            match.away_penalties > match.home_penalties) return 'winner';
+        return '';
+    })();
 
     return (
         <Link to={`/match/${match.id}`}>

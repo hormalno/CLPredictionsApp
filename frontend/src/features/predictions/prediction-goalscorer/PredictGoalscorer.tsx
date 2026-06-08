@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { TargetIcon, ChevronDownIcon, LockIcon } from '../../../components/icons/Icons';
+import { TargetIcon, ChevronDownIcon, LockIcon, CheckmarkIcon, XMarkIcon } from '../../../components/icons/Icons';
 import { getTeams } from '../../../api/teams';
 import { getPlayersByTeam } from '../../../api/players';
 import { submitTopScorerPrediction, getUserTopScorerPrediction } from '../../../api/predictions';
+import type { TopScorerPrediction } from '../../../api/predictions';
+import { parseApiError } from '../../../api';
 import type { Team, Player } from '../../../types';
 import './PredictGoalscorer.css';
 
@@ -13,6 +15,7 @@ const PredictGoalscorer = () => {
     const [selectedPlayer, setSelectedPlayer] = useState('');
     const [saved, setSaved] = useState(false);
     const [locked, setLocked] = useState(false);
+    const [prediction, setPrediction] = useState<TopScorerPrediction | null>(null);
     const [feedback, setFeedback] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
     useEffect(() => {
@@ -20,12 +23,12 @@ const PredictGoalscorer = () => {
 
         getUserTopScorerPrediction().then(({ prediction, tournament_locked }) => {
             setLocked(tournament_locked);
+            setPrediction(prediction);
             if (!prediction) return;
-            const teamId = String(prediction.player.team);
-            setSelectedTeam(teamId);
+            setSelectedTeam(String(prediction.player.team.id));
             setSelectedPlayer(String(prediction.player.id));
             setSaved(true);
-            getPlayersByTeam(Number(teamId)).then(setPlayers).catch(() => {});
+            getPlayersByTeam(prediction.player.team.id).then(setPlayers).catch(() => {});
         }).catch(() => {});
     }, []);
 
@@ -51,9 +54,39 @@ const PredictGoalscorer = () => {
                 setFeedback({ message: `Prediction for ${player?.name} saved!`, type: 'success' });
                 setSaved(true);
             })
-            .catch(() => {
-                setFeedback({ message: 'Failed to save prediction. Please try again.', type: 'error' });
+            .catch(err => {
+                setFeedback({ message: parseApiError(err), type: 'error' });
             });
+    };
+
+    const renderLockedView = () => {
+        const player = prediction?.player;
+        const resultKnown = prediction?.player_correct !== null && prediction?.player_correct !== undefined;
+        return (
+            <div className="prediction-locked">
+                <div className="locked-banner">
+                    <LockIcon size={16} />
+                    <span>Predictions closed</span>
+                </div>
+                <div className="form-group">
+                    <label className="section-content">Team</label>
+                    <div className="locked-value">{player?.team.name ?? '—'}</div>
+                </div>
+                <div className="form-group">
+                    <label className="section-content">Player</label>
+                    <div className="locked-value">
+                        {player ? `${player.jersey_number} ${player.name} (${player.position})` : '—'}
+                    </div>
+                </div>
+                {resultKnown && (
+                    <div className={`form-feedback ${prediction.player_correct ? 'success' : 'error'}`}>
+                        {prediction.player_correct
+                            ? <><CheckmarkIcon size={14} /> Correct! +{prediction.points} pts</>
+                            : <><XMarkIcon size={14} /> Incorrect — 0 pts</>}
+                    </div>
+                )}
+            </div>
+        );
     };
 
     return (
@@ -66,29 +99,7 @@ const PredictGoalscorer = () => {
                     <h2 className="goalscorer-prediction-title">Predict the Goalscorers</h2>
                     <p>Pick your star players and dominate the leaderboard with your friends.</p>
                 </div>
-                {locked ? (
-                    <div className="prediction-locked">
-                        <div className="locked-banner">
-                            <LockIcon size={16} />
-                            <span>Predictions closed</span>
-                        </div>
-                        <div className="form-group">
-                            {/* <label className="section-content">Team</label> */}
-                            <div className="locked-value">
-                                {teams.find(t => String(t.id) === selectedTeam)?.name ?? '—'}
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label className="section-content">Player</label>
-                            <div className="locked-value">
-                                {(() => {
-                                    const p = players.find(p => String(p.id) === selectedPlayer);
-                                    return p ? `${p.jersey_number} ${p.name} (${p.position})` : '—';
-                                })()}
-                            </div>
-                        </div>
-                    </div>
-                ) : (
+                {locked ? renderLockedView() : (
                     <form className="prediction-form">
                         <div className="form-group">
                             <label htmlFor="teamSelect" className="section-content">Select Team</label>

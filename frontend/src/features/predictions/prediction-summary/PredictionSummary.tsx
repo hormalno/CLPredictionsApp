@@ -23,10 +23,10 @@ const calcKnockoutStats = (predictions: KnockoutPrediction[]) => {
 };
 
 type Props = {
-    summary_type : 'match' | 'knockout';
+    summary_type: 'match' | 'knockout';
 }
 
-const PredictionSummary = ({summary_type} : Props) => {
+const PredictionSummary = ({ summary_type }: Props) => {
     const [matchPredictions, setMatchPredictions] = useState<MatchPrediction[]>([]);
     const [knockoutPredictions, setKnockoutPredictions] = useState<KnockoutPrediction[]>([]);
 

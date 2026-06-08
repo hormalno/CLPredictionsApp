@@ -11,6 +11,7 @@ KNOCKOUT_ROUNDS = {
     Match.RoundChoices.R16,
     Match.RoundChoices.QF,
     Match.RoundChoices.SF,
+    Match.RoundChoices.THIRD_PLACE,
     Match.RoundChoices.F,
 }
 
@@ -105,6 +106,14 @@ class MatchesUserScoreSerializer(serializers.ModelSerializer):
         fields = ['match', 'username', 'points']
 
 
+class KnockoutUserScoreSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+
+    class Meta:
+        model = KnockoutPrediction
+        fields = ['match', 'username', 'points']
+
+
 class MatchPredictionSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
     is_finished = serializers.BooleanField(source='match.is_finished', read_only=True)
@@ -124,7 +133,7 @@ class UserTopScorerPredictionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TopScorerPrediction
-        fields = ['id', 'player', 'player_correct', 'tournament_locked']
+        fields = ['id', 'player', 'player_correct', 'points', 'tournament_locked']
 
     def get_tournament_locked(self, obj):
         return Match.objects.filter(round='GS', is_finished=True).exists()

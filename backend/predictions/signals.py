@@ -1,8 +1,8 @@
-from django.db.models import Sum
+from django.db.models import Count, Sum
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from matches.models import Match
-from predictions.models import KnockoutPrediction, MatchPrediction, UserScore
+from predictions.models import KnockoutPrediction, MatchPrediction, TopScorerPrediction, UserScore
 
 KNOCKOUT_TEAM_POINTS = {
     Match.RoundChoices.R32: 5,
@@ -25,10 +25,40 @@ def get_outcome(home_score, away_score):
 def _recalculate_user_score(user_id):
     mp_pts = MatchPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0
     kp_pts = KnockoutPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0
+    ts_pts = TopScorerPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0
     UserScore.objects.update_or_create(
         user_id=user_id,
-        defaults={'points': mp_pts + kp_pts},
+        defaults={'points': mp_pts + kp_pts + ts_pts},
     )
+
+
+def _score_top_scorer_predictions():
+    """Score all TopScorerPredictions based on the tournament's top scorer (most non-own goals).
+    Returns the set of affected user IDs."""
+    from goals.models import Goal
+
+    top = (
+        Goal.objects
+        .filter(is_own_goal=False)
+        .values('goalscorer_id')
+        .annotate(n=Count('id'))
+        .order_by('-n')
+        .first()
+    )
+    if not top:
+        return set()
+
+    top_scorer_id = top['goalscorer_id']
+    affected = set()
+
+    for pred in TopScorerPrediction.objects.all():
+        correct = pred.player_id == top_scorer_id
+        pred.player_correct = correct
+        pred.points = 10 if correct else 0
+        pred.save(update_fields=['player_correct', 'points'])
+        affected.add(pred.user_id)
+
+    return affected
 
 
 @receiver(pre_save, sender=Match)
@@ -195,11 +225,15 @@ def score_match_predictions(match):
             kp.save(update_fields=['home_team_correct', 'away_team_correct', 'winner_correct', 'points'])
             affected_users.add(kp.user_id)
 
+    if match.round == Match.RoundChoices.F:
+        affected_users |= _score_top_scorer_predictions()
+
     from accounts.models import User
     for user_id in affected_users:
         _recalculate_user_score(user_id)
         total = (
             (MatchPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0) +
-            (KnockoutPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0)
+            (KnockoutPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0) +
+            (TopScorerPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0)
         )
         User.objects.filter(pk=user_id).update(points=total)

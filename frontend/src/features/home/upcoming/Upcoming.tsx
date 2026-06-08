@@ -29,7 +29,7 @@ const Upcoming = () => {
                 {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 {upcomingMatches.map((match) => (<UpcomingMatchCard match={match} />))}
-                {!loading && !error && !upcomingMatches?.length && <p>No upcoming matches yet!</p>}
+                {!loading && !error && !upcomingMatches?.length && <p>No upcoming matches!</p>}
             </div>
             </div>
         </section>

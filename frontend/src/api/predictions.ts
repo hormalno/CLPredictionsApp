@@ -30,7 +30,14 @@ export const submitKnockoutPrediction = (data: {
 export const submitTopScorerPrediction = (playerId: number) =>
     client.post('/predictions/top-scorer/submit/', { player: playerId });
 
-export const getUserTopScorerPrediction = (): Promise<{ prediction: { id: number; player: import('../types').Player; player_correct: boolean | null } | null; tournament_locked: boolean }> =>
+export type TopScorerPrediction = {
+    id: number;
+    player: import('../types').Player;
+    player_correct: boolean | null;
+    points: number;
+};
+
+export const getUserTopScorerPrediction = (): Promise<{ prediction: TopScorerPrediction | null; tournament_locked: boolean }> =>
     client.get('/predictions/top-scorer/me/').then(res => res.data);
 
 

@@ -36,7 +36,7 @@ const PredictionSection = () => {
         <section className="predictions-section">
             <div className="predictions-section-container">
                 <div className="predictions-header">
-                    <h2 className="section-title"><text>Recent Predictions</text></h2>
+                    <h2 className="section-title"><text></text></h2>
                     <div className="predictions-filters">
                         <button className="btn-sm btn-outline btn"><text>All</text></button>
                         <button className="btn-sm btn-outline btn"><text>Correct</text></button>

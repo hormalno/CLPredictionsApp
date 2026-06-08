@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { getKnockoutMatches, getUserKnockoutPredictions, getTeams, getGroups } from '../../../api';
+import { getKnockoutMatches, getUserKnockoutPredictions, getGroups } from '../../../api';
 import KnockoutPrediction from '../../matches/knockout-prediction/KnockoutPrediction';
 import type { KnockoutPrediction as KnockoutPredictionType, Match, Team, Group } from '../../../types';
 import './PredictionBracket.css';
@@ -23,36 +23,35 @@ type MatchWithPrediction = {
     prediction: KnockoutPredictionType | undefined;
 };
 
-function filterTeamsForR32(match: Match, placeholder: string, allTeams: Team[], groups: Group[]): Team[] {
+function toTeam(t: Group['teams'][number], groupName: string): Team {
+    return { id: t.id, name: t.name, short_name: t.short_name, logo: t.logo, group_name: groupName };
+}
+
+function filterTeamsForR32(match: Match, slot: 'home' | 'away', groups: Group[]): Team[] {
     const matchId = match.match_id;
-    if (!matchId) return allTeams;
+    if (!matchId) return [];
 
-    if (/^1[A-L]$/.test(placeholder)) {
-        const group = groups.find(g => g.next_p1 === matchId);
-        if (!group) return allTeams;
-        const ids = new Set(group.teams.map(t => t.id));
-        return allTeams.filter(t => ids.has(t.id));
+    const p1Group = groups.find(g => g.next_p1 === matchId && g.slot_p1 === slot);
+    if (p1Group) return p1Group.teams.map(t => toTeam(t, p1Group.name));
+
+    const p2Group = groups.find(g => g.next_p2 === matchId && g.slot_p2 === slot);
+    if (p2Group) return p2Group.teams.map(t => toTeam(t, p2Group.name));
+
+    const p3Groups = groups.filter(g => g.next_p3.includes(matchId) && g.slot_p3 === slot);
+    if (p3Groups.length) {
+        const seen = new Set<number>();
+        return p3Groups.flatMap(g => g.teams.map(t => toTeam(t, g.name))).filter(t => {
+            if (seen.has(t.id)) return false;
+            seen.add(t.id);
+            return true;
+        });
     }
 
-    if (/^2[A-L]$/.test(placeholder)) {
-        const group = groups.find(g => g.next_p2 === matchId);
-        if (!group) return allTeams;
-        const ids = new Set(group.teams.map(t => t.id));
-        return allTeams.filter(t => ids.has(t.id));
-    }
-
-    if (placeholder.startsWith('3')) {
-        const eligible = groups.filter(g => g.next_p3.includes(matchId));
-        const ids = new Set(eligible.flatMap(g => g.teams.map(t => t.id)));
-        return ids.size ? allTeams.filter(t => ids.has(t.id)) : allTeams;
-    }
-
-    return allTeams;
+    return [];
 }
 
 const PredictionBracket = () => {
     const [matchesByRound, setMatchesByRound] = useState<Record<string, MatchWithPrediction[]>>({});
-    const [teams, setTeams] = useState<Team[]>([]);
     const [groups, setGroups] = useState<Group[]>([]);
     const [offset, setOffset] = useState(0);
     const [dir, setDir] = useState<'forward' | 'backward'>('forward');
@@ -78,12 +77,10 @@ const PredictionBracket = () => {
         Promise.all([
             getKnockoutMatches(),
             getUserKnockoutPredictions(),
-            getTeams(),
             getGroups(),
-        ]).then(([matches, predictions, allTeams, groups]) => {
+        ]).then(([matches, predictions, groups]) => {
             matchesRef.current = matches;
             setMatchesByRound(mergePredictions(matches, predictions));
-            setTeams(allTeams);
             setGroups(groups);
         });
     }, []);
@@ -119,8 +116,8 @@ const PredictionBracket = () => {
                     ?    (<TeamSelector
                             match={match}
                             prediction={prediction}
-                            homeTeams={filterTeamsForR32(match, match.home_placeholder, teams, groups)}
-                            awayTeams={filterTeamsForR32(match, match.away_placeholder, teams, groups)}
+                            homeTeams={filterTeamsForR32(match, 'home', groups)}
+                            awayTeams={filterTeamsForR32(match, 'away', groups)}
                             usedTeamIds={r32UsedTeamIds}
                             onSaved={refreshPredictions}
                         />)
@@ -166,10 +163,23 @@ const PredictionBracket = () => {
                             className={`bracket-round${idx === visibleRounds.length - 1 ? ' bracket-round--last' : ''}`}
                         >
                             <div className="bracket-matches">
-                                {round.key === 'F' // Final
-                                ? 
-                                    items.map(({ match, prediction }) => renderKnockoutMatches(match, prediction, round.key))
-                                : // Other rounds
+                                {round.key === 'F'
+                                ? (
+                                    <>
+                                        {items.map(({ match, prediction }) => renderKnockoutMatches(match, prediction, round.key))}
+                                        {(matchesByRound['3P'] ?? []).length > 0 && (
+                                            <div className="third-place-section">
+                                                <span className="third-place-label">3rd Place</span>
+                                                <div className="third-place-match-wrapper">
+                                                    {(matchesByRound['3P'] ?? []).map(({ match, prediction }) =>
+                                                        renderKnockoutMatches(match, prediction, '3P')
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </>
+                                )
+                                :
                                     items.reduce<MatchWithPrediction[][]>((pairs, item, i) => {
                                         if (i % 2 === 0) pairs.push([item]);
                                         else pairs[pairs.length - 1].push(item);

@@ -20,8 +20,11 @@ class Group(models.Model):
     name = models.CharField(max_length=1, choices=GroupChoices.choices, unique=True)
     teams = models.ManyToManyField(Team, related_name='groups', blank=True)
     next_p1 = models.PositiveIntegerField()
+    slot_p1 = models.CharField(max_length=4, choices=[('home', 'Home'), ('away', 'Away')], blank=True, default='')
     next_p2 = models.PositiveIntegerField()
+    slot_p2 = models.CharField(max_length=4, choices=[('home', 'Home'), ('away', 'Away')], blank=True, default='')
     next_p3 = models.JSONField(default=list)
+    slot_p3 = models.CharField(max_length=4, choices=[('home', 'Home'), ('away', 'Away')], blank=True, default='')
 
     class Meta:
         verbose_name = 'Match Group'

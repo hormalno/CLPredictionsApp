@@ -8,13 +8,13 @@ class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = ['id', 'name', 'next_p1', 'next_p2', 'next_p3', 'teams']
+        fields = ['id', 'name', 'next_p1', 'slot_p1', 'next_p2', 'slot_p2', 'next_p3', 'slot_p3', 'teams']
 
     def get_teams(self, group):
         finished_matches = group.matches.filter(is_finished=True).select_related('home_team', 'away_team')
 
         standings = {}
-        for team in group.teams.all():
+        for team in group.teams.all().distinct():
             team_data = TeamSerializer(team, context=self.context).data
             standings[team.id] = {
                 **team_data,

@@ -3,4 +3,5 @@ export type Team = {
     name: string;
     short_name: string;
     logo: string;
+    group_name: string;
 };
