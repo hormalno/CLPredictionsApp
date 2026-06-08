@@ -3,18 +3,6 @@ from players.models import Player
 from teams.models import Team
 
 PLAYERS = [
-    # United States
-    {"name": "Christian Pulisic", "position": "FW", "jersey_number": 10, "team": "United States"},
-    {"name": "Weston McKennie", "position": "MF", "jersey_number": 8, "team": "United States"},
-    {"name": "Matt Turner", "position": "GK", "jersey_number": 1, "team": "United States"},
-    # Mexico
-    {"name": "Hirving Lozano", "position": "FW", "jersey_number": 22, "team": "Mexico"},
-    {"name": "Edson Álvarez", "position": "MF", "jersey_number": 4, "team": "Mexico"},
-    {"name": "Guillermo Ochoa", "position": "GK", "jersey_number": 13, "team": "Mexico"},
-    # Canada
-    {"name": "Alphonso Davies", "position": "DF", "jersey_number": 19, "team": "Canada"},
-    {"name": "Jonathan David", "position": "FW", "jersey_number": 20, "team": "Canada"},
-    {"name": "Stephen Eustáquio", "position": "MF", "jersey_number": 7, "team": "Canada"},
     # Curaçao
     {"name": "Leandro Bacuna", "position": "MF", "jersey_number": 7, "team": "Curaçao"},
     {"name": "Juninho Bacuna", "position": "MF", "jersey_number": 8, "team": "Curaçao"},
@@ -31,10 +19,6 @@ PLAYERS = [
     {"name": "Lionel Messi", "position": "FW", "jersey_number": 10, "team": "Argentina"},
     {"name": "Lautaro Martínez", "position": "FW", "jersey_number": 22, "team": "Argentina"},
     {"name": "Emiliano Martínez", "position": "GK", "jersey_number": 23, "team": "Argentina"},
-    # Brazil
-    {"name": "Vinícius Júnior", "position": "FW", "jersey_number": 7, "team": "Brazil"},
-    {"name": "Rodrygo", "position": "FW", "jersey_number": 10, "team": "Brazil"},
-    {"name": "Alisson Becker", "position": "GK", "jersey_number": 1, "team": "Brazil"},
     # Colombia
     {"name": "Luis Díaz", "position": "FW", "jersey_number": 7, "team": "Colombia"},
     {"name": "James Rodríguez", "position": "MF", "jersey_number": 10, "team": "Colombia"},
@@ -71,14 +55,6 @@ PLAYERS = [
     {"name": "Cristiano Ronaldo", "position": "FW", "jersey_number": 7, "team": "Portugal"},
     {"name": "Bruno Fernandes", "position": "MF", "jersey_number": 8, "team": "Portugal"},
     {"name": "Bernardo Silva", "position": "MF", "jersey_number": 10, "team": "Portugal"},
-    # Germany
-    {"name": "Florian Wirtz", "position": "MF", "jersey_number": 17, "team": "Germany"},
-    {"name": "Jamal Musiala", "position": "MF", "jersey_number": 10, "team": "Germany"},
-    {"name": "Joshua Kimmich", "position": "MF", "jersey_number": 6, "team": "Germany"},
-    # Netherlands
-    {"name": "Virgil van Dijk", "position": "DF", "jersey_number": 4, "team": "Netherlands"},
-    {"name": "Cody Gakpo", "position": "FW", "jersey_number": 8, "team": "Netherlands"},
-    {"name": "Frenkie de Jong", "position": "MF", "jersey_number": 21, "team": "Netherlands"},
     # Switzerland
     {"name": "Granit Xhaka", "position": "MF", "jersey_number": 10, "team": "Switzerland"},
     {"name": "Manuel Akanji", "position": "DF", "jersey_number": 5, "team": "Switzerland"},
@@ -195,7 +171,7 @@ PLAYERS = [
     {"name": "Chris Wood", "position": "FW", "jersey_number": 9, "team": "New Zealand"},
     {"name": "Marko Stamenić", "position": "MF", "jersey_number": 8, "team": "New Zealand"},
     {"name": "Liberato Cacace", "position": "DF", "jersey_number": 3, "team": "New Zealand"},
-
+    # Mexico
     {"name": "Guillermo Ochoa", "position": "GK", "jersey_number": 13, "team": "Mexico"},
     {"name": "Raul Rangel", "position": "GK", "jersey_number": null, "team": "Mexico"},
     {"name": "Carlos Acevedo", "position": "GK", "jersey_number": null, "team": "Mexico"},
@@ -222,6 +198,7 @@ PLAYERS = [
     {"name": "Julian Quinones", "position": "FW", "jersey_number": null, "team": "Mexico"},
     {"name": "Guillermo Martinez", "position": "FW", "jersey_number": null, "team": "Mexico"},
     {"name": "Armando Gonzalez", "position": "FW", "jersey_number": null, "team": "Mexico"},
+    # Canada
     {"name": "Dayne St. Clair", "position": "GK", "jersey_number": null, "team": "Canada"},
     {"name": "Maxime Crepeau", "position": "GK", "jersey_number": null, "team": "Canada"},
     {"name": "Owen Goodman", "position": "GK", "jersey_number": null, "team": "Canada"},
@@ -248,6 +225,7 @@ PLAYERS = [
     {"name": "Promise David", "position": "FW", "jersey_number": null, "team": "Canada"},
     {"name": "Cyle Larin", "position": "FW", "jersey_number": null, "team": "Canada"},
     {"name": "Tani Oluwaseyi", "position": "FW", "jersey_number": null, "team": "Canada"},
+    # Brazil
     {"name": "Alisson", "position": "GK", "jersey_number": 1, "team": "Brazil"},
     {"name": "Ederson", "position": "GK", "jersey_number": null, "team": "Brazil"},
     {"name": "Weverton", "position": "GK", "jersey_number": null, "team": "Brazil"},
@@ -274,6 +252,7 @@ PLAYERS = [
     {"name": "Luiz Henrique", "position": "FW", "jersey_number": null, "team": "Brazil"},
     {"name": "Igor Thiago", "position": "FW", "jersey_number": null, "team": "Brazil"},
     {"name": "Rayan", "position": "FW", "jersey_number": null, "team": "Brazil"},
+    # United States
     {"name": "Matt Turner", "position": "GK", "jersey_number": 1, "team": "United States"},
     {"name": "Matt Freese", "position": "GK", "jersey_number": null, "team": "United States"},
     {"name": "Chris Brady", "position": "GK", "jersey_number": null, "team": "United States"},
@@ -299,6 +278,7 @@ PLAYERS = [
     {"name": "Josh Sargent", "position": "FW", "jersey_number": null, "team": "United States"},
     {"name": "Haji Wright", "position": "FW", "jersey_number": null, "team": "United States"},
     {"name": "Cade Cowell", "position": "FW", "jersey_number": null, "team": "United States"},
+    # Germany
     {"name": "Manuel Neuer", "position": "GK", "jersey_number": 1, "team": "Germany"},
     {"name": "Oliver Baumann", "position": "GK", "jersey_number": null, "team": "Germany"},
     {"name": "Alexander Nübel", "position": "GK", "jersey_number": null, "team": "Germany"},
@@ -325,6 +305,7 @@ PLAYERS = [
     {"name": "Jamie Leweling", "position": "FW", "jersey_number": null, "team": "Germany"},
     {"name": "Leroy Sané", "position": "FW", "jersey_number": 19, "team": "Germany"},
     {"name": "Maximilian Beier", "position": "FW", "jersey_number": null, "team": "Germany"},
+    # Netherlands
     {"name": "Bart Verbruggen", "position": "GK", "jersey_number": 1, "team": "Netherlands"},
     {"name": "Mark Flekken", "position": "GK", "jersey_number": null, "team": "Netherlands"},
     {"name": "Robin Roefs", "position": "GK", "jersey_number": null, "team": "Netherlands"},

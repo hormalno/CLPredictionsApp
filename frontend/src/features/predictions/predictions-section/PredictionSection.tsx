@@ -34,15 +34,7 @@ const PredictionSection = () => {
 
     return (
         <section className="predictions-section">
-            <div className="predictions-section-container">
-                <div className="predictions-header">
-                    <h2 className="section-title"><text></text></h2>
-                    <div className="predictions-filters">
-                        <button className="btn-sm btn-outline btn"><text>All</text></button>
-                        <button className="btn-sm btn-outline btn"><text>Correct</text></button>
-                        <button className="btn-sm btn-outline btn"><text>Pending</text></button>
-                    </div>
-                </div>
+            <div className="predictions-section-container">                
                 {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 {!loading && !error && Object.entries(grouped).map(([date, dayMatches]) => (
