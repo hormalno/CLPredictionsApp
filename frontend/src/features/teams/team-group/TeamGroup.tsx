@@ -1,8 +1,7 @@
-import type { Team } from '../../../types/index';
 import './TeamGroup.css';
 
 type Props = {
-    team: Team;
+    team: { id: number; name: string; short_name: string; logo: string };
 }
 
 const TeamGroup = ({team} : Props) => {

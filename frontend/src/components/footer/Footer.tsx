@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { XSquareIcon, FacebookIcon, TwitterIcon, InstagramIcon, TrophyCupIcon, ChevronDownIcon } from '../icons/Icons';
-import './footer.css'
+import './Footer.css'
 
 const Footer = () => {
   

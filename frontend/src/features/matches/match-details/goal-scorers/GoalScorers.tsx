@@ -7,8 +7,8 @@ type Props = {
 }
 
 const GoalScorers = ({match} : Props) => {
-    const homeGoals = match.goals.filter(g => g.team_scored === match.home_team.name);
-    const awayGoals = match.goals.filter(g => g.team_scored === match.away_team.name);
+    const homeGoals = match.goals.filter(g => g.team_scored === match.home_team?.name);
+    const awayGoals = match.goals.filter(g => g.team_scored === match.away_team?.name);
 
     return (
         <section className="goal-scorers">
@@ -18,7 +18,7 @@ const GoalScorers = ({match} : Props) => {
               <div className="goal-scorers__column">
                 <div className="goal-scorers__team-header">
                   <span className="goal-scorers__team-name">
-                    <text>{match.home_team.name}</text>
+                    <text>{match.home_team?.name}</text>
                   </span>
                   <span className="goal-scorers__total">
                     <text>{match.score_home_team} Goals</text>
@@ -33,7 +33,7 @@ const GoalScorers = ({match} : Props) => {
               <div className="goal-scorers__column">
                 <div className="goal-scorers__team-header">
                   <span className="goal-scorers__team-name">
-                    <text>{match.away_team.name}</text>
+                    <text>{match.away_team?.name}</text>
                   </span>
                   <span className="goal-scorers__total"><text>{match.score_away_team} Goal</text></span>
                 </div>

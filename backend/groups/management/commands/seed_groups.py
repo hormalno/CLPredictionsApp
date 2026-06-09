@@ -30,18 +30,16 @@ class Command(BaseCommand):
     help = 'Seed groups A–L with next-round match references'
 
     def handle(self, *args, **kwargs):
+        fields = ['next_p1', 'slot_p1', 'next_p2', 'slot_p2', 'next_p3', 'slot_p3']
         for data in GROUPS:
-            group, created = Group.objects.update_or_create(
+            group, created = Group.objects.get_or_create(
                 name=data['name'],
-                defaults={
-                    'next_p1': data['next_p1'],
-                    'slot_p1': data['slot_p1'],
-                    'next_p2': data['next_p2'],
-                    'slot_p2': data['slot_p2'],
-                    'next_p3': data['next_p3'],
-                    'slot_p3': data['slot_p3'],
-                },
+                defaults={k: data[k] for k in fields},
             )
+            if not created:
+                for k in fields:
+                    setattr(group, k, data[k])
+                group.save(update_fields=fields)
             status = 'created' if created else 'updated'
             self.stdout.write(f'Group {data["name"]} (1st->{data["next_p1"]}, 2nd->{data["next_p2"]}) - {status}')
 

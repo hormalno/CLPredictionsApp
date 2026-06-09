@@ -1,4 +1,4 @@
-import type { MatchDetail } from "../types";
+import type { MatchDetail, GoalPayload } from "../types";
 import client from "./client";
 
 export const submitMatch = (
@@ -15,14 +15,6 @@ export const submitMatch = (
         ...(homePenalties !== undefined && { home_penalties: homePenalties }),
         ...(awayPenalties !== undefined && { away_penalties: awayPenalties }),
     });
-
-type GoalPayload = {
-    goalscorer: number;
-    assist_player?: number | null;
-    team_scored: number;
-    minute: number;
-    is_penalty: boolean;
-};
 
 export const createGoals = (matchId: number, goals: GoalPayload[]) =>
     client.post<MatchDetail>(`/matches/${matchId}/add-goals/`, goals).then(res => res.data);

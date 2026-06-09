@@ -9,3 +9,11 @@ export type Goal = {
     is_penalty: boolean;
     is_own_goal: boolean;
 }
+
+export type GoalPayload = {
+    goalscorer: number;
+    assist_player?: number | null;
+    team_scored: number;
+    minute: number;
+    is_penalty: boolean;
+};

@@ -4,11 +4,11 @@ set -e
 echo "Running migrations..."
 python manage.py migrate
 
-echo "Seeding teams..."
-python manage.py seed_teams
-
 echo "Seeding groups..."
 python manage.py seed_groups
+
+echo "Seeding teams..."
+python manage.py seed_teams
 
 echo "Seeding players..."
 python manage.py seed_players
