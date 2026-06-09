@@ -3631,7 +3631,7 @@ PLAYERS = [
     "team": "Belgium",
     "jersey_number": 8,
     "position": "MF",
-    "name": "Youri Tielemans (captain)"
+    "name": "Youri Tielemans (C)"
   },
   {
     "team": "Belgium",
@@ -3799,7 +3799,7 @@ PLAYERS = [
     "team": "Egypt",
     "jersey_number": 10,
     "position": "FW",
-    "name": "Mohamed Salah (captain)"
+    "name": "Mohamed Salah (C)"
   },
   {
     "team": "Egypt",
@@ -3913,7 +3913,7 @@ PLAYERS = [
     "team": "Iran",
     "jersey_number": 3,
     "position": "DF",
-    "name": "Ehsan Hajsafi (captain)"
+    "name": "Ehsan Hajsafi (C)"
   },
   {
     "team": "Iran",
@@ -4105,7 +4105,7 @@ PLAYERS = [
     "team": "New Zealand",
     "jersey_number": 9,
     "position": "FW",
-    "name": "Chris Wood (captain)"
+    "name": "Chris Wood (C)"
   },
   {
     "team": "New Zealand",
@@ -4327,7 +4327,7 @@ PLAYERS = [
     "team": "Cape Verde",
     "jersey_number": 20,
     "position": "FW",
-    "name": "Ryan Mendes (captain)"
+    "name": "Ryan Mendes (C)"
   },
   {
     "team": "Cape Verde",
@@ -4423,7 +4423,7 @@ PLAYERS = [
     "team": "Saudi Arabia",
     "jersey_number": 10,
     "position": "FW",
-    "name": "Salem Al-Dawsari (captain)"
+    "name": "Salem Al-Dawsari (C)"
   },
   {
     "team": "Saudi Arabia",
@@ -4615,7 +4615,7 @@ PLAYERS = [
     "team": "Spain",
     "jersey_number": 16,
     "position": "MF",
-    "name": "Rodri (captain)"
+    "name": "Rodri (C)"
   },
   {
     "team": "Spain",
@@ -4687,7 +4687,7 @@ PLAYERS = [
     "team": "Uruguay",
     "jersey_number": 2,
     "position": "DF",
-    "name": "Jose Gimenez (captain)"
+    "name": "Jose Gimenez (C)"
   },
   {
     "team": "Uruguay",
@@ -4891,7 +4891,7 @@ PLAYERS = [
     "team": "France",
     "jersey_number": 10,
     "position": "FW",
-    "name": "Kylian Mbappe (captain)"
+    "name": "Kylian Mbappe (C)"
   },
   {
     "team": "France",
@@ -5059,7 +5059,7 @@ PLAYERS = [
     "team": "Iraq",
     "jersey_number": 12,
     "position": "GK",
-    "name": "Jalal Hassan (captain)"
+    "name": "Jalal Hassan (C)"
   },
   {
     "team": "Iraq",
@@ -5203,7 +5203,7 @@ PLAYERS = [
     "team": "Norway",
     "jersey_number": 10,
     "position": "MF",
-    "name": "Martin Ødegaard (captain)"
+    "name": "Martin Ødegaard (C)"
   },
   {
     "team": "Norway",
@@ -5317,7 +5317,7 @@ PLAYERS = [
     "team": "Senegal",
     "jersey_number": 3,
     "position": "DF",
-    "name": "Kalidou Koulibaly (captain)"
+    "name": "Kalidou Koulibaly (C)"
   },
   {
     "team": "Senegal",
@@ -5497,7 +5497,7 @@ PLAYERS = [
     "team": "Algeria",
     "jersey_number": 7,
     "position": "FW",
-    "name": "Riyad Mahrez (captain)"
+    "name": "Riyad Mahrez (C)"
   },
   {
     "team": "Algeria",
@@ -5665,7 +5665,7 @@ PLAYERS = [
     "team": "Argentina",
     "jersey_number": 10,
     "position": "FW",
-    "name": "Lionel Messi (captain)"
+    "name": "Lionel Messi (C)"
   },
   {
     "team": "Argentina",
@@ -5809,7 +5809,7 @@ PLAYERS = [
     "team": "Austria",
     "jersey_number": 8,
     "position": "DF",
-    "name": "David Alaba (captain)"
+    "name": "David Alaba (C)"
   },
   {
     "team": "Austria",
@@ -6049,7 +6049,7 @@ PLAYERS = [
     "team": "Jordan",
     "jersey_number": 23,
     "position": "DF",
-    "name": "Ihsan Haddad (captain)"
+    "name": "Ihsan Haddad (C)"
   },
   {
     "team": "Jordan",
@@ -6127,7 +6127,7 @@ PLAYERS = [
     "team": "Colombia",
     "jersey_number": 10,
     "position": "MF",
-    "name": "James Rodriguez (captain)"
+    "name": "James Rodriguez (C)"
   },
   {
     "team": "Colombia",
@@ -6355,7 +6355,7 @@ PLAYERS = [
     "team": "Congo",
     "jersey_number": 22,
     "position": "DF",
-    "name": "Chancel Mbemba (captain)"
+    "name": "Chancel Mbemba (C)"
   },
   {
     "team": "Congo",
@@ -6421,7 +6421,7 @@ PLAYERS = [
     "team": "Portugal",
     "jersey_number": 7,
     "position": "FW",
-    "name": "Cristiano Ronaldo (captain)"
+    "name": "Cristiano Ronaldo (C)"
   },
   {
     "team": "Portugal",
@@ -6619,7 +6619,7 @@ PLAYERS = [
     "team": "Uzbekistan",
     "jersey_number": 14,
     "position": "FW",
-    "name": "Eldor Shomurodov (captain)"
+    "name": "Eldor Shomurodov (C)"
   },
   {
     "team": "Uzbekistan",
@@ -6751,7 +6751,7 @@ PLAYERS = [
     "team": "Croatia",
     "jersey_number": 10,
     "position": "MF",
-    "name": "Luka Modric (captain)"
+    "name": "Luka Modric (C)"
   },
   {
     "team": "Croatia",
@@ -6901,7 +6901,7 @@ PLAYERS = [
     "team": "England",
     "jersey_number": 9,
     "position": "FW",
-    "name": "Harry Kane (captain)"
+    "name": "Harry Kane (C)"
   },
   {
     "team": "England",
@@ -7057,7 +7057,7 @@ PLAYERS = [
     "team": "Ghana",
     "jersey_number": 9,
     "position": "FW",
-    "name": "Jordan Ayew (captain)"
+    "name": "Jordan Ayew (C)"
   },
   {
     "team": "Ghana",
@@ -7279,7 +7279,7 @@ PLAYERS = [
     "team": "Panama",
     "jersey_number": 20,
     "position": "MF",
-    "name": "Anibal Godoy (captain)"
+    "name": "Anibal Godoy (C)"
   },
   {
     "team": "Panama",
