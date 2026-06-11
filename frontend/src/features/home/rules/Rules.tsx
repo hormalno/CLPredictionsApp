@@ -87,6 +87,12 @@ const Rules = () => {
                         <p className="section-content rules-top-scorer-note">
                             Awarded after the Final. Points go to everyone who predicted the player with the most non-own-goal goals.
                         </p>
+                        <ul className="rules-points-list" style={{ marginTop: 'var(--spacing-sm)' }}>
+                            <li className="rules-points-row">
+                                <span className="rules-points-label">Team with most goals</span>
+                                <span className="rules-points-badge rules-points-badge--total">10 pts</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

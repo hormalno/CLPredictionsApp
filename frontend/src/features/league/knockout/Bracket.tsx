@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getKnockoutMatches } from '../../../api/matches';
 import KnockoutMatch from '../../matches/knockout-match/KnockoutMatch';
 import type { Match } from '../../../types';
+import { ROUND_MATCH_ORDER } from '../../matches/knockoutMatchOrder';
 import './Bracket.css'
 
 const ROUNDS = [
@@ -76,7 +77,15 @@ const Knockout = () => {
             <div key={offset} className={`tournament-bracket-grid bracket-enter-${dir}`}>
                 <div className="bracket-spacer" />
                 {visibleRounds.map((round, idx) => {
-                    const matches = matchesByRound[round.key] ?? [];
+                    const rawMatches = matchesByRound[round.key] ?? [];
+                    const order = ROUND_MATCH_ORDER[round.key] ?? [];
+                    const matches: Match[] = order.length
+                        ? [...rawMatches].sort((a, b) => {
+                            const ai = order.indexOf(a.match_id ?? -1);
+                            const bi = order.indexOf(b.match_id ?? -1);
+                            return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi);
+                          })
+                        : rawMatches;
                     return (
                         <div
                             key={round.key}

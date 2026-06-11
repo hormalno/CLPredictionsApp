@@ -6,6 +6,7 @@ import './PredictionBracket.css';
 import FinalOutcome from '../../matches/knockout-prediction/FinalOutcome';
 import PredictWinner from '../../matches/knockout-prediction/PredictWinner';
 import TeamSelector from '../../matches/knockout-prediction/TeamSelector';
+import { ROUND_MATCH_ORDER } from '../../matches/knockoutMatchOrder';
 
 const ROUNDS = [
     { key: 'PO',  label: 'Play-off' },
@@ -155,7 +156,15 @@ const PredictionBracket = () => {
             <div key={offset} className={`tournament-prediction-bracket-grid bracket-enter-${dir}`}>
                 <div className="bracket-spacer" />
                 {visibleRounds.map((round, idx) => {
-                    const items = matchesByRound[round.key] ?? [];
+                    const rawItems = matchesByRound[round.key] ?? [];
+                    const order = ROUND_MATCH_ORDER[round.key] ?? [];
+                    const items: MatchWithPrediction[] = order.length
+                        ? [...rawItems].sort((a, b) => {
+                            const ai = order.indexOf(a.match.match_id ?? -1);
+                            const bi = order.indexOf(b.match.match_id ?? -1);
+                            return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi);
+                          })
+                        : rawItems;
                     return (
                         <div
                             key={round.key}
