@@ -86,6 +86,24 @@ const PredictionBracket = () => {
         });
     }, []);
 
+    const sfOrder = ROUND_MATCH_ORDER['SF'] ?? [];
+    const sortedSF = [...(matchesByRound['SF'] ?? [])].sort((a, b) => {
+        const ai = sfOrder.indexOf(a.match.match_id ?? -1);
+        const bi = sfOrder.indexOf(b.match.match_id ?? -1);
+        return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi);
+    });
+
+    const getSFLoser = (sf: MatchWithPrediction): Team | null => {
+        const { prediction } = sf;
+        if (!prediction?.predicted_winner) return null;
+        const home = prediction.predicted_home_team ?? sf.match.home_team;
+        const away = prediction.predicted_away_team ?? sf.match.away_team;
+        return prediction.predicted_winner.id === home?.id ? away : home;
+    };
+
+    const sf1Loser = sortedSF[0] ? getSFLoser(sortedSF[0]) : null;
+    const sf2Loser = sortedSF[1] ? getSFLoser(sortedSF[1]) : null;
+
     const r32UsedTeamIds = new Set<number>(
         (matchesByRound['R32'] ?? []).flatMap(({ prediction }) => [
             prediction?.predicted_home_team?.id,
@@ -181,7 +199,15 @@ const PredictionBracket = () => {
                                                 <span className="third-place-label">3rd Place</span>
                                                 <div className="third-place-match-wrapper">
                                                     {(matchesByRound['3P'] ?? []).map(({ match, prediction }) =>
-                                                        renderKnockoutMatches(match, prediction, '3P')
+                                                        renderKnockoutMatches(
+                                                            {
+                                                                ...match,
+                                                                home_team: match.home_team ?? sf1Loser,
+                                                                away_team: match.away_team ?? sf2Loser,
+                                                            },
+                                                            prediction,
+                                                            '3P'
+                                                        )
                                                     )}
                                                 </div>
                                             </div>
