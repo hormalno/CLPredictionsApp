@@ -4,14 +4,16 @@ import Footer from "../../components/footer/Footer";
 import PredictionHeader from "./prediction-header/PredictionHeader";
 import PredictionSummary from "./prediction-summary/PredictionSummary";
 import PredictionSection from "./predictions-section/PredictionSection";
-import './PredictionPage.css';
 import PredictionBracket from "./prediction-bracket/PredictionBracket";
 import PredictGoalscorer from "./prediction-goalscorer/PredictGoalscorer";
+import PredictionGroupStandings from "./prediction-group-standings/PredictionGroupStandings";
+import './PredictionPage.css';
+import PredictTeamGoals from "./prediction-goalscorer/PredictTeamGoals";
 
-type Tab = 'group' | 'knockout' | 'goalscorer';
+type Tab = 'fixtures' | 'group' | 'knockout' | 'goalscorer';
 
 const PredictionPage = () => {
-    const [activeTab, setActiveTab] = useState<Tab>('group');
+    const [activeTab, setActiveTab] = useState<Tab>('fixtures');
 
     const handleTabClick = (tab: Tab) => {
         setActiveTab(tab);
@@ -19,10 +21,20 @@ const PredictionPage = () => {
 
     return (
         <>
-            <Navigation />            
+            <Navigation />
             <PredictionHeader>
-              <div className="league-tabs-nav-wrapper">                
+              <div className="league-tabs-nav-wrapper">
                 <div role="tablist" className="league-tabs-nav">
+                  <button
+                    id="tab-fixtures"
+                    role="tab"
+                    aria-controls="panel-fixtures"
+                    aria-selected={activeTab === 'fixtures'}
+                    className={`league-tabs-btn${activeTab === 'fixtures' ? ' active' : ''}`}
+                    onClick={() => handleTabClick('fixtures')}
+                  >
+                    Group Fixtures
+                  </button>
                   <button
                     id="tab-group"
                     role="tab"
@@ -31,7 +43,7 @@ const PredictionPage = () => {
                     className={`league-tabs-btn${activeTab === 'group' ? ' active' : ''}`}
                     onClick={() => handleTabClick('group')}
                   >
-                    Group Stage
+                    Group Winners
                   </button>
                   <button
                     id="tab-knockout"
@@ -57,7 +69,19 @@ const PredictionPage = () => {
               </div>
             </PredictionHeader>
             <section className="league-tabs-section">
-              <div className="league-tabs-content">                
+              <div className="league-tabs-content">
+                <div
+                  id="panel-fixtures"
+                  role="tabpanel"
+                  aria-labelledby="tab-fixtures"
+                  className={`league-tabs-panel${activeTab === 'fixtures' ? ' active' : ''}`}
+                  hidden={activeTab !== 'fixtures'}
+                >
+                  <div className="league-tabs-grid">
+                    <PredictionSummary summary_type="match" />
+                    <PredictionSection />
+                  </div>
+                </div>
                 <div
                   id="panel-group"
                   role="tabpanel"
@@ -66,8 +90,8 @@ const PredictionPage = () => {
                   hidden={activeTab !== 'group'}
                 >
                   <div className="league-tabs-grid">
-                    <PredictionSummary summary_type="match" />
-                    <PredictionSection />
+                    <PredictionSummary summary_type="group" />
+                    <PredictionGroupStandings />
                   </div>
                 </div>
                 <div
@@ -89,12 +113,13 @@ const PredictionPage = () => {
                   className={`league-tabs-panel${activeTab === 'goalscorer' ? ' active' : ''}`}
                   hidden={activeTab !== 'goalscorer'}
                 >
-                  <div className="league-tabs-grid">
+                  <div className="league-tabs-grid" style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <PredictGoalscorer />
+                    <PredictTeamGoals />
                   </div>
                 </div>
               </div>
-            </section>            
+            </section>
             <Footer />
         </>
     );

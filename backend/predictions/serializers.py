@@ -1,8 +1,9 @@
 from rest_framework import serializers
+from groups.models import Group
 from matches.models import Match
 from players.models import Player
 from players.serializers import PlayerSerializer
-from predictions.models import KnockoutPrediction, MatchPrediction, TopScorerPrediction
+from predictions.models import GroupPrediction, KnockoutPrediction, MatchPrediction, TopScorerPrediction, TopTeamPrediction
 from teams.models import Team
 from teams.serializers import TeamSerializer
 
@@ -153,4 +154,43 @@ class UserTopScorerPredictionSerializer(serializers.ModelSerializer):
         fields = ['id', 'player', 'player_correct', 'points', 'tournament_locked']
 
     def get_tournament_locked(self, obj):
-        return Match.objects.filter(round='GS', is_finished=True).exists()
+        return Match.objects.filter(is_finished=True).exists()
+
+
+class SubmitGroupPredictionSerializer(serializers.Serializer):
+    group = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all())
+    group_winner_predict = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all())
+
+    def validate(self, data):
+        group = data['group']
+        team = data['group_winner_predict']
+        if not group.teams.filter(pk=team.pk).exists():
+            raise serializers.ValidationError(
+                {'group_winner_predict': f'{team} is not in Group {group.name}.'}
+            )
+        return data
+
+
+class UserGroupPredictionSerializer(serializers.ModelSerializer):
+    group_name = serializers.CharField(source='group.name', read_only=True)
+    group_winner_predict = TeamSerializer(read_only=True)
+    locked = serializers.SerializerMethodField()
+
+    class Meta:
+        model = GroupPrediction
+        fields = ['id', 'group', 'group_name', 'group_winner_predict', 'group_winner_correct', 'points', 'locked']
+
+    def get_locked(self, obj):
+        return Match.objects.filter(is_finished=True).exists()
+
+
+class SubmitTopTeamPredictionSerializer(serializers.Serializer):
+    team = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all())
+
+
+class UserTopTeamPredictionSerializer(serializers.ModelSerializer):
+    team = TeamSerializer(read_only=True)
+
+    class Meta:
+        model = TopTeamPrediction
+        fields = ['id', 'team', 'team_correct', 'points']

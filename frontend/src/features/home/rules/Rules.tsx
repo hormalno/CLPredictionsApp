@@ -33,6 +33,10 @@ const Rules = () => {
                                 <span className="rules-points-label">Max per match</span>
                                 <span className="rules-points-badge rules-points-badge--total">4 pts</span>
                             </li>
+                            <li className="rules-points-row">
+                                <span className="rules-points-label">Group winner</span>
+                                <span className="rules-points-badge">7 pts</span>
+                            </li>
                         </ul>
                     </div>
                     <div className="step-item">
@@ -44,23 +48,27 @@ const Rules = () => {
                         <ul className="rules-points-list">
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Round of 32 — correct team</span>
-                                <span className="rules-points-badge">5 pts</span>
+                                <span className="rules-points-badge">3 pts</span>
                             </li>
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Round of 16 — correct team</span>
-                                <span className="rules-points-badge">8 pts</span>
+                                <span className="rules-points-badge">5 pts</span>
                             </li>
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Quarter-final — correct team</span>
-                                <span className="rules-points-badge">12 pts</span>
+                                <span className="rules-points-badge">9 pts</span>
                             </li>
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Semi-final — correct team</span>
-                                <span className="rules-points-badge">20 pts</span>
+                                <span className="rules-points-badge">12 pts</span>
                             </li>
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Final — correct team</span>
-                                <span className="rules-points-badge">25 pts</span>
+                                <span className="rules-points-badge">15 pts</span>
+                            </li>
+                            <li className="rules-points-row">
+                                <span className="rules-points-label">Correct champion</span>
+                                <span className="rules-points-badge">17 pts</span>
                             </li>
                         </ul>
                     </div>
@@ -73,7 +81,7 @@ const Rules = () => {
                         <ul className="rules-points-list">
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Correct tournament top scorer</span>
-                                <span className="rules-points-badge rules-points-badge--total">10 pts</span>
+                                <span className="rules-points-badge rules-points-badge--total">15 pts</span>
                             </li>
                         </ul>
                         <p className="section-content rules-top-scorer-note">

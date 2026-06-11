@@ -5,6 +5,7 @@ from django.db import models
 from app import settings
 from matches.models import Match
 from players.models import Player
+from groups.models import Group
 from teams.models import Team
 
 # Create your models here.
@@ -29,6 +30,15 @@ class MatchPrediction(models.Model):
             return 'X'
         return '2'
 
+class GroupPrediction(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='predictions')
+    group_winner_predict = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='group_winner_predictions')
+    group_winner_correct = models.BooleanField(null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='group_predictions')
+    points = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('group', 'user')
 
 class TopScorerPrediction(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
@@ -156,6 +166,13 @@ class KnockoutPrediction(models.Model):
         self.full_clean()
         super().save(*args, **kwargs)
         self.propagate_winner()
+
+
+class TopTeamPrediction(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team_correct = models.BooleanField(null=True, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    points = models.PositiveIntegerField(default=0)
 
 
 class UserScore(models.Model):

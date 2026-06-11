@@ -306,13 +306,16 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
         Match.objects.filter(pk=match.pk).update(**update_data)
         match.refresh_from_db()
 
-        from predictions.signals import score_match_predictions
+        from predictions.signals import score_match_predictions, score_group_predictions
         score_match_predictions(match)
 
         _propagate_knockout_winner(match)
         _propagate_knockout_loser(match)
         _propagate_group_stage_results(match)
         _propagate_third_place_teams()
+
+        if match.round == 'GS' and match.group_id:
+            score_group_predictions(match.group)
 
         return Response(MatchDetailSerializer(match, context={'request': request}).data)
     

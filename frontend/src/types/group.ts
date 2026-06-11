@@ -13,6 +13,7 @@ export type GroupTeam = {
 };
 
 export type Group = {
+    id: number;
     name: string;
     next_p1: number;
     slot_p1: 'home' | 'away';

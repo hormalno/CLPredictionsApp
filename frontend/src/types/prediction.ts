@@ -53,6 +53,16 @@ export type MatchUserPrediction = {
     is_finished: boolean;
 }
 
+export type GroupPrediction = {
+    id: number;
+    group: number;
+    group_name: string;
+    group_winner_predict: import('./team').Team;
+    group_winner_correct: boolean | null;
+    points: number;
+    locked: boolean;
+};
+
 export type KnockoutMatchUserPrediction = {
     id: number;
     username: string;

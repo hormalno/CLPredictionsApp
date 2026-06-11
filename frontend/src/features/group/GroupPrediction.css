@@ -1,0 +1,84 @@
+.group-prediction-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+}
+
+.group-prediction-btn {
+    gap: var(--spacing-xs);
+    display: flex;
+    width: 100%;
+    padding: var(--spacing-sm);
+    align-items: center;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    color: #ffffff;
+    text-align: left;
+}
+
+.group-prediction-btn:hover:not(:disabled) {
+    background: color-mix(in oklab, var(--color-primary) 8%, transparent);
+    border-color: color-mix(in oklab, var(--color-primary) 30%, transparent);
+}
+
+.group-prediction-btn.pending {
+    background: color-mix(in srgb, #f59e0b 12%, transparent);
+    border-color: #f59e0b;
+    font-weight: var(--font-weight-heading);
+}
+
+.group-prediction-btn.winner {
+    background: color-mix(in srgb, #22c55e 12%, transparent);
+    border-color: #22c55e;
+    font-weight: var(--font-weight-heading);
+}
+
+.group-prediction-btn.correct {
+    background: color-mix(in srgb, #22c55e 12%, transparent);
+    border-color: #22c55e;
+    font-weight: var(--font-weight-heading);
+}
+
+.group-prediction-btn.incorrect {
+    background: color-mix(in srgb, #ef4444 10%, transparent);
+    border-color: #ef4444;
+    font-weight: var(--font-weight-heading);
+}
+
+.group-prediction-btn:disabled {
+    cursor: default;
+}
+
+.group-prediction-btn-icon {
+    width: 18px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.group-prediction-btn-icon:last-child {
+    justify-content: flex-end;
+}
+
+.group-prediction-btn .group-team {
+    color: #ffffff;
+    justify-content: center;
+    font-size: var(--font-size-base);
+    flex: 1;
+}
+
+.group-prediction-btn .group-team .team-logo {
+    width: 28px;
+    height: 28px;
+}
+
+.group-prediction-btn .group-team .team-logo img {
+    width: 24px;
+    height: 24px;
+}

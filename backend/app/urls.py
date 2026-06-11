@@ -30,12 +30,16 @@ from predictions.views import (
     KnockoutPredictionsPerMatchListView,
     MatchesUserScoresView,
     PredictionsPerMatchListView,
+    SubmitGroupPredictionView,
     SubmitKnockoutPredictionView,
     SubmitPredictionView,
     SubmitTopScorerPredictionView,
+    SubmitTopTeamPredictionView,
+    UserGroupPredictionsView,
     UserKnockoutPredictionsView,
     UserPredictionsView,
     UserTopScorerPredictionView,
+    UserTopTeamPredictionView,
 )
 
 router = DefaultRouter()
@@ -60,6 +64,10 @@ urlpatterns = [
     path('api/predictions/knockout/me/', UserKnockoutPredictionsView.as_view(), name='user_knockout_predictions'),
     path('api/predictions/top-scorer/submit/', SubmitTopScorerPredictionView.as_view(), name='submit_top_scorer_prediction'),
     path('api/predictions/top-scorer/me/', UserTopScorerPredictionView.as_view(), name='user_top_scorer_prediction'),
+    path('api/predictions/group/submit/', SubmitGroupPredictionView.as_view(), name='submit_group_prediction'),
+    path('api/predictions/group/me/', UserGroupPredictionsView.as_view(), name='user_group_predictions'),
+    path('api/predictions/top-team/submit/', SubmitTopTeamPredictionView.as_view(), name='submit_top_team_prediction'),
+    path('api/predictions/top-team/me/', UserTopTeamPredictionView.as_view(), name='user_top_team_prediction'),
     path('api/teams/', TeamListView.as_view(), name='teams_list'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]

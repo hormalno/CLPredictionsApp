@@ -43,4 +43,23 @@ export type TopScorerPrediction = {
 export const getUserTopScorerPrediction = (): Promise<{ prediction: TopScorerPrediction | null; tournament_locked: boolean }> =>
     client.get('/predictions/top-scorer/me/').then(res => res.data);
 
+export type TopTeamPrediction = {
+    id: number;
+    team: import('../types').Team;
+    team_correct: boolean | null;
+    points: number;
+};
+
+export const submitTopTeamPrediction = (teamId: number) =>
+    client.post('/predictions/top-team/submit/', { team: teamId });
+
+export const getUserTopTeamPrediction = (): Promise<{ prediction: TopTeamPrediction | null; tournament_locked: boolean }> =>
+    client.get('/predictions/top-team/me/').then(res => res.data);
+
+export const getUserGroupPredictions = (): Promise<import('../types').GroupPrediction[]> =>
+    client.get('/predictions/group/me/').then(res => res.data);
+
+export const submitGroupPrediction = (groupId: number, teamId: number) =>
+    client.post('/predictions/group/submit/', { group: groupId, group_winner_predict: teamId });
+
 

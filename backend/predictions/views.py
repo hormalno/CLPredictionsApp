@@ -5,18 +5,22 @@ from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from predictions.models import KnockoutPrediction, MatchPrediction, TopScorerPrediction
+from predictions.models import GroupPrediction, KnockoutPrediction, MatchPrediction, TopScorerPrediction, TopTeamPrediction
 from predictions.serializers import (
     KnockoutPredictionPerMatchSerializer,
     KnockoutUserScoreSerializer,
     MatchesUserScoreSerializer,
     MatchPredictionSerializer,
+    SubmitGroupPredictionSerializer,
     SubmitKnockoutPredictionSerializer,
     SubmitPredictionSerializer,
     SubmitTopScorerPredictionSerializer,
+    SubmitTopTeamPredictionSerializer,
+    UserGroupPredictionSerializer,
     UserKnockoutPredictionSerializer,
     UserMatchPredictionSerializer,
     UserTopScorerPredictionSerializer,
+    UserTopTeamPredictionSerializer,
 )
 
 
@@ -146,7 +150,7 @@ class SubmitTopScorerPredictionView(APIView):
 
     def post(self, request):
         from matches.models import Match
-        if Match.objects.filter(round='GS', is_finished=True).exists():
+        if Match.objects.filter(is_finished=True).exists():
             return Response({'detail': 'Top scorer predictions are locked once the tournament has started.'}, status=403)
 
         serializer = SubmitTopScorerPredictionSerializer(data=request.data)
@@ -164,11 +168,80 @@ class UserTopScorerPredictionView(APIView):
 
     def get(self, request):
         from matches.models import Match
-        locked = Match.objects.filter(round='GS', is_finished=True).exists()
+        locked = Match.objects.filter(is_finished=True).exists()
         try:
             prediction = TopScorerPrediction.objects.select_related('player').get(user=request.user)
             data = UserTopScorerPredictionSerializer(prediction).data
         except TopScorerPrediction.DoesNotExist:
+            data = None
+        return Response({'prediction': data, 'tournament_locked': locked})
+
+
+class SubmitGroupPredictionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from matches.models import Match
+        serializer = SubmitGroupPredictionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        if Match.objects.filter(is_finished=True).exists():
+            return Response(
+                {'detail': 'Group predictions are locked once the tournament has started.'},
+                status=403,
+            )
+
+        group = serializer.validated_data['group']
+
+        team = serializer.validated_data['group_winner_predict']
+        GroupPrediction.objects.update_or_create(
+            group=group, user=request.user,
+            defaults={'group_winner_predict': team},
+        )
+        return Response({'status': 'saved'}, status=201)
+
+
+class UserGroupPredictionsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        predictions = (
+            GroupPrediction.objects
+            .filter(user=request.user)
+            .select_related('group', 'group_winner_predict')
+            .order_by('group__name')
+        )
+        return Response(UserGroupPredictionSerializer(predictions, many=True).data)
+
+
+class SubmitTopTeamPredictionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from matches.models import Match
+        if Match.objects.filter(is_finished=True).exists():
+            return Response({'detail': 'Top team predictions are locked once the tournament has started.'}, status=403)
+
+        serializer = SubmitTopTeamPredictionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        team = serializer.validated_data['team']
+        TopTeamPrediction.objects.update_or_create(
+            user=request.user,
+            defaults={'team': team},
+        )
+        return Response({'status': 'saved'}, status=201)
+
+
+class UserTopTeamPredictionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        from matches.models import Match
+        locked = Match.objects.filter(is_finished=True).exists()
+        try:
+            prediction = TopTeamPrediction.objects.select_related('team').get(user=request.user)
+            data = UserTopTeamPredictionSerializer(prediction).data
+        except TopTeamPrediction.DoesNotExist:
             data = None
         return Response({'prediction': data, 'tournament_locked': locked})
 

@@ -7331,11 +7331,11 @@ class Command(BaseCommand):
                 continue
 
             player, created = Player.objects.update_or_create(
-                name=data['name'],
                 team=team,
+                jersey_number=data['jersey_number'],
                 defaults={
+                    'name': data['name'],
                     'position': data['position'],
-                    'jersey_number': data['jersey_number'],
                 },
             )
             status = 'created' if created else 'updated'

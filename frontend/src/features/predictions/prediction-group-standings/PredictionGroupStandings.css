@@ -1,0 +1,27 @@
+.group-standings-section {
+    padding: var(--spacing-2xl) 0 var(--spacing-4xl);
+}
+
+.group-standings-container {
+    margin: 0 auto;
+    padding: 0 var(--spacing-xl);
+    max-width: var(--content-max-width);
+}
+
+.group-predictions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+}
+
+@media (max-width: 1024px) {
+    .group-predictions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .group-predictions-grid {
+        grid-template-columns: 1fr;
+    }
+}
