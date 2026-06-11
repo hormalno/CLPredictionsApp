@@ -198,17 +198,23 @@ const PredictionBracket = () => {
                                             <div className="third-place-section">
                                                 <span className="third-place-label">3rd Place</span>
                                                 <div className="third-place-match-wrapper">
-                                                    {(matchesByRound['3P'] ?? []).map(({ match, prediction }) =>
-                                                        renderKnockoutMatches(
-                                                            {
-                                                                ...match,
-                                                                home_team: match.home_team ?? sf1Loser,
-                                                                away_team: match.away_team ?? sf2Loser,
-                                                            },
-                                                            prediction,
-                                                            '3P'
-                                                        )
-                                                    )}
+                                                    {(matchesByRound['3P'] ?? []).map(({ match, prediction }) => {
+                                                        const patchedMatch = {
+                                                            ...match,
+                                                            home_team: sf1Loser ?? match.home_team,
+                                                            away_team: sf2Loser ?? match.away_team,
+                                                        };
+                                                        const patchedPrediction = prediction ? {
+                                                            ...prediction,
+                                                            predicted_home_team: sf1Loser ?? prediction.predicted_home_team,
+                                                            predicted_away_team: sf2Loser ?? prediction.predicted_away_team,
+                                                        } : prediction;
+                                                        return (
+                                                            <div key={`${sf1Loser?.id}-${sf2Loser?.id}`}>
+                                                                {renderKnockoutMatches(patchedMatch, patchedPrediction, '3P')}
+                                                            </div>
+                                                        );
+                                                    })}
                                                 </div>
                                             </div>
                                         )}
