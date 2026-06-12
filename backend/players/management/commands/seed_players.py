@@ -3,6 +3,32 @@ from players.models import Player
 from teams.models import Team
 
 PLAYERS = [
+    {"name": "Raul Rangel", "position": "GK", "jersey_number": 1, "team": "Mexico"},
+{"name": "Jorge Sanchez", "position": "DF", "jersey_number": 2, "team": "Mexico"},
+{"name": "Cesar Montes", "position": "DF", "jersey_number": 3, "team": "Mexico"},
+{"name": "Edson Alvarez", "position": "DF", "jersey_number": 4, "team": "Mexico"},
+{"name": "Johan Vasquez", "position": "DF", "jersey_number": 5, "team": "Mexico"},
+{"name": "Erik Lira", "position": "MF", "jersey_number": 6, "team": "Mexico"},
+{"name": "Luis Romo", "position": "MF", "jersey_number": 7, "team": "Mexico"},
+{"name": "Alvaro Fidalgo", "position": "MF", "jersey_number": 8, "team": "Mexico"},
+{"name": "Raul Jimenez", "position": "FW", "jersey_number": 9, "team": "Mexico"},
+{"name": "Alexis Vega", "position": "FW", "jersey_number": 10, "team": "Mexico"},
+{"name": "Santiago Gimenez", "position": "FW", "jersey_number": 11, "team": "Mexico"},
+{"name": "Carlos Acevedo", "position": "GK", "jersey_number": 12, "team": "Mexico"},
+{"name": "Guillermo Ochoa", "position": "GK", "jersey_number": 13, "team": "Mexico"},
+{"name": "Armando Gonzalez", "position": "FW", "jersey_number": 14, "team": "Mexico"},
+{"name": "Israel Reyes", "position": "DF", "jersey_number": 15, "team": "Mexico"},
+{"name": "Julian Quinones", "position": "FW", "jersey_number": 16, "team": "Mexico"},
+{"name": "Orbelin Pineda", "position": "MF", "jersey_number": 17, "team": "Mexico"},
+{"name": "Obed Vargas", "position": "MF", "jersey_number": 18, "team": "Mexico"},
+{"name": "Gilberto Mora", "position": "MF", "jersey_number": 19, "team": "Mexico"},
+{"name": "Mateo Chavez", "position": "DF", "jersey_number": 20, "team": "Mexico"},
+{"name": "Cesar Huerta", "position": "FW", "jersey_number": 21, "team": "Mexico"},
+{"name": "Guillermo Martinez", "position": "FW", "jersey_number": 22, "team": "Mexico"},
+{"name": "Jesus Gallardo", "position": "DF", "jersey_number": 23, "team": "Mexico"},
+{"name": "Luis Chavez", "position": "MF", "jersey_number": 24, "team": "Mexico"},
+{"name": "Roberto Alvarado", "position": "FW", "jersey_number": 25, "team": "Mexico"},
+{"name": "Brian Gutierrez", "position": "MF", "jersey_number": 26, "team": "Mexico"},
   {
     "team": "Czechia",
     "jersey_number": 1,
@@ -2338,157 +2364,157 @@ PLAYERS = [
     "name": "Alejandro Zendejas"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 1,
     "position": "GK",
     "name": "Eloy Room"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 2,
     "position": "DF",
     "name": "Shurandy Sambo"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 3,
     "position": "DF",
     "name": "Jurien Gaari"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 4,
     "position": "DF",
     "name": "Roshon van Eijma"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 5,
     "position": "DF",
     "name": "Sherel Floranus"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 6,
     "position": "MF",
     "name": "Godfried Roemeratoe"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 7,
     "position": "MF",
     "name": "Juninho Bacuna"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 8,
     "position": "MF",
     "name": "Livano Comenencia"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 9,
     "position": "FW",
     "name": "Jurgen Locadia"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 10,
     "position": "MF",
     "name": "Leandro Bacuna (C)"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 11,
     "position": "FW",
     "name": "Jeremy Antonisse"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 12,
     "position": "FW",
     "name": "Sontje Hansen"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 13,
     "position": "FW",
     "name": "Tyrese Noslin"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 14,
     "position": "FW",
     "name": "Kenji Gorre"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 15,
     "position": "MF",
     "name": "Ar'jany Martha"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 16,
     "position": "FW",
     "name": "Jearl Margaritha"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 17,
     "position": "FW",
     "name": "Brandley Kuwas"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 18,
     "position": "DF",
     "name": "Armando Obispo"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 19,
     "position": "FW",
     "name": "Gervane Kastaneer"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 20,
     "position": "DF",
     "name": "Joshua Brenet"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 21,
     "position": "MF",
     "name": "Tahith Chong"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 22,
     "position": "MF",
     "name": "Kevin Felida"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 23,
     "position": "DF",
     "name": "Riechedly Bazoer"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 24,
     "position": "DF",
     "name": "Deveron Fonville"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 25,
     "position": "GK",
     "name": "Tyrick Bodak"
   },
   {
-    "team": "Curacao",
+    "team": "Curaçao",
     "jersey_number": 26,
     "position": "GK",
     "name": "Trevor Doornbusch"
@@ -4210,157 +4236,157 @@ PLAYERS = [
     "name": "Tommy Smith"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 1,
     "position": "GK",
     "name": "Vozinha"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 2,
     "position": "DF",
     "name": "Stopira"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 3,
     "position": "DF",
     "name": "Diney"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 4,
     "position": "DF",
     "name": "Roberto Lopes"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 5,
     "position": "DF",
     "name": "Logan Costa"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 6,
     "position": "MF",
     "name": "Kevin Pina"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 7,
     "position": "MF",
     "name": "Jovane Cabral"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 8,
     "position": "MF",
     "name": "Joao Paulo"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 9,
     "position": "FW",
     "name": "Gilson Benchimol"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 10,
     "position": "MF",
     "name": "Jamiro Monteiro"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 11,
     "position": "MF",
     "name": "Garry Rodrigues"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 12,
     "position": "GK",
     "name": "Marcio Rosa"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 13,
     "position": "DF",
     "name": "Sidny Lopes Cabral"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 14,
     "position": "MF",
     "name": "Deroy Duarte"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 15,
     "position": "MF",
     "name": "Laros Duarte"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 16,
     "position": "MF",
     "name": "Yannick Semedo"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 17,
     "position": "MF",
     "name": "Willy Semedo"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 18,
     "position": "MF",
     "name": "Telmo Arcanjo"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 19,
     "position": "FW",
     "name": "Dailon Livramento"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 20,
     "position": "FW",
     "name": "Ryan Mendes (C)"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 21,
     "position": "MF",
     "name": "Nuno da Costa"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 22,
     "position": "DF",
     "name": "Steven Moreira"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 23,
     "position": "GK",
     "name": "CJ dos Santos"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 24,
     "position": "DF",
     "name": "Wagner Pina"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 25,
     "position": "DF",
     "name": "Kelvin Pires"
   },
   {
-    "team": "Cape Verde",
+    "team": "Cabo Verde",
     "jersey_number": 26,
     "position": "MF",
     "name": "Helio Varela"
@@ -6226,157 +6252,157 @@ PLAYERS = [
     "name": "Andres Gomez"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 1,
     "position": "GK",
     "name": "Lionel Mpasi"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 2,
     "position": "DF",
     "name": "Aaron Wan-Bissaka"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 3,
     "position": "DF",
     "name": "Steve Kapuadi"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 4,
     "position": "DF",
     "name": "Axel Tuanzebe"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 5,
     "position": "DF",
     "name": "Dylan Batubinsika"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 6,
     "position": "MF",
     "name": "Ngal'ayel Mukau"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 7,
     "position": "MF",
     "name": "Nathanael Mbuku"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 8,
     "position": "MF",
     "name": "Samuel Moutoussamy"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 9,
     "position": "FW",
     "name": "Brian Cipenga"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 10,
     "position": "MF",
     "name": "Theo Bongonda"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 11,
     "position": "FW",
     "name": "Gael Kakuta"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 12,
     "position": "DF",
     "name": "Joris Kayembe"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 13,
     "position": "FW",
     "name": "Meschak Elia"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 14,
     "position": "MF",
     "name": "Noah Sadiki"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 15,
     "position": "MF",
     "name": "Aaron Tshibola"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 16,
     "position": "GK",
     "name": "Timothy Fayulu"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 17,
     "position": "FW",
     "name": "Cedric Bakambu"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 18,
     "position": "MF",
     "name": "Charles Pickel"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 19,
     "position": "FW",
     "name": "Fiston Mayele"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 20,
     "position": "FW",
     "name": "Yoane Wissa"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 21,
     "position": "GK",
     "name": "Matthieu Epolo"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 22,
     "position": "DF",
     "name": "Chancel Mbemba (C)"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 23,
     "position": "FW",
     "name": "Simon Banza"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 24,
     "position": "DF",
     "name": "Gedeon Kalulu"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 25,
     "position": "MF",
     "name": "Edo Kayembe"
   },
   {
-    "team": "Congo",
+    "team": "DR Congo",
     "jersey_number": 26,
     "position": "DF",
     "name": "Arthur Masuaku"

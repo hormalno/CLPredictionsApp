@@ -7,6 +7,7 @@ class GoalInline(admin.TabularInline):
     model = Goal
     extra = 1
     fields = ['team_scored', 'goalscorer', 'assist_player', 'minute', 'is_penalty']
+    autocomplete_fields = ['goalscorer', 'assist_player']
 
 def close_match_predictions(modeladmin, request, queryset):
     mp = queryset.filter(is_closed=False).update(is_closed=True)
