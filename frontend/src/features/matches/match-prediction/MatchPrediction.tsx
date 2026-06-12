@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formatMatchDate } from '../../../utils/formatMatchDate';
 import { submitPrediction } from '../../../api';
 import { CalendarIcon, SaveIcon } from '../../../components/icons/Icons';
@@ -19,6 +19,14 @@ const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
     const [homeScore, setHomeScore] = useState<string>(prediction ? String(prediction.home_team_score) : '');
     const [awayScore, setAwayScore] = useState<string>(prediction ? String(prediction.away_team_score) : '');
     const [hasPrediction, setHasPrediction] = useState(!!prediction);
+
+    useEffect(() => {
+        if (prediction) {
+            setHomeScore(String(prediction.home_team_score));
+            setAwayScore(String(prediction.away_team_score));
+            setHasPrediction(true);
+        }
+    }, [prediction]);
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
