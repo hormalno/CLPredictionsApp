@@ -23,7 +23,7 @@
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-sm);
-  color: var(--color-on-surface-secondary);
+  color: #000;
   font-size: 13px;
 }
 
@@ -42,7 +42,7 @@
   align-items: center;
   gap: var(--spacing-xs, 4px);
   font-size: 13px;
-  color: var(--color-on-surface-secondary);
+  color: #000;
   white-space: nowrap;
 }
 
