@@ -167,7 +167,7 @@
 .jersey-number-text {
   position: absolute;
   color: #ffffff;
-  font-size: 10px;
+  font-size: 8px;
   font-family: var(--font-family-heading);
   font-weight: var(--font-weight-heading);
   line-height: 1;
@@ -180,14 +180,25 @@
 }
 
 .player-name {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
   color: #ffffff;
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
 }
 
+.player-name-flag {
+  width: 28px;
+  height: 20px;
+  border-radius: var(--border-radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .player-position {
-  color: #ffffff;
-  font-size: var(--font-size-xs);
+  color: var(--color-on-surface-secondary);
+  font-size: 10px;
   text-transform: uppercase;
 }
 

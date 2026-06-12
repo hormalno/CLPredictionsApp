@@ -111,3 +111,33 @@
   flex-direction: column;
   margin-top: var(--spacing-sm);
 }
+
+.scorers-row {
+  display: flex;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-4xl) var(--spacing-xl);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.scorers-row > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.scorers-row .goalscorers-table-section {
+  padding: 0;
+}
+
+.scorers-row .top-goalscorers-table-container {
+  max-width: none;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .scorers-row {
+    flex-direction: column;
+  }
+}

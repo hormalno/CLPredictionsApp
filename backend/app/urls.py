@@ -25,7 +25,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from matches.views import MatchViewSet
 from groups.views import GroupViewSet
 from players.views import PlayerViewSet, TopGoalScorersView
-from teams.views import TeamListView
+from teams.views import TeamListView, TopTeamGoalStatsView
 from predictions.views import (
     KnockoutPredictionsPerMatchListView,
     MatchesUserScoresView,
@@ -69,5 +69,6 @@ urlpatterns = [
     path('api/predictions/top-team/submit/', SubmitTopTeamPredictionView.as_view(), name='submit_top_team_prediction'),
     path('api/predictions/top-team/me/', UserTopTeamPredictionView.as_view(), name='user_top_team_prediction'),
     path('api/teams/', TeamListView.as_view(), name='teams_list'),
+    path('api/teams/top-scorers/', TopTeamGoalStatsView.as_view(), name='top_team_goal_stats'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]

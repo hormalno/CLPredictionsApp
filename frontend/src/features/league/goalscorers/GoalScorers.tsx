@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getTopGoalScorers } from '../../../api/players';
 import { JerseyIcon } from '../../../components/icons/Icons';
-import PlayerTeam from '../../teams/player-team/PlayerTeam';
 import type { TopScorerEntry } from '../../../types';
 import './GoalScorers.css';
 
@@ -45,9 +44,8 @@ const GoalScorers = () => {
                     <table className="goalscorers-table">
                         <thead>
                             <tr>
-                                <th className="col-rank">Ranking</th>
+                                <th className="col-rank">Pos</th>
                                 <th>Player</th>
-                                <th>Team</th>
                                 <th className="col-goals">Goals</th>
                                 <th className="col-assists">Assists</th>
                             </tr>
@@ -63,16 +61,24 @@ const GoalScorers = () => {
                                     <td>
                                         <div className="player-info">
                                             <div className="jersey-number">
-                                                <JerseyIcon size={36} color="#ffffff" />
+                                                <JerseyIcon size={32} color="#ffffff" />
                                                 <span className="jersey-number-text">{player.jersey_number}</span>
                                             </div>
                                             <div className="player-meta">
-                                                <span className="player-name">{player.name}</span>
+                                                <span className="player-name">
+                                                    {player.name}
+                                                    {player.team && (
+                                                        <img
+                                                            src={player.team.logo}
+                                                            alt={player.team.name}
+                                                            className="player-name-flag"
+                                                        />
+                                                    )}
+                                                </span>
                                                 <span className="player-position">{getPositionFull(player.position)}</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td><PlayerTeam team={player.team} /></td>
                                     <td className="highlight-cell col-goals">{player.goal_count}</td>
                                     <td className="col-assists">{player.assist_count}</td>
                                 </tr>

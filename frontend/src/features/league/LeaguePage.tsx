@@ -6,13 +6,14 @@ import Groups from './groups/Groups';
 import Bracket from './knockout/Bracket';
 import './LeaguePage.css';
 import GoalScorers from './goalscorers/GoalScorers';
+import TeamMostGoals from './team-most-goals/TeamMostGoals';
 
 
 type Tab = 'fixtures' | 'group' | 'knockout' | 'goalscorers';
 
 const LeaguePage = () => {
     const [activeTab, setActiveTab] = useState<Tab>('fixtures');
-    const [refreshKeys, setRefreshKeys] = useState<Record<Tab, number>>({ fixtures: 0, group: 0, knockout: 0, goalscorers: 0  });
+    const [refreshKeys, setRefreshKeys] = useState<Record<Tab, number>>({ fixtures: 0, group: 0, knockout: 0, goalscorers: 0 });
 
     const handleTabClick = (tab: Tab) => {
         setActiveTab(tab);
@@ -21,7 +22,7 @@ const LeaguePage = () => {
 
     return (
         <>
-          <Navigation />            
+          <Navigation />
           <div className="">
             <section className="league-tabs-section-header">
               <div className="league-tabs-header">
@@ -64,14 +65,14 @@ const LeaguePage = () => {
                     Knockout Phase
                   </button>
                   <button
-                    id="tab-knockout"
+                    id="tab-goalscorers"
                     role="tab"
                     aria-controls="panel-goalscorers"
                     aria-selected={activeTab === 'goalscorers'}
                     className={`league-tabs-btn${activeTab === 'goalscorers' ? ' active' : ''}`}
                     onClick={() => handleTabClick('goalscorers')}
                   >
-                    Top Goalscorers
+                    Goalscorers
                   </button>
                 </div>
               </div>
@@ -118,7 +119,10 @@ const LeaguePage = () => {
                   className={`league-tabs-panel${activeTab === 'goalscorers' ? ' active' : ''}`}
                   hidden={activeTab !== 'goalscorers'}
                 >
-                  <GoalScorers />
+                  <div className="scorers-row">
+                    <GoalScorers key={refreshKeys.goalscorers} />
+                    <TeamMostGoals key={refreshKeys.goalscorers + 1} />
+                  </div>
                 </div>
               </div>
             </section>
