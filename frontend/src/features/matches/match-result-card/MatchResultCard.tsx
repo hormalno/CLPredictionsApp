@@ -19,7 +19,7 @@ const MatchResultCard = ({match, userScores} : Props) => {
                 <span>{match.away_team?.short_name}</span>
             </div>
             <div className="friend-scores">
-                {userScores && userScores.map(score => (
+                {userScores && userScores.slice(0,2).map(score => (
                     <div className="friend-score-item">
                         <span className="friend-name">{score.username}</span>
                         <span className="friend-points">+{score.points} pts</span>
