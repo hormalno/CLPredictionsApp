@@ -224,9 +224,22 @@
   }
 }
 
+.goalscorers-table th .th-short,
+.player-position .pos-short {
+  display: none;
+}
+
 @media (max-width: 767px) {
   .col-country {
     display: none;
+  }
+
+  .goalscorers-table th .th-full {
+    display: none;
+  }
+
+  .goalscorers-table th .th-short {
+    display: inline;
   }
 
   .rank-badge {
@@ -235,10 +248,23 @@
     font-size: var(--font-size-xs);
   }
 
+  /* Hide the jersey number entirely on mobile */
   .jersey-number {
-    height: 28px;
-    font-size: var(--font-size-xs);
-    min-width: 28px;
+    display: none;
+  }
+
+  /* Show only the top 5 rows on mobile (applies to both goalscorers and teams tables) */
+  .goalscorers-table tbody tr:nth-child(n+6) {
+    display: none;
+  }
+
+  /* Short position code instead of the full word */
+  .player-position .pos-full {
+    display: none;
+  }
+
+  .player-position .pos-short {
+    display: inline;
   }
 }
 

@@ -1,0 +1,19 @@
+.league-tabs-grid.goalscorer-grid {
+  flex-direction: row;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .league-tabs-grid.goalscorer-grid {
+    flex-direction: column;
+  }
+
+  /* Stack both prediction cards on the same page background:
+     drop each container's own surface fill and the negative margin that
+     pulled the first card up onto the header's gradient. */
+  .goalscorer-grid .prediction-container {
+    background: transparent;
+    margin-top: 0;
+    padding: 0 var(--spacing-lg);
+  }
+}

@@ -34,6 +34,12 @@
   margin-right: var(--spacing-xs);
 }
 
+.match-info-venue {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
 .match-scoreline-wrapper {
   flex: 0 0 70%;
   display: flex;
@@ -146,4 +152,73 @@
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-xs);
   text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .match-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+  }
+
+  .match-info,
+  .match-scoreline-wrapper,
+  .match-actions {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .match-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .match-info-venue {
+    flex-direction: row;
+    gap: var(--spacing-sm);
+  }
+
+  .match-info-venue > div + div::before {
+    content: '·';
+    margin-right: var(--spacing-sm);
+  }
+
+  .match-round,
+  .match-scoreline-bottom {
+    position: static;
+    transform: none;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    justify-content: center;
+  }
+
+  .match-round {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .match-scoreline-bottom {
+    margin-top: var(--spacing-xs);
+  }
+
+  .match-scoreline {
+    gap: var(--spacing-xs);
+  }
+
+  .score-result {
+    border-width: 2px;
+    padding: var(--spacing-xs);
+    margin: 0 var(--spacing-md);
+  }
+
+  .score-box {
+    width: 22px;
+    font-size: var(--font-size-base);
+  }
+
+  .score-separator {
+    width: 10px;
+    font-size: var(--font-size-base);
+  }
 }

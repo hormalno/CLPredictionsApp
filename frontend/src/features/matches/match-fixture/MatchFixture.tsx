@@ -25,8 +25,10 @@ const MatchFixture = ({ match, prediction, children }: Props) => {
                         </span>
                         <span>{formatMatchDate(match.date)}</span>
                     </div>
-                    <div>{match.stadium}</div>
-                    <div>{match.location}</div>
+                    <div className="match-info-venue">
+                        <div>{match.stadium}</div>
+                        <div>{match.location}</div>
+                    </div>
                 </div>
                 <div className="match-scoreline-wrapper">
                     <div className='match-round'>

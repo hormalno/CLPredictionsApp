@@ -165,18 +165,42 @@
 }
 
 @media (max-width: 767px) {
-  .bracket-sticky-header {
+  /* Scoped to .tournament-bracket--paged so these win over the duplicate global
+     .bracket-* rules in Bracket.css / AdminBracket.css regardless of bundle order */
+  .tournament-bracket--paged .bracket-sticky-header {
     top: 76px;
   }
 
-  .bracket-nav-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 1rem;
+  /* One round per screen: collapse the 3-column grid to a single column */
+  .tournament-bracket--paged .tournament-prediction-bracket-grid {
+    grid-template-columns: 32px 1fr 32px;
+    gap: var(--spacing-md);
   }
 
-  .tournament-prediction-bracket-grid {
-    gap: var(--spacing-lg);
+  /* Full-width nav: two wide buttons spanning the screen, title filling the middle */
+  .tournament-bracket--paged .bracket-sticky-header-inner {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .tournament-bracket--paged .bracket-nav-btn {
+    flex: 1;
+    width: auto;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+
+  .tournament-bracket--paged .bracket-sticky-header .section-subtitle {
+    flex: 2;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .tournament-bracket--paged .bracket-round {
+    min-width: 0;
   }
 }
 

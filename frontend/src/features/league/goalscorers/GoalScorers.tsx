@@ -46,8 +46,8 @@ const GoalScorers = () => {
                             <tr>
                                 <th className="col-rank">Pos</th>
                                 <th>Player</th>
-                                <th className="col-goals">Goals</th>
-                                <th className="col-assists">Assists</th>
+                                <th className="col-goals"><span className="th-full">Goals</span><span className="th-short">G</span></th>
+                                <th className="col-assists"><span className="th-full">Assists</span><span className="th-short">A</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,7 +75,10 @@ const GoalScorers = () => {
                                                         />
                                                     )}
                                                 </span>
-                                                <span className="player-position">{getPositionFull(player.position)}</span>
+                                                <span className="player-position">
+                                                    <span className="pos-full">{getPositionFull(player.position)}</span>
+                                                    <span className="pos-short">{player.position}</span>
+                                                </span>
                                             </div>
                                         </div>
                                     </td>

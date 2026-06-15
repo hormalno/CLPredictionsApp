@@ -17,7 +17,9 @@ const ROUNDS = [
     { key: 'F',   label: 'Final' },
 ];
 
-const WINDOW = 3;
+const DESKTOP_WINDOW = 3;
+const MOBILE_WINDOW = 1;
+const MOBILE_BREAKPOINT = 767;
 
 type MatchWithPrediction = {
     match: Match;
@@ -56,9 +58,18 @@ const PredictionBracket = () => {
     const [groups, setGroups] = useState<Group[]>([]);
     const [offset, setOffset] = useState(0);
     const [dir, setDir] = useState<'forward' | 'backward'>('forward');
+    const [windowSize, setWindowSize] = useState(() =>
+        typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_WINDOW : DESKTOP_WINDOW
+    );
     const sectionRef = useRef<HTMLElement>(null);
     const isFirstRender = useRef(true);
     const matchesRef = useRef<Match[]>([]);
+
+    useEffect(() => {
+        const onResize = () => setWindowSize(window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_WINDOW : DESKTOP_WINDOW);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
 
     const mergePredictions = (matches: Match[], predictions: KnockoutPredictionType[]) => {
         const predByMatch = new Map(predictions.map(p => [p.match, p]));
@@ -112,9 +123,14 @@ const PredictionBracket = () => {
     );
 
     const activeRounds = ROUNDS.filter(r => matchesByRound[r.key]?.length);
+
+    useEffect(() => {
+        setOffset(o => Math.min(o, Math.max(0, activeRounds.length - windowSize)));
+    }, [windowSize, activeRounds.length]);
+
     const canPrev = offset > 0;
-    const canNext = offset + WINDOW < activeRounds.length;
-    const visibleRounds = activeRounds.slice(offset, offset + WINDOW);
+    const canNext = offset + windowSize < activeRounds.length;
+    const visibleRounds = activeRounds.slice(offset, offset + windowSize);
 
     useEffect(() => {
         if (isFirstRender.current) { isFirstRender.current = false; return; }
@@ -146,7 +162,7 @@ const PredictionBracket = () => {
     )
 
     return (
-        <section ref={sectionRef} id="prediction-bracket-section" className="tournament-prediction-bracket">
+        <section ref={sectionRef} id="prediction-bracket-section" className="tournament-prediction-bracket tournament-bracket--paged">
             <div className="bracket-sticky-header">
                 <div className="bracket-sticky-header-inner">
                     <button

@@ -29,3 +29,17 @@
   padding: var(--spacing-sm);
   object-fit: contain;
 }
+
+.header-match-result__team .team-name-short {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .header-match-result__team .team-name-full {
+    display: none;
+  }
+
+  .header-match-result__team .team-name-short {
+    display: inline;
+  }
+}

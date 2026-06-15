@@ -58,8 +58,10 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
                         </span>
                         <span>{formatMatchDate(match.date)}</span>
                     </div>
-                    <div>{match.stadium}</div>
-                    <div>{match.location}</div>
+                    <div className="match-info-venue">
+                        <div>{match.stadium}</div>
+                        <div>{match.location}</div>
+                    </div>
                 </div>
                 <div className="admin-match-input-scoreline-wrapper">
                     <div className='admin-match-input-round'>

@@ -118,11 +118,44 @@
   background-color: color-mix(in srgb, var(--color-accent) 5%, transparent);
 }
 
+.group-table th .th-short {
+  display: none;
+}
+
 @media(max-width: 767px) {
   .group-section-container {
     padding: 0 var(--spacing-lg);
   }
   .group-section-title {
     font-size: var(--font-size-2xl);
+  }
+
+  /* Show Team (2nd), Win/Draw/Loss (4-6), GD (9th) and Points (10th); hide Pos, Played, GF and GA */
+  .group-table th:nth-child(1),
+  .group-table td:nth-child(1),
+  .group-table th:nth-child(3),
+  .group-table td:nth-child(3),
+  .group-table th:nth-child(7),
+  .group-table td:nth-child(7),
+  .group-table th:nth-child(8),
+  .group-table td:nth-child(8) {
+    display: none;
+  }
+
+  .group-table th,
+  .group-table td {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .group-table td.team-cell {
+    width: auto;
+  }
+
+  .group-table th .th-full {
+    display: none;
+  }
+
+  .group-table th .th-short {
+    display: inline;
   }
 }

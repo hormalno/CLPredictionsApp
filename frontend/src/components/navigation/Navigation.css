@@ -67,7 +67,7 @@
 }
  
 .navigation-mobile-toggle {
-  color: var(--color-on-surface);
+  color: var(--color-primary);
   border: none;
   cursor: pointer;
   display: none;
@@ -214,4 +214,32 @@
  
 .navigation-mobile-toggle:hover {
   background-color: var(--color-surface-elevated);
+}
+
+@media (max-width: 767px) {
+  .navigation-links-desktop,
+  .navigation-actions-desktop {
+    display: none;
+  }
+
+  .navigation-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navigation-mobile-overlay.is-open {
+    display: flex;
+  }
+
+  .navigation-bar {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .navigation-mobile-footer .btn {
+    gap: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

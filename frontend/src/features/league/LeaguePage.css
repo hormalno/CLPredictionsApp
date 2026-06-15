@@ -141,3 +141,25 @@
     flex-direction: column;
   }
 }
+
+@media (max-width: 767px) {
+  .league-tabs-nav-wrapper {
+    margin-top: var(--spacing-xl);
+    padding: 0 var(--spacing-lg);
+  }
+
+  .league-tabs-nav {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xs);
+    border-radius: var(--border-radius-card);
+  }
+
+  .league-tabs-btn {
+    padding: var(--spacing-md) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    border-radius: var(--border-radius-control);
+  }
+}

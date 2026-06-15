@@ -30,3 +30,17 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
 }
+
+.next-match-team .team-name-short {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .next-match-team .team-name-full {
+    display: none;
+  }
+
+  .next-match-team .team-name-short {
+    display: inline;
+  }
+}

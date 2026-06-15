@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Navigation from "../../components/navigation/Navigation";
 import Footer from "../../components/footer/Footer";
-import PredictionHeader from "./prediction-header/PredictionHeader";
 import PredictionSummary from "./prediction-summary/PredictionSummary";
 import PredictionSection from "./predictions-section/PredictionSection";
 import PredictionBracket from "./prediction-bracket/PredictionBracket";
@@ -22,7 +21,13 @@ const PredictionPage = () => {
     return (
         <>
             <Navigation />
-            <PredictionHeader>
+            <section className="league-tabs-section-header">
+              <div className="league-tabs-header">
+                <h2 className="section-title">My Predictions</h2>
+                <p className="section-subtitle">
+                  Track your performance and upcoming match forecasts with MatchMates.
+                </p>
+              </div>
               <div className="league-tabs-nav-wrapper">
                 <div role="tablist" className="league-tabs-nav">
                   <button
@@ -67,7 +72,7 @@ const PredictionPage = () => {
                   </button>
                 </div>
               </div>
-            </PredictionHeader>
+            </section>
             <section className="league-tabs-section">
               <div className="league-tabs-content">
                 <div
@@ -113,7 +118,7 @@ const PredictionPage = () => {
                   className={`league-tabs-panel${activeTab === 'goalscorer' ? ' active' : ''}`}
                   hidden={activeTab !== 'goalscorer'}
                 >
-                  <div className="league-tabs-grid" style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                  <div className="league-tabs-grid goalscorer-grid">
                     <PredictGoalscorer />
                     <PredictTeamGoals />
                   </div>

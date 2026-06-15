@@ -28,3 +28,21 @@
   height: 36px;
   object-fit: contain;
 }
+
+.fixture-team-away .team-name-short {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .fixture-team-away {
+    font-size: 18px;
+  }
+
+  .fixture-team-away .team-name-full {
+    display: none;
+  }
+
+  .fixture-team-away .team-name-short {
+    display: inline;
+  }
+}

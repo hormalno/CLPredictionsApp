@@ -65,8 +65,10 @@ const MatchPrediction = ({ match, prediction, onSaved }: Props) => {
                         </span>
                         <span>{formatMatchDate(match.date)}</span>
                     </div>
-                    <div>{match.stadium}</div>
-                    <div>{match.location}</div>
+                    <div className="match-info-venue">
+                        <div>{match.stadium}</div>
+                        <div>{match.location}</div>
+                    </div>
                 </div>
                 <div className="match-prediction-scoreline-wrapper">
                     <div className='match-prediction-round'>

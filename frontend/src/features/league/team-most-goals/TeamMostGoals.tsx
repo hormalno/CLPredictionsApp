@@ -31,7 +31,6 @@ const TeamMostGoals = () => {
                                 <th className="col-rank">Pos</th>
                                 <th>Team</th>
                                 <th className="col-goals">Goals</th>
-                                <th className="col-assists">Assists</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,7 +45,6 @@ const TeamMostGoals = () => {
                                         <PlayerTeam team={team} />
                                     </td>
                                     <td className="highlight-cell col-goals">{team.total_goals}</td>
-                                    <td className="col-assists">{team.total_assists}</td>
                                 </tr>
                             ))}
                         </tbody>

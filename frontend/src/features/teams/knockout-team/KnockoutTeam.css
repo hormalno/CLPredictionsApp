@@ -35,3 +35,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.knockout-team .team-name-short {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .knockout-team .team-name-full {
+    display: none;
+  }
+
+  .knockout-team .team-name-short {
+    display: block;
+  }
+}

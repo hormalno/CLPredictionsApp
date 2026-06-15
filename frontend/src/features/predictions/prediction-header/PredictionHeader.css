@@ -18,3 +18,24 @@
   text-align: center;
   border-radius: var(--border-radius-xl);
 }
+
+@media (max-width: 767px) {
+  .header-section {
+    padding: var(--spacing-md) 0 var(--spacing-sm);
+  }
+
+  .header-section-card {
+    padding: var(--spacing-xs) var(--spacing-md);
+    box-shadow: none;
+    border-radius: var(--border-radius-md);
+  }
+
+  .header-section .hero-title {
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+
+  .header-section .hero-subtitle {
+    display: none;
+  }
+}

@@ -28,3 +28,21 @@
   height: 36px;
   object-fit: contain;
 }
+
+.group-team .team-name-short {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .group-team {
+    font-size: 18px;
+  }
+
+  .group-team .team-name-full {
+    display: none;
+  }
+
+  .group-team .team-name-short {
+    display: inline;
+  }
+}

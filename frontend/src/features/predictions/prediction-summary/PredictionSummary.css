@@ -21,4 +21,19 @@
   letter-spacing: 0.05em;
   margin: var(--spacing-lg) 0 var(--spacing-sm);
 }
+
+@media (max-width: 767px) {
+  .summary-section {
+    padding: var(--spacing-md) 0;
+  }
+
+  .summary-section-container {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .summary-section-grid {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+}
  

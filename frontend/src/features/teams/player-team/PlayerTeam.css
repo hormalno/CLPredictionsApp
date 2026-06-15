@@ -35,3 +35,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.player-team .team-name-short {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .player-team .team-name-full {
+    display: none;
+  }
+
+  .player-team .team-name-short {
+    display: block;
+  }
+}

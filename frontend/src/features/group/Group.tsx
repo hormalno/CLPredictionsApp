@@ -19,14 +19,14 @@ const Group = ({ group }: { group: GroupType }) => {
                     <tr>
                       <th>Pos</th>
                       <th>Team name</th>
-                      <th>Played</th>
-                      <th>Win</th>
-                      <th>Draw</th>
-                      <th>Loss</th>
+                      <th><span className="th-full">Played</span><span className="th-short">P</span></th>
+                      <th><span className="th-full">Win</span><span className="th-short">W</span></th>
+                      <th><span className="th-full">Draw</span><span className="th-short">D</span></th>
+                      <th><span className="th-full">Loss</span><span className="th-short">L</span></th>
                       <th>GF</th>
                       <th>GA</th>
                       <th>GD</th>
-                      <th className="points-col">Points</th>
+                      <th className="points-col"><span className="th-full">Points</span><span className="th-short">Pts</span></th>
                     </tr>
                   </thead>
                   <tbody>

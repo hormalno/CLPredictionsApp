@@ -13,7 +13,14 @@ const KnockoutTeam = ({ team, placeholder }: Props) => {
                 ? <img src={team.logo} alt={team.name} className="knockout-match-card-flag" />
                 : <span className="knockout-match-card-flag-placeholder" />
             }
-            <span className="knockout-match-card-team-name">{team ? team.name : placeholder}</span>
+            {team ? (
+                <>
+                    <span className="knockout-match-card-team-name team-name-full">{team.name}</span>
+                    <span className="knockout-match-card-team-name team-name-short">{team.short_name}</span>
+                </>
+            ) : (
+                <span className="knockout-match-card-team-name">{placeholder}</span>
+            )}
         </div>
     )
 };

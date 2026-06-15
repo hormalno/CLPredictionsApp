@@ -64,3 +64,19 @@
   color: #c9a86c;
   font-weight: var(--font-weight-medium);
 }
+
+@media (max-width: 767px) {
+  .result-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: var(--spacing-sm);
+  }
+
+  .result-card .result-score {
+    font-size: var(--font-size-base);
+  }
+
+  .result-card .friend-score-item {
+    font-size: var(--font-size-xs);
+  }
+}

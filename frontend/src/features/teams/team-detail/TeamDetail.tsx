@@ -12,7 +12,14 @@ const TeamDetail = ({team, placeholder} : Props) => {
             <div className="header-match-result__team-icon">
             {team ? (<img src={team.logo} alt={team.short_name} />) : ''}
             </div>
-            <h1 className="hero-title">{team ? team.name : placeholder}</h1>
+            <h1 className="hero-title">
+                {team ? (
+                    <>
+                        <span className="team-name-full">{team.name}</span>
+                        <span className="team-name-short">{team.short_name}</span>
+                    </>
+                ) : placeholder}
+            </h1>
         </div>
     )
 };

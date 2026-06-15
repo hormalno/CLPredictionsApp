@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../features/auth/useAuth'
-import { TrophyIcon, TrophyFilledIcon, GlobeIcon, UserIcon, MenuIcon, FootballCloseIcon, LogInIcon, LogOutIcon } from '../icons/Icons'
+import { TrophyIcon, TrophyFilledIcon, UserIcon, MenuIcon, FootballCloseIcon, LogInIcon, LogOutIcon } from '../icons/Icons'
 import { Button } from '../button/Button'
 import './Navigation.css'
 
@@ -123,12 +123,12 @@ const Navigation = () => {
           <div id="mobileOverlay" className={`navigation-mobile-overlay${menuOpen ? ' is-open' : ''}`}>
             <div className="navigation-mobile-header">
               <div className="navigation-brand">
-                <a href="Homepage">
+                <Link to="/" onClick={closeMenu}>
                   <div className="navigation-logo-link">
                     <TrophyFilledIcon size={24} className="navigation-icon23" />
-                    <span className="section-title">Predict Mate</span>
+                    <span className="section-title">PredictMate</span>
                   </div>
-                </a>
+                </Link>
               </div>
               <button
                 id="navClose"
@@ -141,38 +141,63 @@ const Navigation = () => {
             </div>
             <div className="navigation-mobile-content">
               <div className="navigation-mobile-links">
+                <Link to="/" onClick={closeMenu}>
+                  <div className="navigation-mobile-link">
+                    <span>Home</span>
+                  </div>
+                </Link>
                 <Link to="/predictions" onClick={closeMenu}>
                   <div className="navigation-mobile-link">
                     <span>My Predictions</span>
                   </div>
                 </Link>
-                <a href="Homepage" onClick={closeMenu}>
+                <Link to="/league" onClick={closeMenu}>
                   <div className="navigation-mobile-link">
                     <span>League</span>
                   </div>
-                </a>
-                <a href="Homepage" onClick={closeMenu}>
+                </Link>
+                <Link to="/leaderboard" onClick={closeMenu}>
                   <div className="navigation-mobile-link">
                     <span>Leaderboard</span>
                   </div>
-                </a>
-                <hr className="navigation-divider"></hr>
-                <Link to="/profile-settings" onClick={closeMenu}>
-                  <div className="navigation-mobile-link">
-                    <span>My Profile</span>
-                  </div>
                 </Link>
-                <div className="navigation-mobile-link navigation-mobile-lang">
-                  <GlobeIcon size={20} />
-                  <span>Language: English</span>
-                </div>
+                {isSuperuser && (
+                  <Link to="/admin" onClick={closeMenu}>
+                    <div className="navigation-mobile-link">
+                      <span>Admin</span>
+                    </div>
+                  </Link>
+                )}
+                {isAuthenticated && (
+                  <>
+                    <hr className="navigation-divider"></hr>
+                    <Link to="/profile" onClick={closeMenu}>
+                      <div className="navigation-mobile-link">
+                        <UserIcon size={22} />
+                        <span>Welcome, {username}!</span>
+                      </div>
+                    </Link>
+                  </>
+                )}
               </div>
               <div className="navigation-mobile-footer">
-                <Link to="/profile-settings">
-                  <div className="btn-primary btn-lg btn navigation-full-width">
-                    <span>Sign In</span>
-                  </div>
-                </Link>
+                {isAuthenticated
+                  ? (
+                    <button
+                      onClick={() => { closeMenu(); handleLogout() }}
+                      className="btn-secondary btn-lg btn navigation-full-width"
+                    >
+                      <LogOutIcon size={18} />
+                      <span>Log Out</span>
+                    </button>)
+                  : (
+                    <Link to="/login" onClick={closeMenu}>
+                      <div className="btn-primary btn-lg btn navigation-full-width">
+                        <LogInIcon size={18} />
+                        <span>Log In</span>
+                      </div>
+                    </Link>)
+                }
               </div>
             </div>
           </div>

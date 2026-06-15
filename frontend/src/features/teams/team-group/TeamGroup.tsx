@@ -13,7 +13,8 @@ const TeamGroup = ({team} : Props) => {
                     : team.short_name
                 }
             </span>
-            <span>{team.name}</span>
+            <span className="team-name-full">{team.name}</span>
+            <span className="team-name-short">{team.short_name}</span>
         </span>
     );
 };

@@ -12,7 +12,8 @@ const PlayerTeam = ({ team }: Props) => {
                 ? <img src={team.logo} alt={team.name} className="player-match-card-flag" />
                 : <span className="player-match-card-flag-placeholder" />
             }
-            <span className="player-match-card-team-name">{team.name}</span>
+            <span className="player-match-card-team-name team-name-full">{team.name}</span>
+            <span className="player-match-card-team-name team-name-short">{team.short_name}</span>
         </div>
     )
 };

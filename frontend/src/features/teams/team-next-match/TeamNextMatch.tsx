@@ -15,7 +15,14 @@ const TeamNextMatch = ({team, placeholder} : Props) => {
                     : <span>{placeholder}</span>
                 }
             </div>
-            <span className="next-match-team-name">{team ? team.name : placeholder}</span>
+            {team ? (
+                <>
+                    <span className="next-match-team-name team-name-full">{team.name}</span>
+                    <span className="next-match-team-name team-name-short">{team.short_name}</span>
+                </>
+            ) : (
+                <span className="next-match-team-name">{placeholder}</span>
+            )}
         </div>
     );
 };

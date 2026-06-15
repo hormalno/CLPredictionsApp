@@ -223,3 +223,62 @@
   font-size: 11px;
   letter-spacing: 0.5px;
 }
+
+@media (max-width: 767px) {
+  .match-prediction-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+  }
+
+  .match-prediction-info,
+  .match-prediction-scoreline-wrapper,
+  .match-prediction-actions {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .match-prediction-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .match-prediction-actions {
+    align-items: center;
+  }
+
+  .match-prediction-scoreline {
+    gap: var(--spacing-xs);
+  }
+
+  .match-prediction-score-result,
+  .prediction-inputs {
+    margin: 0 var(--spacing-md);
+  }
+
+  .match-prediction-score-result {
+    border-width: 2px;
+    padding: var(--spacing-xs);
+  }
+
+  .match-prediction-score-box {
+    width: 22px;
+    font-size: var(--font-size-base);
+  }
+
+  .prediction-inputs {
+    padding: var(--spacing-xs);
+  }
+
+  .prediction-inputs .score-input {
+    width: 32px;
+    height: 32px;
+    font-size: var(--font-size-base);
+  }
+
+  .match-prediction-score-separator {
+    width: 10px;
+    font-size: var(--font-size-base);
+  }
+}

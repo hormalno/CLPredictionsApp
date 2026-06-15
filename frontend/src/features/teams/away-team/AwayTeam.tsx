@@ -17,7 +17,14 @@ const AwayTeam = ({ team, placeholder }: Props) => {
                     : null
                 }
             </span>
-            <span>{team ? team.name : placeholder}</span>
+            {team ? (
+                <>
+                    <span className="team-name-full">{team.name}</span>
+                    <span className="team-name-short">{team.short_name}</span>
+                </>
+            ) : (
+                <span>{placeholder}</span>
+            )}
         </span>
     );
 };
