@@ -57,4 +57,23 @@
   background: color-mix(in srgb, var(--color-primary) 60%, transparent);
   border-radius: var(--border-radius-sm);
 }
+
+@media (max-width: 767px) {
+  .goal-scorers {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .goal-scorers .section-title {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .goal-scorers__grid {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .goal-scorers__column {
+    padding: var(--spacing-lg);
+  }
+}
  

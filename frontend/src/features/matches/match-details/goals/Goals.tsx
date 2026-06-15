@@ -1,12 +1,12 @@
 import GoalItem from '../goal-item/GoalItem';
 import type { MatchDetail } from '../../../../types';
-import './GoalScorers.css';
+import './Goals.css';
 
 type Props = {
   match: MatchDetail;
 }
 
-const GoalScorers = ({match} : Props) => {
+const Goals = ({match} : Props) => {
     const homeGoals = match.goals.filter(g => g.team_scored === match.home_team?.name);
     const awayGoals = match.goals.filter(g => g.team_scored === match.away_team?.name);
 
@@ -49,4 +49,4 @@ const GoalScorers = ({match} : Props) => {
     );
 };
 
-export default GoalScorers;
+export default Goals;

@@ -136,13 +136,17 @@
 }
  
 .navigation-mobile-content {
-  gap: var(--spacing-3xl);
+  gap: var(--spacing-xl);
   flex: 1;
   display: flex;
   padding: var(--spacing-2xl) var(--spacing-xl);
   flex-direction: column;
 }
  
+.navigation-mobile-header .navigation-logo-link {
+  color: var(--color-on-surface);
+}
+
 .navigation-mobile-close {
   color: var(--color-on-surface);
   border: none;
@@ -158,8 +162,8 @@
 }
  
 .navigation-mobile-footer {
-  margin-top: auto;
-  padding-bottom: var(--spacing-3xl);
+  margin-top: var(--spacing-md);
+  padding-bottom: var(--spacing-2xl);
 }
  
 .navigation-mobile-link {

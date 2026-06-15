@@ -168,16 +168,14 @@ const Navigation = () => {
                     </div>
                   </Link>
                 )}
-                {isAuthenticated && (
-                  <>
-                    <hr className="navigation-divider"></hr>
+                <hr className="navigation-divider"></hr>
+                {isAuthenticated && (                    
                     <Link to="/profile" onClick={closeMenu}>
                       <div className="navigation-mobile-link">
                         <UserIcon size={22} />
                         <span>Welcome, {username}!</span>
                       </div>
                     </Link>
-                  </>
                 )}
               </div>
               <div className="navigation-mobile-footer">

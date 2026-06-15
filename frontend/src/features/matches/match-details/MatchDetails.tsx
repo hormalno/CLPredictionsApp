@@ -4,7 +4,7 @@ import { getMatch, getUserPredictionsPerMatch, getKnockoutPredictionsPerMatch } 
 import { ArrowLeftIcon } from '../../../components/icons/Icons';
 import UserPrediction from './user-predictions/UserPredictions';
 import MatchResult from './match-result/MatchResult';
-import GoalScorers from './goal-scorers/GoalScorers';
+import Goals from './goals/Goals';
 import type { MatchDetail, MatchUserPrediction, KnockoutMatchUserPrediction } from '../../../types';
 import matchBg from '../../../assets/match_details.jpg';
 import "./MatchDetails.css";
@@ -68,7 +68,7 @@ const MatchDetails = () => {
             </div>
           </div>
         </header>
-        {match?.is_finished && <GoalScorers match={match} />}
+        {match?.is_finished && <Goals match={match} />}
         {match?.is_closed && (
           <UserPrediction
             predictions={userPredictions}
