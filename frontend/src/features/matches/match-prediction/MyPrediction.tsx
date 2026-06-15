@@ -47,7 +47,7 @@ const MyPrediction = ({is_pending, prediction }: Props) => {
                     : prediction?.correct_outcome
                         ? <CircleCheckIcon size={16} />
                         : <XSquareIcon size={16} />}
-                    <span><text>{is_pending ? 'Pending' : prediction.correct_outcome ? 'Correct result' : 'Wrong result'}</text></span>
+                    <span><text>{is_pending ? 'Pending' : prediction.correct_outcome ? 'Correct outcome' : 'Wrong outcome'}</text></span>
                 </span>
             </div>
             <div className="match-status">
