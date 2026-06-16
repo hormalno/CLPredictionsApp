@@ -118,6 +118,13 @@ else:
         }
     }
 
+# Reuse database connections across requests instead of opening a new one each
+# time. Avoids the TCP/TLS/auth handshake on every API call (big win for a
+# remote Postgres). CONN_HEALTH_CHECKS verifies a reused connection is still
+# alive before use so a dropped connection doesn't surface as a 500.
+DATABASES['default']['CONN_MAX_AGE'] = int(os.environ.get('CONN_MAX_AGE', '60'))
+DATABASES['default']['CONN_HEALTH_CHECKS'] = True
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

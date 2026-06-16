@@ -11,6 +11,9 @@ RUN pip install --no-cache-dir -r requirments.txt && pip install gunicorn psycop
 
 COPY . .
 
+# Collect static files at build time so it isn't repeated on every boot.
+RUN python manage.py collectstatic --noinput
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

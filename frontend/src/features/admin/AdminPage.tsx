@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Navigation from '../../components/navigation/Navigation';
 import Footer from '../../components/footer/Footer';
-import AdminHeader from './admin-header/AdminHeader';
 import AdminSection from './admin-section/AdminSection';
 import AdminSummary from './admin-summary/AdminSummary';
 import AdminBracket from './admin-knockout/AdminBracket';
@@ -15,7 +14,13 @@ const AdminPage = () => {
     return (
         <>
             <Navigation />
-            <AdminHeader>
+            <section className="league-tabs-section-header">
+              <div className="league-tabs-header">
+                <h2 className="section-title">Admin Site</h2>
+                <p className="section-subtitle">
+                  Enter the matches results.
+                </p>
+              </div>
                 <div className="league-tabs-nav-wrapper">
                     <div role="tablist" className="league-tabs-nav">
                         <button
@@ -40,7 +45,7 @@ const AdminPage = () => {
                         </button>
                     </div>
                 </div>
-            </AdminHeader>
+            </section>
             <AdminSummary />
             <section className="league-tabs-section">
                 <div className="league-tabs-content">

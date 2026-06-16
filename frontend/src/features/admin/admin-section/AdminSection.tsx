@@ -3,6 +3,7 @@ import { getAdminMatches } from '../../../api';
 import AdminMatchFixture from "../../matches/admin-match-fixture/AdminMatchFixture";
 import type { MatchDetail } from '../../../types'
 import { groupByDate, formatSectionDate } from '../../../utils/dateConfig';
+import { useProgressiveList } from '../../../hooks/useProgressiveList';
 import './AdminSection.css';
 
 const AdminSection = () => {
@@ -18,7 +19,9 @@ const AdminSection = () => {
         .finally(() => setLoading(false));
     }, [refetch]);
 
-    const grouped = useMemo(() => groupByDate(matches), [matches]);
+    const { visibleItems, sentinelRef } = useProgressiveList(matches, { batchSize: 6 });
+
+    const grouped = useMemo(() => groupByDate(visibleItems), [visibleItems]);
 
     return (
         <section className="admin-predictions-section">
@@ -40,6 +43,7 @@ const AdminSection = () => {
                         </div>
                     </div>
                 ))}
+                <div ref={sentinelRef} />
             </div>
         </section>
     )

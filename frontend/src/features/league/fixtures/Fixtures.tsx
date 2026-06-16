@@ -4,6 +4,7 @@ import MatchUserScores from "../../matches/match-fixture/MatchUserScores";
 import { getGroupStageMatches, getAllMatchesUserScores } from "../../../api";
 import type { Match, MatchUserScore } from "../../../types";
 import { groupByDate, formatSectionDate } from '../../../utils/dateConfig';
+import { useProgressiveList } from '../../../hooks/useProgressiveList';
 import './Fixtures.css';
 
 const Fixtures = () => {
@@ -22,7 +23,9 @@ const Fixtures = () => {
         .finally(() => setLoading(false));
     }, []);
 
-    const grouped = matches ? groupByDate(matches) : {} as Record<string, Match[]>;
+    const { visibleItems, sentinelRef } = useProgressiveList(matches ?? [], { batchSize: 6 });
+
+    const grouped = groupByDate(visibleItems);
 
     const scoresByMatch = useMemo(() =>
         userScores.reduce<Map<number, MatchUserScore[]>>((acc, s) => {
@@ -51,6 +54,7 @@ const Fixtures = () => {
                         </div>
                     </div>
                 ))}
+                <div ref={sentinelRef} />
             </div>
         </section>
     );

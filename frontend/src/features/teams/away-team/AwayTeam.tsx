@@ -12,7 +12,7 @@ const AwayTeam = ({ team, placeholder }: Props) => {
             <span className="team-logo">
                 {team
                     ? team.logo
-                        ? <img src={team.logo} alt={team.short_name} />
+                        ? <img src={team.logo} alt={team.short_name} loading="lazy" decoding="async" />
                         : team.short_name
                     : null
                 }

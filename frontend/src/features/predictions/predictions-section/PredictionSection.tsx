@@ -3,6 +3,7 @@ import { getUserMatchPredictions, getGroupStageMatches } from '../../../api';
 import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
 import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
 import { groupByDate, formatSectionDate } from '../../../utils/dateConfig';
+import { useProgressiveList } from '../../../hooks/useProgressiveList';
 import './PredictionSection.css';
 
 const PredictionSection = () => {
@@ -30,7 +31,9 @@ const PredictionSection = () => {
         [predictions]
     );
 
-    const grouped = useMemo(() => groupByDate(matches), [matches]);
+    const { visibleItems, sentinelRef } = useProgressiveList(matches, { batchSize: 6 });
+
+    const grouped = useMemo(() => groupByDate(visibleItems), [visibleItems]);
 
     return (
         <section className="predictions-section">
@@ -50,6 +53,7 @@ const PredictionSection = () => {
                         </div>
                     </div>
                 ))}
+                <div ref={sentinelRef} />
             </div>
         </section>
     )
