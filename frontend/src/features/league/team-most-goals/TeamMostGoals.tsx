@@ -34,7 +34,7 @@ const TeamMostGoals = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {teams.map((team, index) => (
+                            {teams.slice(0, 10).map((team, index) => (
                                 <tr key={team.id}>
                                     <td className="col-rank">
                                         <div className={rankBadgeClass(index)}>

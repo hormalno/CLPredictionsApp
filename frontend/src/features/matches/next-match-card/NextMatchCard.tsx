@@ -27,6 +27,8 @@ const NextMatchCard = ({match} : Props) => {
             <div className="match-meta">
                 <CalendarIcon size={20} />
                 <span>{formatMatchDate(match.date)}</span>
+                <span>|</span>
+                <span>{match.stadium}  • {match.location}</span>
             </div>
             </div>
             <Button variant="secondary" size="xl" onClick={() => navigate(`/match/${match.id}`)}>
