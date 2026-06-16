@@ -26,7 +26,7 @@ const Knockout = () => {
         typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_WINDOW : DESKTOP_WINDOW
     );
     const sectionRef = useRef<HTMLElement>(null);
-    const isFirstRender = useRef(true);
+    const userNavigated = useRef(false);
 
     useEffect(() => {
         getKnockoutMatches().then(matches => {
@@ -35,6 +35,15 @@ const Knockout = () => {
                 return acc;
             }, {});
             setMatchesByRound(grouped);
+
+            // Start on the first round that still has pending matches (leftmost).
+            // If every round is finished, land on the last round.
+            const active = ROUNDS.filter(r => grouped[r.key]?.length);
+            const firstPending = active.findIndex(r => grouped[r.key].some(m => !m.is_finished));
+            const targetIdx = firstPending === -1 ? active.length - 1 : firstPending;
+            const ws = window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_WINDOW : DESKTOP_WINDOW;
+            const maxOffset = Math.max(0, active.length - ws);
+            setOffset(Math.min(Math.max(0, targetIdx), maxOffset));
         });
     }, []);
 
@@ -55,14 +64,14 @@ const Knockout = () => {
     const visibleRounds = activeRounds.slice(offset, offset + windowSize);
 
     useEffect(() => {
-        if (isFirstRender.current) { isFirstRender.current = false; return; }
+        if (!userNavigated.current) return;
         if (!sectionRef.current) return;
         const top = sectionRef.current.getBoundingClientRect().top + window.scrollY - 88;
         window.scrollTo({ top, behavior: 'smooth' });
     }, [offset]);
 
-    const handlePrev = () => { setDir('backward'); setOffset(o => o - 1); };
-    const handleNext = () => { setDir('forward');  setOffset(o => o + 1); };
+    const handlePrev = () => { userNavigated.current = true; setDir('backward'); setOffset(o => o - 1); };
+    const handleNext = () => { userNavigated.current = true; setDir('forward');  setOffset(o => o + 1); };
 
     return (
         <section ref={sectionRef} id="bracket-section" className="tournament-bracket tournament-bracket--paged">

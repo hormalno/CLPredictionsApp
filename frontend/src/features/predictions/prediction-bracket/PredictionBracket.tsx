@@ -62,7 +62,7 @@ const PredictionBracket = () => {
         typeof window !== 'undefined' && window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_WINDOW : DESKTOP_WINDOW
     );
     const sectionRef = useRef<HTMLElement>(null);
-    const isFirstRender = useRef(true);
+    const userNavigated = useRef(false);
     const matchesRef = useRef<Match[]>([]);
 
     useEffect(() => {
@@ -94,6 +94,15 @@ const PredictionBracket = () => {
             matchesRef.current = matches;
             setMatchesByRound(mergePredictions(matches, predictions));
             setGroups(groups);
+
+            // Start on the first round that still has pending matches (leftmost).
+            // If every round is finished, land on the last round.
+            const active = ROUNDS.filter(r => matches.some(m => m.round === r.key));
+            const firstPending = active.findIndex(r => matches.some(m => m.round === r.key && !m.is_finished));
+            const targetIdx = firstPending === -1 ? active.length - 1 : firstPending;
+            const ws = window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_WINDOW : DESKTOP_WINDOW;
+            const maxOffset = Math.max(0, active.length - ws);
+            setOffset(Math.min(Math.max(0, targetIdx), maxOffset));
         });
     }, []);
 
@@ -133,14 +142,14 @@ const PredictionBracket = () => {
     const visibleRounds = activeRounds.slice(offset, offset + windowSize);
 
     useEffect(() => {
-        if (isFirstRender.current) { isFirstRender.current = false; return; }
+        if (!userNavigated.current) return;
         if (!sectionRef.current) return;
         const top = sectionRef.current.getBoundingClientRect().top + window.scrollY - 88;
         window.scrollTo({ top, behavior: 'smooth' });
     }, [offset]);
 
-    const handlePrev = () => { setDir('backward'); setOffset(o => o - 1); };
-    const handleNext = () => { setDir('forward');  setOffset(o => o + 1); };
+    const handlePrev = () => { userNavigated.current = true; setDir('backward'); setOffset(o => o - 1); };
+    const handleNext = () => { userNavigated.current = true; setDir('forward');  setOffset(o => o + 1); };
 
     const renderKnockoutMatches = (match : Match, prediction : KnockoutPredictionType | undefined, round : string) => (
         <div className="match-slot">

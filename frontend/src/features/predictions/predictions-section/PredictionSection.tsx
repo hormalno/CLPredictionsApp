@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getUserMatchPredictions, getGroupStageMatches } from '../../../api';
 import MatchPrediction from "../../matches/match-prediction/MatchPrediction";
+import MatchFilter, { filterMatches, type FixtureFilter } from "../../../components/match-filter/MatchFilter";
 import type { Match, MatchPrediction as MatchPredictionType } from '../../../types';
 import { groupByDate, formatSectionDate } from '../../../utils/dateConfig';
 import { useProgressiveList } from '../../../hooks/useProgressiveList';
@@ -11,6 +12,7 @@ const PredictionSection = () => {
     const [matches, setMatches] = useState<Match[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [filter, setFilter] = useState<FixtureFilter>('upcoming');
 
     const refreshPredictions = useCallback(() => {
         getUserMatchPredictions()
@@ -31,15 +33,21 @@ const PredictionSection = () => {
         [predictions]
     );
 
-    const { visibleItems, sentinelRef } = useProgressiveList(matches, { batchSize: 6 });
+    const filteredMatches = useMemo(() => filterMatches(matches, filter), [matches, filter]);
+
+    const { visibleItems, sentinelRef } = useProgressiveList(filteredMatches, { batchSize: 6 });
 
     const grouped = useMemo(() => groupByDate(visibleItems), [visibleItems]);
 
     return (
         <section className="predictions-section">
-            <div className="predictions-section-container">                
+            <div className="predictions-section-container">
+                <MatchFilter value={filter} onChange={setFilter} />
                 {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
+                {!loading && !error && Object.keys(grouped).length === 0 && (
+                    <p>{filter === 'all' ? 'No matches.' : `No ${filter} matches.`}</p>
+                )}
                 {!loading && !error && Object.entries(grouped).map(([date, dayMatches]) => (
                     <div key={date}>
                         <div className="predictions-header">

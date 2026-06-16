@@ -253,6 +253,12 @@ export const JerseyIcon = ({ size = 32, color = 'currentColor', className }: Ico
     </svg>
 );
 
+export const FilterIcon = ({ size = 20, color = 'currentColor', className }: IconProps) => (
+    <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" stroke={color} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cls('icon-filter', className)}>
+        <path d="M22 3H2l8 9.46V19l4 2v-8.54z" />
+    </svg>
+);
+
 export const TargetIcon = ({ size = 24, color = 'currentColor', className }: IconProps) => (
     <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={cls('icon-target', className)}>
         <g stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
