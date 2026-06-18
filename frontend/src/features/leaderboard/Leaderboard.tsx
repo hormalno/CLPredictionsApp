@@ -55,9 +55,10 @@ const Leaderboard: React.FC<Props> = ({ limit }) => {
                 <thead>
                     <tr>
                         <th scope="col"><span>Rank</span></th>
-                        <th scope="col"><span>Player Name</span></th>
-                        <th scope="col"><span>Points / Score</span></th>
-                        <th scope="col"><span title="Correct outcomes · Exact scores — used to break ties">Correct · Exact</span></th>
+                        <th scope="col"><span>Player</span></th>
+                        <th scope="col"><span>Points</span></th>
+                        <th scope="col"><span>Correct outcomes</span></th>
+                        <th scope="col"><span>Exact scores</span></th>
                         <th scope="col"><span>Trend</span></th>
                     </tr>
                 </thead>
@@ -82,8 +83,11 @@ const Leaderboard: React.FC<Props> = ({ limit }) => {
                             <td className="score-cell">
                                 <span>{entry.points.toLocaleString()}</span>
                             </td>
-                            <td className="tiebreak-cell" title="Correct outcomes · Exact scores">
-                                <span>{entry.outcome_count} · {entry.exact_count}</span>
+                            <td className="tiebreak-cell">
+                                <span>{entry.outcome_count} </span>
+                            </td>
+                            <td className="tiebreak-cell">
+                                <span>{entry.exact_count}</span>
                             </td>
                             <td className="trend-cell">
                                 <TrendIndicator trend={entry.trend} />
