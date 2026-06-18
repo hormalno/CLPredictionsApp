@@ -1,5 +1,4 @@
-from django.db.models import Window
-from django.db.models.functions import DenseRank
+from django.db.models import Count, Q
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -29,9 +28,25 @@ class LeaderboardView(APIView):
     def get(self, request):
         users = list(
             User.objects.filter(is_superuser=False, is_staff=False)
-            .annotate(rank=Window(expression=DenseRank(), order_by='-points'))
-            .order_by('-points', 'username')
+            .annotate(
+                outcome_count=Count(
+                    'matchprediction',
+                    filter=Q(matchprediction__correct_outcome=True),
+                ),
+                exact_count=Count(
+                    'matchprediction',
+                    filter=Q(
+                        matchprediction__correct_home_team_score=True,
+                        matchprediction__correct_away_team_score=True,
+                    ),
+                ),
+            )
+            .order_by('-points', '-outcome_count', '-exact_count', 'username')
         )
+
+        # Strict, unique ranks (1, 2, 3, …) — ties are broken by the order_by above.
+        for position, user in enumerate(users, start=1):
+            user.rank = position
 
         user_ids = [u.pk for u in users]
         prev_ranks: dict[int, int] = {}

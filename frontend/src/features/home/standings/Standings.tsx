@@ -18,7 +18,7 @@ const Standings = () => {
                         See Leaderboard
                     </Button>
                 </div>
-                <Leaderboard />          
+                <Leaderboard limit={3} />
             </div>
         </section>
     );

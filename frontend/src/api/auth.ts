@@ -25,6 +25,8 @@ export interface LeaderboardEntry {
   first_name: string
   last_name: string
   points: number
+  outcome_count: number
+  exact_count: number
   rank: number
   trend: 'up' | 'down' | 'same' | 'new'
 }

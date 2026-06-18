@@ -28,11 +28,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 class LeaderboardSerializer(serializers.ModelSerializer):
     rank = serializers.IntegerField(read_only=True)
+    outcome_count = serializers.IntegerField(read_only=True)
+    exact_count = serializers.IntegerField(read_only=True)
     trend = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'points', 'rank', 'trend')
+        fields = ('id', 'username', 'first_name', 'last_name', 'points',
+                  'outcome_count', 'exact_count', 'rank', 'trend')
 
     def get_trend(self, obj) -> str:
         prev = getattr(obj, 'prev_rank', None)
