@@ -88,6 +88,23 @@
   font-weight: var(--font-weight-heading);
 }
 
+/* Center the numeric columns (Rank, Points, Correct outcomes, Exact scores, Trend) and their headers */
+.score-cell,
+.tiebreak-cell,
+.rank-cell,
+.leaderboard-table th:nth-child(1),
+.leaderboard-table th:nth-child(3),
+.leaderboard-table th:nth-child(4),
+.leaderboard-table th:nth-child(5),
+.leaderboard-table th:nth-child(6) {
+  text-align: center;
+}
+
+/* Center the rank badge within its cell */
+.leaderboard-table-wrapper .rank-cell .rank-badge {
+  margin: 0 auto;
+}
+
 .leaderboard-table-wrapper .rank-badge {
   width: 32px;
   height: 32px;
@@ -147,6 +164,7 @@
   display: flex;
   font-size: var(--font-size-sm);
   align-items: center;
+  justify-content: center;
   font-weight: var(--font-weight-medium);
 }
 
