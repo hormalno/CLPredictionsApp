@@ -26,8 +26,8 @@ class TopGoalScorersView(APIView):
         players = (
             Player.objects
             .annotate(
-                goal_count=Count('goals', filter=Q(goals__is_own_goal=False)),
-                assist_count=Count('assists'),
+                goal_count=Count('goals', filter=Q(goals__is_own_goal=False), distinct=True),
+                assist_count=Count('assists', distinct=True),
             )
             .order_by('-goal_count', '-assist_count', 'name')[:20]
         )
