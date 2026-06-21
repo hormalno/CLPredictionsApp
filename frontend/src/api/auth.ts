@@ -16,8 +16,31 @@ export const register = (data: RegisterData) =>
 export const refreshToken = (refresh: string) =>
   client.post('/auth/token/refresh/', { refresh })
 
+export interface UserMe {
+  id: number
+  username: string
+  email: string
+  first_name: string
+  last_name: string
+  points: number
+  is_superuser: boolean
+}
+
 export const getMe = () =>
-  client.get('/auth/me/')
+  client.get<UserMe>('/auth/me/')
+
+export type UpdateMeData = Partial<Pick<UserMe, 'username' | 'email' | 'first_name' | 'last_name'>>
+
+export const updateMe = (data: UpdateMeData) =>
+  client.patch<UserMe>('/auth/me/', data)
+
+export interface ChangePasswordData {
+  current_password: string
+  new_password: string
+}
+
+export const changePassword = (data: ChangePasswordData) =>
+  client.post('/auth/change-password/', data)
 
 export interface LeaderboardEntry {
   id: number

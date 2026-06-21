@@ -268,3 +268,17 @@ export const TargetIcon = ({ size = 24, color = 'currentColor', className }: Ico
         </g>
     </svg>
 );
+
+export const PencilIcon = ({ size = 16, color = 'currentColor', className }: IconProps) => (
+    <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" stroke={color} viewBox="0 0 24 24" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={cls('icon-pencil', className)}>
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+    </svg>
+);
+
+export const EyeIcon = ({ size = 20, color = 'currentColor', className }: IconProps) => (
+    <svg fill="none" width={size} height={size} xmlns="http://www.w3.org/2000/svg" stroke={color} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cls('icon-eye', className)}>
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+        <circle cx="12" cy="12" r="3" />
+    </svg>
+);

@@ -10,7 +10,7 @@ import LoginPage from '../features/auth/LoginPage'
 import RegisterPage from '../features/auth/RegisterPage'
 import MatchDetailsPage from '../features/matches/match-details/MatchDetailsPage'
 import AdminPage from '../features/admin/AdminPage'
-import ProfilePage from '../features/auth/ProfilePage'
+import ProfilePage from '../features/auth/profile-page/ProfilePage'
 
 const Router = () => {
   return (

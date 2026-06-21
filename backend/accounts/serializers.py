@@ -2,6 +2,15 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from .models import User
 
+
+def email_is_taken(email, exclude_pk=None):
+    """AbstractUser.email is not unique at the DB level, so guard it here."""
+    qs = User.objects.filter(email__iexact=email)
+    if exclude_pk is not None:
+        qs = qs.exclude(pk=exclude_pk)
+    return qs.exists()
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True)
@@ -9,6 +18,11 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'password', 'password2')
+
+    def validate_email(self, value):
+        if value and email_is_taken(value):
+            raise serializers.ValidationError('This email is already in use.')
+        return value
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
@@ -24,6 +38,29 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'points', 'is_superuser')
         read_only_fields = ('points', 'is_superuser')
+
+    def validate_email(self, value):
+        exclude_pk = self.instance.pk if self.instance else None
+        if value and email_is_taken(value, exclude_pk=exclude_pk):
+            raise serializers.ValidationError('This email is already in use.')
+        return value
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    current_password = serializers.CharField(write_only=True)
+    new_password = serializers.CharField(write_only=True, validators=[validate_password])
+
+    def validate_current_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError('Current password is incorrect.')
+        return value
+
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        user.set_password(self.validated_data['new_password'])
+        user.save()
+        return user
 
 
 class LeaderboardSerializer(serializers.ModelSerializer):
