@@ -88,7 +88,7 @@
   font-weight: var(--font-weight-heading);
 }
 
-/* Center the numeric columns (Rank, Points, Correct outcomes, Exact scores, Trend) and their headers */
+/* Center the numeric columns (Rank, Points, Knockout outcomes, Correct outcomes, Exact scores, Trend) and their headers */
 .score-cell,
 .tiebreak-cell,
 .rank-cell,
@@ -96,7 +96,8 @@
 .leaderboard-table th:nth-child(3),
 .leaderboard-table th:nth-child(4),
 .leaderboard-table th:nth-child(5),
-.leaderboard-table th:nth-child(6) {
+.leaderboard-table th:nth-child(6),
+.leaderboard-table th:nth-child(7) {
   text-align: center;
 }
 
@@ -184,10 +185,10 @@
   .leaderboard-navigation-mobile-toggle {
     display: block;
   }
-  .leaderboard-table th:nth-child(4) {
-    display: none;
-  }
-  .leaderboard-table td:nth-child(4) {
+  /* Keep only Rank, Player and Points on mobile — hide Knockout outcomes,
+     Correct outcomes, Exact scores and Trend. */
+  .leaderboard-table th:nth-child(n + 4),
+  .leaderboard-table td:nth-child(n + 4) {
     display: none;
   }
 }
@@ -203,4 +204,49 @@
     gap: var(--spacing-2xl);
     flex-direction: column;
   }
+}
+
+/* ---------- Column help tooltip (toast-styled) ---------- */
+.lb-help {
+  cursor: help;
+  text-decoration: underline dotted rgba(255, 255, 255, 0.45);
+  text-underline-offset: 3px;
+}
+
+.leaderboard-tooltip {
+  position: fixed;
+  z-index: 1000;
+  transform: translateX(-50%);
+  max-width: 300px;
+  background: var(--navy, #182142);
+  color: #fff;
+  padding: 13px 18px;
+  border-radius: 11px;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
+  font-family: var(--font-family-base, inherit);
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: left;
+  white-space: normal;
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  animation: lb-tooltip-in 0.18s ease;
+}
+
+/* Little arrow pointing up to the column header */
+.leaderboard-tooltip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--navy, #182142);
+}
+
+@keyframes lb-tooltip-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }

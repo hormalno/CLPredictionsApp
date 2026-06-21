@@ -10,6 +10,32 @@ const rankBadgeClass = (rank: number) => {
     return 'rank-badge';
 };
 
+// Knockout rounds in bracket order, paired with the entry field holding the
+// count of correct predicted teams for that round.
+const KNOCKOUT_ROUNDS: { label: string; key: keyof LeaderboardEntry }[] = [
+    { label: 'R32', key: 'knockout_R32_correct' },
+    { label: 'R16', key: 'knockout_R16_correct' },
+    { label: 'QF',  key: 'knockout_QF_correct' },
+    { label: 'SF',  key: 'knockout_SF_correct' },
+    { label: '3P',  key: 'knockout_3P_correct' },
+    { label: 'F',   key: 'knockout_F_correct' },
+];
+
+const KNOCKOUT_DELIMITER = ' · ';
+
+const KNOCKOUT_LEGEND = KNOCKOUT_ROUNDS.map(r => r.label).join(KNOCKOUT_DELIMITER);
+
+// Hover explanations shown on each column header.
+const COLUMN_HELP = {
+    rank: 'Position on the leaderboard, ranked by points. Ties are broken by knockout outcomes, then correct outcomes, then exact scores, then single correct scores.',
+    player: 'The player making the predictions.',
+    points: 'Total points earned across all predictions.',
+    knockout: `Correct predicted teams per knockout round, in order: ${KNOCKOUT_LEGEND}.`,
+    outcomes: 'Number of group-stage matches where the predicted outcome (win/draw/loss) was correct.',
+    exact: 'Number of group-stage matches with both scores correct, with the count of matches where only one team\'s score was correct shown in parentheses.',
+    trend: 'Movement in rank since the last update.',
+} as const;
+
 const avatarInitials = (entry: LeaderboardEntry) => {
     if (entry.first_name && entry.last_name)
         return `${entry.first_name[0]}${entry.last_name[0]}`.toUpperCase();
@@ -34,6 +60,15 @@ type Props = {
 const Leaderboard: React.FC<Props> = ({ limit }) => {
     const [state, setState] = useState<State>({ status: 'loading' });
     const [tick, setTick] = useState(0);
+    // Fixed-position custom tooltip (toast-styled). Fixed positioning is used so
+    // it isn't clipped by the table wrapper's `overflow: hidden`.
+    const [tip, setTip] = useState<{ text: string; x: number; y: number } | null>(null);
+
+    const showTip = (text: string) => (e: React.MouseEvent<HTMLElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setTip({ text, x: rect.left + rect.width / 2, y: rect.bottom });
+    };
+    const hideTip = () => setTip(null);
 
     useEffect(() => {
         getLeaderboard()
@@ -51,15 +86,21 @@ const Leaderboard: React.FC<Props> = ({ limit }) => {
 
     return (
         <div className="leaderboard-table-wrapper">
+            {tip && (
+                <div className="leaderboard-tooltip" role="tooltip" style={{ left: tip.x, top: tip.y + 8 }}>
+                    {tip.text}
+                </div>
+            )}
             <table className="leaderboard-table">
                 <thead>
                     <tr>
-                        <th scope="col"><span>Rank</span></th>
-                        <th scope="col"><span>Player</span></th>
-                        <th scope="col"><span>Points</span></th>
-                        <th scope="col"><span>Correct outcomes</span></th>
-                        <th scope="col"><span>Exact scores</span></th>
-                        <th scope="col"><span>Trend</span></th>
+                        <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.rank} onMouseEnter={showTip(COLUMN_HELP.rank)} onMouseLeave={hideTip}>Rank</span></th>
+                        <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.player} onMouseEnter={showTip(COLUMN_HELP.player)} onMouseLeave={hideTip}>Player</span></th>
+                        <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.points} onMouseEnter={showTip(COLUMN_HELP.points)} onMouseLeave={hideTip}>Points</span></th>
+                        <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.knockout} onMouseEnter={showTip(COLUMN_HELP.knockout)} onMouseLeave={hideTip}>Knockout outcomes</span></th>
+                        <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.outcomes} onMouseEnter={showTip(COLUMN_HELP.outcomes)} onMouseLeave={hideTip}>Correct outcomes</span></th>
+                        <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.exact} onMouseEnter={showTip(COLUMN_HELP.exact)} onMouseLeave={hideTip}>Exact scores</span></th>
+                        <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.trend} onMouseEnter={showTip(COLUMN_HELP.trend)} onMouseLeave={hideTip}>Trend</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,11 +124,16 @@ const Leaderboard: React.FC<Props> = ({ limit }) => {
                             <td className="score-cell">
                                 <span>{entry.points.toLocaleString()}</span>
                             </td>
+                            <td className="tiebreak-cell knockout-cell">
+                                <span title={KNOCKOUT_LEGEND}>
+                                    {KNOCKOUT_ROUNDS.map(r => entry[r.key]).join(KNOCKOUT_DELIMITER)}
+                                </span>
+                            </td>
                             <td className="tiebreak-cell">
                                 <span>{entry.outcome_count} </span>
                             </td>
                             <td className="tiebreak-cell">
-                                <span>{entry.exact_count}</span>
+                                <span>{entry.exact_count} ({entry.single_score_count})</span>
                             </td>
                             <td className="trend-cell">
                                 <TrendIndicator trend={entry.trend} />

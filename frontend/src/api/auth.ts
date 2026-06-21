@@ -50,6 +50,13 @@ export interface LeaderboardEntry {
   points: number
   outcome_count: number
   exact_count: number
+  single_score_count: number
+  knockout_R32_correct: number
+  knockout_R16_correct: number
+  knockout_QF_correct: number
+  knockout_SF_correct: number
+  knockout_3P_correct: number
+  knockout_F_correct: number
   rank: number
   trend: 'up' | 'down' | 'same' | 'new'
 }

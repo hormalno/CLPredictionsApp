@@ -67,12 +67,23 @@ class LeaderboardSerializer(serializers.ModelSerializer):
     rank = serializers.IntegerField(read_only=True)
     outcome_count = serializers.IntegerField(read_only=True)
     exact_count = serializers.IntegerField(read_only=True)
+    single_score_count = serializers.IntegerField(read_only=True)
+    knockout_R32_correct = serializers.IntegerField(read_only=True)
+    knockout_R16_correct = serializers.IntegerField(read_only=True)
+    knockout_QF_correct = serializers.IntegerField(read_only=True)
+    knockout_SF_correct = serializers.IntegerField(read_only=True)
+    knockout_3P_correct = serializers.IntegerField(read_only=True)
+    knockout_F_correct = serializers.IntegerField(read_only=True)
     trend = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'points',
-                  'outcome_count', 'exact_count', 'rank', 'trend')
+                  'outcome_count', 'exact_count', 'single_score_count',
+                  'knockout_R32_correct', 'knockout_R16_correct',
+                  'knockout_QF_correct', 'knockout_SF_correct',
+                  'knockout_3P_correct', 'knockout_F_correct',
+                  'rank', 'trend')
 
     def get_trend(self, obj) -> str:
         prev = getattr(obj, 'prev_rank', None)
