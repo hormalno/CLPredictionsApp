@@ -18,7 +18,7 @@ const MyPrediction = ({is_pending, prediction }: Props) => {
                     </span>)
         }
 
-        if (!prediction.correct_away_team_score && !prediction.correct_away_team_score) {
+        if (!prediction.correct_home_team_score && !prediction.correct_away_team_score) {
             return (<span className="wrong status-badge">
                         <XSquareIcon size={16} />
                         <span><text>Total miss</text></span>

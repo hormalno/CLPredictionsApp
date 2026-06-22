@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev gcc \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirments.txt .
-RUN pip install --no-cache-dir -r requirments.txt && pip install gunicorn psycopg2-binary
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
