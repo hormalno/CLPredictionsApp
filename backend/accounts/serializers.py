@@ -74,6 +74,7 @@ class LeaderboardSerializer(serializers.ModelSerializer):
     knockout_SF_correct = serializers.IntegerField(read_only=True)
     knockout_3P_correct = serializers.IntegerField(read_only=True)
     knockout_F_correct = serializers.IntegerField(read_only=True)
+    group_winner_count = serializers.IntegerField(read_only=True)
     trend = serializers.SerializerMethodField()
 
     class Meta:
@@ -83,6 +84,7 @@ class LeaderboardSerializer(serializers.ModelSerializer):
                   'knockout_R32_correct', 'knockout_R16_correct',
                   'knockout_QF_correct', 'knockout_SF_correct',
                   'knockout_3P_correct', 'knockout_F_correct',
+                  'group_winner_count',
                   'rank', 'trend')
 
     def get_trend(self, obj) -> str:

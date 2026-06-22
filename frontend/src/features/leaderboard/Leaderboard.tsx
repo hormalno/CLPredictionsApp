@@ -33,6 +33,7 @@ const COLUMN_HELP = {
     knockout: `Correct predicted teams per knockout round, in order: ${KNOCKOUT_LEGEND}.`,
     outcomes: 'Number of group-stage matches where the predicted outcome (win/draw/loss) was correct.',
     exact: 'Number of group-stage matches with both scores correct, with the count of matches where only one team\'s score was correct shown in parentheses.',
+    groupWinners: 'Number of groups where the predicted group winner was correct.',
     trend: 'Movement in rank since the last update.',
 } as const;
 
@@ -100,6 +101,7 @@ const Leaderboard: React.FC<Props> = ({ limit }) => {
                         <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.knockout} onMouseEnter={showTip(COLUMN_HELP.knockout)} onMouseLeave={hideTip}>Knockout outcomes</span></th>
                         <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.outcomes} onMouseEnter={showTip(COLUMN_HELP.outcomes)} onMouseLeave={hideTip}>Correct outcomes</span></th>
                         <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.exact} onMouseEnter={showTip(COLUMN_HELP.exact)} onMouseLeave={hideTip}>Exact scores</span></th>
+                        <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.groupWinners} onMouseEnter={showTip(COLUMN_HELP.groupWinners)} onMouseLeave={hideTip}>Group winners</span></th>
                         <th scope="col"><span className="lb-help" aria-label={COLUMN_HELP.trend} onMouseEnter={showTip(COLUMN_HELP.trend)} onMouseLeave={hideTip}>Trend</span></th>
                     </tr>
                 </thead>
@@ -134,6 +136,9 @@ const Leaderboard: React.FC<Props> = ({ limit }) => {
                             </td>
                             <td className="tiebreak-cell">
                                 <span>{entry.exact_count} ({entry.single_score_count})</span>
+                            </td>
+                            <td className="tiebreak-cell">
+                                <span>{entry.group_winner_count}</span>
                             </td>
                             <td className="trend-cell">
                                 <TrendIndicator trend={entry.trend} />

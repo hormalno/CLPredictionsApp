@@ -57,6 +57,7 @@ export interface LeaderboardEntry {
   knockout_SF_correct: number
   knockout_3P_correct: number
   knockout_F_correct: number
+  group_winner_count: number
   rank: number
   trend: 'up' | 'down' | 'same' | 'new'
 }

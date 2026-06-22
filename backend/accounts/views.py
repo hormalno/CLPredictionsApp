@@ -14,7 +14,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from predictions.models import KnockoutPrediction
+from predictions.models import GroupPrediction, KnockoutPrediction
 
 from .models import RankSnapshot, User
 from .serializers import (
@@ -51,6 +51,26 @@ def knockout_correct_subquery(round_code=None):
                     + Case(When(away_team_correct=True, then=1), default=0, output_field=IntegerField())
                 )
             )
+            .values('correct')
+        ),
+        0,
+    )
+
+
+def group_winner_correct_subquery():
+    """Per-user count of correctly predicted group winners.
+
+    A Subquery (like the knockout counts above) rather than an annotate Count so
+    the group_predictions relation isn't joined alongside the matchprediction
+    counts — mixing multi-valued relations in one query inflates them via fan-out.
+    """
+    qs = GroupPrediction.objects.filter(
+        user=OuterRef('pk'), group_winner_correct=True
+    )
+    return Coalesce(
+        Subquery(
+            qs.values('user')
+            .annotate(correct=Count('pk'))
             .values('correct')
         ),
         0,
@@ -121,6 +141,7 @@ class LeaderboardView(APIView):
                 ),
             )
             .annotate(**knockout_annotations)
+            .annotate(group_winner_count=group_winner_correct_subquery())
             .order_by(
                 '-points',
                 '-knockout_total_correct',  # knockout outcomes
