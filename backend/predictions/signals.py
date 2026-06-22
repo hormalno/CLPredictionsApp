@@ -209,9 +209,9 @@ def update_prediction_points(sender, instance, **kwargs):
             mp.correct_home_team_score = mp.home_team_score == instance.score_home_team
             mp.correct_away_team_score = mp.away_team_score == instance.score_away_team
 
-            points = 1 if mp.correct_outcome else 0
+            points = 2 if mp.correct_outcome else 0
             if mp.correct_home_team_score and mp.correct_away_team_score:
-                points += 3
+                points += 5
             elif mp.correct_home_team_score or mp.correct_away_team_score:
                 points += 1
             mp.points = points
@@ -272,9 +272,9 @@ def score_match_predictions(match):
         mp.correct_home_team_score = mp.home_team_score == match.score_home_team
         mp.correct_away_team_score = mp.away_team_score == match.score_away_team
 
-        points = 1 if mp.correct_outcome else 0
+        points = 2 if mp.correct_outcome else 0
         if mp.correct_home_team_score and mp.correct_away_team_score:
-            points += 3
+            points += 5
         elif mp.correct_home_team_score or mp.correct_away_team_score:
             points += 1
         mp.points = points

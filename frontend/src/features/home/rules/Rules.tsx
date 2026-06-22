@@ -19,7 +19,7 @@ const Rules = () => {
                         <ul className="rules-points-list">
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Correct outcome</span>
-                                <span className="rules-points-badge">1 pt</span>
+                                <span className="rules-points-badge">2 pts</span>
                             </li>
                             <li className="rules-points-row">
                                 <span className="rules-points-label">One correct score</span>
@@ -27,11 +27,11 @@ const Rules = () => {
                             </li>
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Exact scoreline</span>
-                                <span className="rules-points-badge">+3 pts</span>
+                                <span className="rules-points-badge">+5 pts</span>
                             </li>
                             <li className="rules-points-row rules-points-row--total">
                                 <span className="rules-points-label">Max per match</span>
-                                <span className="rules-points-badge rules-points-badge--total">4 pts</span>
+                                <span className="rules-points-badge rules-points-badge--total">7 pts</span>
                             </li>
                             <li className="rules-points-row">
                                 <span className="rules-points-label">Group winner</span>
