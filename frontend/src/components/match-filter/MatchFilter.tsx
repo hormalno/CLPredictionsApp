@@ -10,10 +10,15 @@ export const FILTER_OPTIONS: { value: FixtureFilter; label: string }[] = [
     { value: 'all', label: 'All' },
 ];
 
-export const filterMatches = <T extends { is_finished: boolean }>(matches: T[], filter: FixtureFilter): T[] =>
+export const filterMatches = <T extends { is_finished: boolean }>(
+    matches: T[],
+    filter: FixtureFilter,
+    isFinished: (m: T) => boolean = m => m.is_finished,
+): T[] =>
     matches.filter(m => {
         if (filter === 'all') return true;
-        return filter === 'finished' ? m.is_finished : !m.is_finished;
+        const finished = isFinished(m);
+        return filter === 'finished' ? finished : !finished;
     });
 
 type Props = {

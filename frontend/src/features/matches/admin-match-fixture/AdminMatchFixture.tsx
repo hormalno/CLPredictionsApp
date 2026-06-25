@@ -123,12 +123,12 @@ const AdminMatchFixture = ({ match, onSave }: Props) => {
                     </div>
                 </div>
             </div>
-            {isFinished &&
+            {isFinished && ((savedScores.home ?? 0) + (savedScores.away ?? 0)) > 0 &&
             <div className='admin-match-add-goals'>
-                {((match.score_home_team ?? 0) + (match.score_away_team ?? 0)) > 0 && match.goals.length > 0
+                {match.goals.length > 0
                 ? (<AdminGoal match={match} />)
                 : (<AddGoalForm match={{ ...match, score_home_team: savedScores.home, score_away_team: savedScores.away }} />)}
-                
+
             </div>}
         </div>
     );

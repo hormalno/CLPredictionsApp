@@ -21,7 +21,13 @@ const AdminSection = () => {
         .finally(() => setLoading(false));
     }, [refetch]);
 
-    const filteredMatches = useMemo(() => filterMatches(matches, filter), [matches, filter]);
+    const filteredMatches = useMemo(
+        () => filterMatches(matches, filter, m =>
+            m.is_finished &&
+            (((m.score_home_team ?? 0) + (m.score_away_team ?? 0)) === 0 || m.goals.length > 0)
+        ),
+        [matches, filter]
+    );
 
     const { visibleItems, sentinelRef } = useProgressiveList(filteredMatches, { batchSize: 6 });
 
