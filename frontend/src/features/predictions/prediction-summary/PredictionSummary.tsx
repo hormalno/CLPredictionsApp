@@ -11,7 +11,7 @@ const calcGroupStats = (predictions: MatchPrediction[]) => {
     const correct = finished.filter(p => p.correct_outcome).length;
     const accuracy = finished.length > 0 ? Math.round((correct / finished.length) * 100) : 0;
     const points = predictions.reduce((acc, p) => acc + p.points, 0);
-    return { total, accuracy, points };
+    return { total, correct, accuracy, points };
 };
 
 const calcGroupWinnerStats = (predictions: GroupPrediction[]) => {
@@ -20,7 +20,7 @@ const calcGroupWinnerStats = (predictions: GroupPrediction[]) => {
     const correct = finished.filter(p => p.group_winner_correct).length;
     const accuracy = finished.length > 0 ? Math.round((correct / finished.length) * 100) : 0;
     const points = predictions.reduce((acc, p) => acc + p.points, 0);
-    return { total, accuracy, points };
+    return { total, correct, accuracy, points };
 };
 
 const calcKnockoutStats = (predictions: KnockoutPrediction[]) => {
@@ -29,7 +29,7 @@ const calcKnockoutStats = (predictions: KnockoutPrediction[]) => {
     const correct = finished.filter(p => p.winner_correct).length;
     const accuracy = finished.length > 0 ? Math.round((correct / finished.length) * 100) : 0;
     const points = predictions.reduce((acc, p) => acc + p.points, 0);
-    return { total, accuracy, points };
+    return { total, correct, accuracy, points };
 };
 
 type Props = {
@@ -59,7 +59,7 @@ const PredictionSummary = ({ summary_type }: Props) => {
         <section className="summary-section">
             <div className="summary-section-container">
                 <div className="summary-section-grid">
-                    <SummaryCard variant="activity" label="Total Predictions" value={stats.total} meta="All-time activity" />
+                    <SummaryCard variant="activity" label="Total Predictions" value={`${stats.correct} / ${stats.total}`} meta="All-time activity" />
                     <SummaryCard variant="points" label="Total Points" value={stats.points} meta="Current points gained" />
                     <SummaryCard variant="accuracy" label="Accuracy Rate" value={`${stats.accuracy}%`} progress={stats.accuracy} />
                 </div>
