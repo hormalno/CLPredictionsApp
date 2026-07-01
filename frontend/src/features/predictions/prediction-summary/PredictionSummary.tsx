@@ -25,9 +25,22 @@ const calcGroupWinnerStats = (predictions: GroupPrediction[]) => {
 
 const calcKnockoutStats = (predictions: KnockoutPrediction[]) => {
     const total = predictions.length;
-    const finished = predictions.filter(p => p.winner_correct !== null);
-    const correct = finished.filter(p => p.winner_correct).length;
-    const accuracy = finished.length > 0 ? Math.round((correct / finished.length) * 100) : 0;
+
+    // Per-slot: each prediction has up to two independently-scored slots (home + away).
+    // A slot counts once it's been scored (non-null), and toward "correct" when true.
+    let scoredSlots = 0;
+    let correct = 0;
+    for (const p of predictions) {
+        if (p.home_team_correct !== null) {
+            scoredSlots++;
+            if (p.home_team_correct) correct++;
+        }
+        if (p.away_team_correct !== null) {
+            scoredSlots++;
+            if (p.away_team_correct) correct++;
+        }
+    }
+    const accuracy = scoredSlots > 0 ? Math.round((correct / scoredSlots) * 100) : 0;
     const points = predictions.reduce((acc, p) => acc + p.points, 0);
     return { total, correct, accuracy, points };
 };
