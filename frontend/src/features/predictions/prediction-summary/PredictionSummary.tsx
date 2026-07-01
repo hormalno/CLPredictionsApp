@@ -24,7 +24,7 @@ const calcGroupWinnerStats = (predictions: GroupPrediction[]) => {
 };
 
 const calcKnockoutStats = (predictions: KnockoutPrediction[]) => {
-    const total = predictions.length;
+    const total = predictions.length * 2;
 
     // Per-slot: each prediction has up to two independently-scored slots (home + away).
     // A slot counts once it's been scored (non-null), and toward "correct" when true.
