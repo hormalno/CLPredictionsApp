@@ -14,6 +14,17 @@ from goals.serializers import GoalCreateSerializer
 KNOCKOUT_ROUNDS = {'PO', 'R32', 'R16', 'QF', 'SF', 'F'}
 
 
+def _score_knockout_teams_for(match_ids):
+    """Score team-slot correctness for the given knockout matches once their
+    teams have been filled by a feeder result."""
+    ids = [i for i in match_ids if i]
+    if not ids:
+        return
+    from predictions.signals import score_knockout_teams
+    for m in Match.objects.filter(pk__in=ids):
+        score_knockout_teams(m)
+
+
 def _get_knockout_winner(match):
     home, away = match.score_home_team, match.score_away_team
     if home > away:
@@ -99,9 +110,15 @@ def _propagate_group_stage_results(match):
         (ranked[1]['team'], f'2{group.name}'),
     ]
 
+    affected_ids = set()
     for team, placeholder in placements:
-        Match.objects.filter(home_placeholder=placeholder).update(home_team=team)
-        Match.objects.filter(away_placeholder=placeholder).update(away_team=team)
+        home_qs = Match.objects.filter(home_placeholder=placeholder)
+        affected_ids.update(home_qs.values_list('pk', flat=True))
+        home_qs.update(home_team=team)
+        away_qs = Match.objects.filter(away_placeholder=placeholder)
+        affected_ids.update(away_qs.values_list('pk', flat=True))
+        away_qs.update(away_team=team)
+    _score_knockout_teams_for(affected_ids)
 
 
 def _propagate_third_place_teams():
@@ -168,12 +185,16 @@ def _propagate_third_place_teams():
     team_by_group = {q['group'].name: q['team'] for q in qualifiers}
     slot_by_group = {q['group'].name: q['group'].slot_p3 for q in qualifiers}
 
+    affected_ids = set()
     for group_name, match_id in assignment.items():
         team = team_by_group[group_name]
+        qs = Match.objects.filter(match_id=match_id)
+        affected_ids.update(qs.values_list('pk', flat=True))
         if slot_by_group[group_name] == 'home':
-            Match.objects.filter(match_id=match_id).update(home_team=team)
+            qs.update(home_team=team)
         else:
-            Match.objects.filter(match_id=match_id).update(away_team=team)
+            qs.update(away_team=team)
+    _score_knockout_teams_for(affected_ids)
 
 
 def _propagate_knockout_winner(match):
@@ -187,6 +208,7 @@ def _propagate_knockout_winner(match):
         Match.objects.filter(pk=match.next_match_id).update(home_team=winner)
     elif slot == 'away':
         Match.objects.filter(pk=match.next_match_id).update(away_team=winner)
+    _score_knockout_teams_for([match.next_match_id])
 
 
 ROUND_ORDER = Case(

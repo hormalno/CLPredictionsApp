@@ -258,6 +258,58 @@ def update_prediction_points(sender, instance, **kwargs):
         _recalculate_user_score(user_id)
 
 
+def score_knockout_teams(match):
+    """Score home/away team-slot correctness for a knockout match as soon as its
+    teams are confirmed by feeder results — without waiting for the match itself
+    to be played.
+
+    ``winner_correct`` and the champion bonus stay the responsibility of
+    ``score_match_predictions`` when the match finishes, so they're left
+    untouched here.
+
+    Idempotent: points are recomputed from whatever teams are currently known,
+    so calling this again when the second slot fills (or again after the match
+    finishes) never double-counts.
+    """
+    if match.round not in KNOCKOUT_TEAM_POINTS:
+        return
+    if not match.home_team_id and not match.away_team_id:
+        return
+
+    team_pts = KNOCKOUT_TEAM_POINTS[match.round]
+    affected_users = set()
+
+    for kp in KnockoutPrediction.objects.filter(match=match):
+        points = 0
+        if match.home_team_id:
+            kp.home_team_correct = kp.predicted_home_team_id == match.home_team_id
+            if kp.home_team_correct:
+                points += team_pts
+        if match.away_team_id:
+            kp.away_team_correct = kp.predicted_away_team_id == match.away_team_id
+            if kp.away_team_correct:
+                points += team_pts
+        # winner_correct is scored later when the match finishes; preserve any
+        # existing value (and its champion bonus) instead of clearing it here.
+        if kp.winner_correct and match.round == Match.RoundChoices.F:
+            points += CHAMPION_POINTS
+        kp.points = points
+        kp.save(update_fields=['home_team_correct', 'away_team_correct', 'points'])
+        affected_users.add(kp.user_id)
+
+    from accounts.models import User
+    for user_id in affected_users:
+        _recalculate_user_score(user_id)
+        total = (
+            (MatchPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0) +
+            (KnockoutPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0) +
+            (TopScorerPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0) +
+            (GroupPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0) +
+            (TopTeamPrediction.objects.filter(user_id=user_id).aggregate(t=Sum('points'))['t'] or 0)
+        )
+        User.objects.filter(pk=user_id).update(points=total)
+
+
 def score_match_predictions(match):
     """Score all predictions for a finished match. Call this after saving results via QuerySet.update()."""
     if not match.is_finished:
