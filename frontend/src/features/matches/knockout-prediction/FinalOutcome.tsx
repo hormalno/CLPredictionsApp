@@ -19,13 +19,13 @@ const FinalOutcome = ({match, prediction} : Props) => {
             : 'wrong';
 
     const teamSelectorClass = (correct: boolean | null) =>
-        !hasPrediction || !isFinished ? '' : correct ? 'prediction-correct' : 'prediction-incorrect';
+        correct == null ? '' : correct ? 'prediction-correct' : 'prediction-incorrect';
 
     const indicatorClass = (correct: boolean | null) =>
-        !hasPrediction || !isFinished ? '' : correct ? 'prediction-indicator-correct' : 'prediction-indicator-incorrect';
+        correct == null ? '' : correct ? 'prediction-indicator-correct' : 'prediction-indicator-incorrect';
 
     const indicatorIcon = (correct: boolean | null) => {
-        if (!hasPrediction || !isFinished) return null;
+        if (correct == null) return null;
         return correct ? <CheckmarkIcon size={14} /> : <XMarkIcon size={14} />;
     };
 
